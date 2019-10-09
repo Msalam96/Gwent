@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Web;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace Gwent.Models
 {
@@ -19,5 +15,14 @@ namespace Gwent.Models
         public string Description { get; set; }
 
         CardType CardType { get; set; }
+
+        SpecialAbility SpecialAbility { get; set; }
+
+        [Required]
+        public int DeckId { get; set; }
+        public Deck Deck { get; set; }
+
+        public int? PileId { get; set; }
+        public Pile Pile { get; set; }
     }
 }
