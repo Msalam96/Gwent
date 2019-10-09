@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 
 namespace Gwent.Models
 {
@@ -11,10 +10,12 @@ namespace Gwent.Models
             Cards = new List<Card>();
         }
 
-        public int Id { get; set; }
+        public Deck(int id) : this()
+        {
+            Id = id;
+        }
 
-        [Required]
-        public string DeckId { get; set; }
+        public int Id { get; set; }
 
         public IList<Card> Cards { get; set; }
     }

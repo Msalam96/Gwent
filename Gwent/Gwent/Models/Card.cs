@@ -4,6 +4,19 @@ namespace Gwent.Models
 {
     public class Card
     {
+        public Card() { }
+
+        public Card(int id, bool drawn, string name, string description, int? strength, CardType cardType, SpecialAbility? specialAbility)
+        {
+            Id = id;
+            Drawn = drawn;
+            Name = name;
+            Description = description;
+            Strength = strength;
+            CardType = cardType;
+            SpecialAbility = specialAbility;
+        }
+
         public int Id { get; set; }
         
         public bool Drawn { get; set; }
@@ -14,9 +27,12 @@ namespace Gwent.Models
         [Required]
         public string Description { get; set; }
 
-        CardType CardType { get; set; }
+        public int? Strength { get; set; }
 
-        SpecialAbility SpecialAbility { get; set; }
+        [Required]
+        public CardType CardType { get; set; }
+
+        public SpecialAbility? SpecialAbility { get; set; }
 
         [Required]
         public int DeckId { get; set; }
