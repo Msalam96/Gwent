@@ -1,0 +1,31 @@
+﻿@model IList<Gwent.Models.Card>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<table>
+    <tr>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Strength</th>
+        <th>Card Type</th>
+        <th>Card Ability</th>
+        <th>Deck Id</th>
+    </tr>
+    <tbody>
+        @foreach (var card in Model)
+        {
+            <tr>
+                <td>@card.Name</td>
+                <td>@card.Description</td>
+                <td>@card.Strength</td>
+                <td>@card.CardType</td>
+                <td>@card.SpecialAbility</td>
+                <td>@card.DeckId</td>
+            </tr>
+        }
+    </tbody>
+</table>
