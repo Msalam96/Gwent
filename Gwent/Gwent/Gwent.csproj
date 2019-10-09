@@ -141,8 +141,6 @@
     <Compile Include="Models\Card.cs" />
     <Compile Include="Models\CardType.cs" />
     <Compile Include="Models\Deck.cs" />
-    <Compile Include="Models\File.cs" />
-    <Compile Include="Models\FileType.cs" />
     <Compile Include="Models\Pile.cs" />
     <Compile Include="Models\SpecialAbility.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

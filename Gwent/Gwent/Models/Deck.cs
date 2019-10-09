@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace Gwent.Models
 {
@@ -16,6 +17,9 @@ namespace Gwent.Models
         }
 
         public int Id { get; set; }
+
+        //[Required]
+        //public string Faction { get; set; }
 
         public IList<Card> Cards { get; set; }
     }
