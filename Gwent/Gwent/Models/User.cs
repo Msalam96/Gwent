@@ -27,6 +27,7 @@ namespace Gwent.Models
         public string LastName { get; set; }
         [Required]
         [EmailAddress]
+        [MaxLength(255)]
         public string EmailAddress { get; set; }
         [Required]
         public string HashedPassword { get; set; }

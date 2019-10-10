@@ -41,6 +41,7 @@ namespace Gwent.Controllers
             return View("Create", user);
         }
 
+        [AllowAnonymous]
         public ActionResult Login()
         {
             LoginModel model = new LoginModel();
@@ -72,7 +73,7 @@ namespace Gwent.Controllers
         public ActionResult Logout()
         {
             FormsAuthentication.SignOut();
-            return RedirectToAction("Login");
+            return RedirectToAction("Login", "Authentication");
         }
 
         private void HandleDbUpdateException(DbUpdateException ex)
