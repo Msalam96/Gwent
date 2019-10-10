@@ -10,7 +10,7 @@ namespace Gwent.Repositories
     {
         async public Task<Deck> CreateNewShuffledDeckAsync()
         {
-            Deck deck = new Deck(0);
+            Deck deck = new Deck(0, "Northern Realms");
             var cards = new Card[22];
 
             cards[0] = new Card(0, false, "Redanian Foot Soldier", "I've bled for Redania! I've killed for Redania... Dammit, I've even raped for Redania!",
@@ -148,7 +148,7 @@ namespace Gwent.Repositories
             }
 
             return deck;
-        }
+          }
 
         async public Task<Deck> GetDeck(int deckId)
         {

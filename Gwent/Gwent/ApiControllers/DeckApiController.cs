@@ -25,6 +25,7 @@ namespace Gwent.ApiControllers
             ShortDeckInfo deckInfo = new ShortDeckInfo
             {
                 DeckId = deck.Id,
+                Faction = deck.Faction,
                 Remaining = deck.Cards.Where(d => !d.Drawn).Count()
             };
 

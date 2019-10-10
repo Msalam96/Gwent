@@ -4,5 +4,6 @@
     {
         public int DeckId { get; set; }
         public int Remaining { get; set; }
+        public string Faction { get; set; }
     }
 }
