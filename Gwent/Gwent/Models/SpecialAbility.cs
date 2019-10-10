@@ -5,6 +5,8 @@
         Bond,
         Medic,
         Spy,
+        Morale,
+        Hero, 
         Fog,
         Frost,
         Rain

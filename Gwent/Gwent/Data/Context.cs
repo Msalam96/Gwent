@@ -13,6 +13,10 @@ namespace Gwent.Data
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
+            modelBuilder.Entity<Card>()
+                .HasRequired(c => c.Deck)
+                .WithMany(d => d.Cards)
+                .WillCascadeOnDelete(false);
         }
     }
 }
