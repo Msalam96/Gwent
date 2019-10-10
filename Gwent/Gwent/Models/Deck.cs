@@ -11,15 +11,16 @@ namespace Gwent.Models
             Cards = new List<Card>();
         }
 
-        public Deck(int id) : this()
+        public Deck(int id, string faction) : this()
         {
             Id = id;
+            Faction = faction;
         }
 
         public int Id { get; set; }
 
-        //[Required]
-        //public string Faction { get; set; }
+        [Required]
+        public string Faction { get; set; }
 
         public IList<Card> Cards { get; set; }
     }
