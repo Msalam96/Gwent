@@ -23,6 +23,8 @@ namespace Gwent.Models
         
         public bool Drawn { get; set; }
 
+        public int Order { get; set; }
+
         [Required]
         public string Name { get; set; }
 
