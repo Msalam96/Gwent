@@ -9,7 +9,7 @@ namespace Gwent.Data
         {
             Deck deck = new Deck(0);
 
-            Card footSolider = new Card(0, false, "Redanian Foot Soldier", "I've bled for Redania! I've killed for Redania... Dammit, I've even raped for Redania!", 1, CardType.CloseCombat, null);
+            Card footSolider = new Card(0, true, "Redanian Foot Soldier", "I've bled for Redania! I've killed for Redania... Dammit, I've even raped for Redania!", 1, CardType.CloseCombat, null);
 
             footSolider.Deck = deck;
             footSolider.DeckId = deck.Id;
