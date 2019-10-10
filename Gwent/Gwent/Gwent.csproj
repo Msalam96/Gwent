@@ -171,6 +171,7 @@
     <Compile Include="Models\Deck.cs" />
     <Compile Include="Models\DeckCreate.cs" />
     <Compile Include="Models\Pile.cs" />
+    <Compile Include="Models\ShortCardInfo.cs" />
     <Compile Include="Models\ShortDeckInfo.cs" />
     <Compile Include="Models\SpecialAbility.cs" />
     <Compile Include="Models\User.cs" />
