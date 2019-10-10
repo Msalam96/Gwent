@@ -9,6 +9,7 @@ namespace Gwent.Data
         public DbSet<Card> Cards { get; set; }  
         public DbSet<Pile> Piles { get; set; }
         public DbSet<Deck> Decks { get; set; }
+        public DbSet<User> Users { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -17,6 +18,10 @@ namespace Gwent.Data
                 .HasRequired(c => c.Deck)
                 .WithMany(d => d.Cards)
                 .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<User>()
+                .HasIndex(u => u.EmailAddress)
+                .IsUnique();
         }
     }
 }
