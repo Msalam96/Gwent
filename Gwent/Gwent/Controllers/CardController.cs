@@ -6,6 +6,7 @@ using System.Web.Mvc;
 
 namespace Gwent.Controllers
 {
+    [Authorize]
     public class CardController : Controller
     {
         private Context context;
