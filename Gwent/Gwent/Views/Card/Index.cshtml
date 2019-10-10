@@ -6,14 +6,13 @@
 
 <h2>Index</h2>
 
+@foreach(var card in Model)
+{
+    <img src="@card.ImageUrl">
+}
 <table>
     <tr>
-        <th>Name</th>
-        <th>Description</th>
-        <th>Strength</th>
-        <th>Card Type</th>
-        <th>Card Ability</th>
-        <th>Deck Id</th>
+        <th>
     </tr>
     <tbody>
         @foreach (var card in Model)
