@@ -18,11 +18,21 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                @Html.ActionLink("Gwent", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                 </ul>
+                @if (Request.IsAuthenticated)
+                {
+                    <div class="navbar-text navbar-right">
+                        <span>Welcome @(((Gwent.Security.CustomPrincipal)User).Identity.Name)! </span>
+                        @using (Html.BeginForm("Logout", "Authentication", FormMethod.Post, new { style = "display:inline" }))
+                        {
+                            <button class="btn btn-warning" type="submit">Logout</button>
+                        }
+                    </div>
+                }
             </div>
         </div>
     </div>
