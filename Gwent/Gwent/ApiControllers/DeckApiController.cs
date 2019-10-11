@@ -53,6 +53,9 @@ namespace Gwent.ApiControllers
         }
 
         [Route("{deckId}/piles/{pileName}")]
-        async public Task
+        async public Task<AddCardResponse> Patch(int deckId, string pileName, AddPileRequest request)
+        {
+            Deck deck = await _repository.GetDeck(deckId);
+        }
     }
 }
