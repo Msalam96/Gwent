@@ -4,9 +4,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Http;
+using System.Web.Http.Cors;
 
 namespace Gwent.ApiControllers
 {
+    [EnableCors("*", "*", "*")]
     [RoutePrefix("api/deck")]
     public class DeckApiController : ApiController
     {
@@ -20,7 +22,7 @@ namespace Gwent.ApiControllers
         }
 
         [Route("")]
-        async public Task<ShortDeckInfo> Post()
+        async public Task<ShortDeckInfo> Get()
         {
             Deck deck = await _repository.CreateNewShuffledDeckAsync();
 
