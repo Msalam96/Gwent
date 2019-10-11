@@ -52,10 +52,32 @@ namespace Gwent.ApiControllers
             return deckInfo;
         }
 
-        [Route("{deckId}/piles/{pileName}")]
-        async public Task<AddCardResponse> Patch(int deckId, string pileName, AddPileRequest request)
+        [Route("{deckId}/piles/{pileName}/{numberofCards}")]
+        async public Task<AddCardResponse> Patch(int deckId, string pileName, int numberofCards)
         {
             Deck deck = await _repository.GetDeck(deckId);
+            Pile pile = await _repository.GetPile(deckId, pileName);
+
+            List<Card> cards = await _repository.GetCards(deckId, numberofCards);
+
+            pile = await _repository.AddToPile(deckId, pileName, numberofCards);
+            deck = await _repository.GetDeck(deckId);
+
+            var pileInfo = new Dictionary<string, ShortPileInfo>();
+
+            foreach(var _pile in deck.Piles)
+            {
+                var info = new ShortPileInfo();
+                info.Remaining = _pile.Cards.Count;
+                pileInfo.Add(pileName, info);
+            }
+
+            return new AddCardResponse
+            {
+                DeckFaction = deck.Faction,
+                Remaining = deck.Cards.Where(x => !x.Drawn).Count(),
+                Piles = pileInfo
+            };
         }
     }
 }

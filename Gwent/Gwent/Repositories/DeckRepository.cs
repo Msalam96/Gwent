@@ -158,6 +158,7 @@ namespace Gwent.Repositories
             {
                 return await context.Decks
                 .Include(d => d.Cards)
+                .Include(d => d.Piles)
                 .SingleAsync(d => d.Id == deckId);
             }
         }
@@ -170,19 +171,39 @@ namespace Gwent.Repositories
                 context.Decks.Attach(deck);
                 Pile pile = deck.Piles.FirstOrDefault(p => p.Name == pileName);
 
+                if (pile == null)
+                {
+                    pile = new Pile(0, pileName, deck.Id, deck);
+                    context.Piles.Add(pile);
+                    await context.SaveChangesAsync();
+                }
+
+                return pile;
             }
         }
 
-        async public Task<Pile> AddToPile(int deckId, string pileName, List<Card> cards)
+        async public Task<List<Card>> GetCards(int deckId, int numberofCards)
+        {
+            using(var context = new Context())
+            {
+                Deck deck = await GetDeck(deckId);
+
+                return deck.Cards.Take(numberofCards).ToList();
+            }
+        }
+        async public Task<Pile> AddToPile(int deckId, string pileName, int numberOfCards)
         {
             using(var context = new Context())
             {
                 Pile pile = await context.Piles
                     .FirstOrDefaultAsync(p => p.Name == pileName && p.DeckId == deckId);
 
+                List<Card> cards = await context.Cards.Where(c => c.DeckId == deckId).Take(numberOfCards).ToListAsync();
+
                 foreach (var card in cards)
                 {
                     card.Pile = pile;
+                    card.Drawn = true;
                     pile.Cards.Add(card);
                 }
 

@@ -8,6 +8,8 @@ namespace Gwent.Repositories
     {
         Task<Deck> CreateNewShuffledDeckAsync();
         Task<Deck> GetDeck(int deckId);
-        Task<Pile> AddToPile(int deckId, string pileName, List<Card> cards)
+        Task<List<Card>> GetCards(int deckId, int numberofCards);
+        Task<Pile> GetPile(int deckId, string pileName);
+        Task<Pile> AddToPile(int deckId, string pileName, int numberofCards);
     }
 }
