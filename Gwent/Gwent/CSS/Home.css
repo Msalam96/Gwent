@@ -1,0 +1,52 @@
+﻿body{
+    background:url(Images/OB_WP_1920x1080_EN.jpg);
+    background-repeat:no-repeat;
+    background-size:cover;
+}
+
+.trapezoid {
+    margin:50px;
+	border-bottom: 100px solid #189587;
+    opacity:0.85;
+	border-left: 50px solid transparent;
+	border-right: 50px solid transparent;
+	height: 0;
+	width: 250px;
+    float: inherit;
+    display: inline-block;
+    text-align:center;
+}
+
+.trapezoid span {
+    color:beige;
+    padding-top:40px;
+    padding-bottom:40px;
+    display: block;
+}
+
+.trapezoid:hover{
+    color:beige;
+    border-radius: 25px;
+    border:0;
+    height: 300px;
+    width: 250px;
+    background-color: #555;
+    transition: height 1s;
+    transition-timing-function:ease;
+    background:url('Images/Season of the Bear Cardback.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.trapezoid span:hover{
+    padding-top:50px;
+    transition: 1s;
+    transition-timing-function:ease-in;
+
+}
+
+.trapezoid a {
+    text-align:center;
+    display: inline-block;
+    position:absolute;
+}
