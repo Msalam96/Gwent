@@ -16,13 +16,16 @@
 }
 
 .trapezoid:hover{
-    height: 250px;
+    border-radius: 25px;
+    height: 300px;
     width: 250px;
     background-color: #555;
+    transition: 0.25s;
 }
 
 .trapezoid span:hover{
-    padding-top:100px;
+    padding-top:130px;
+    transition: 0.25s;
 }
 
 .trapezoid a {
