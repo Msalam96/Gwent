@@ -1,0 +1,32 @@
+﻿.trapezoid {
+    margin:50px;
+	border-bottom: 100px solid #555;
+	border-left: 50px solid transparent;
+	border-right: 50px solid transparent;
+	height: 0;
+	width: 250px;
+    float: inherit;
+    display: inline-block;
+    text-align:center;
+}
+
+.trapezoid span {
+    padding-top:40px;
+    display: block;
+}
+
+.trapezoid:hover{
+    height: 250px;
+    width: 250px;
+    background-color: #555;
+}
+
+.trapezoid span:hover{
+    padding-top:100px;
+}
+
+.trapezoid a {
+    text-align:center;
+    display: inline-block;
+    position:absolute;
+}
