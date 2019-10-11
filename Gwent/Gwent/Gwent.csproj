@@ -217,6 +217,8 @@
     <Content Include="Views\Card\Index.cshtml" />
     <Content Include="Views\Authentication\Create.cshtml" />
     <Content Include="Views\Authentication\Login.cshtml" />
+    <Content Include="Views\Friends\AddFriend.cshtml" />
+    <Content Include="Views\Friends\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

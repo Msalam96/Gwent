@@ -1,5 +1,6 @@
 ﻿using Gwent.FormModels;
 using Gwent.Models;
+using Gwent.Repositories;
 using Gwent.Security;
 using System;
 using System.Collections.Generic;
@@ -15,24 +16,47 @@ namespace Gwent.Controllers
         public ActionResult Index ()
         {
             CustomPrincipal currentUser = (CustomPrincipal)User;
-
-            return View();
+            FriendsRepository repository = new FriendsRepository(context);
+            List<UserRelationship> userRelationships = repository.GetFriendsById(currentUser.User.Id);
+            return View(userRelationships);
         }
 
         public ActionResult AddFriend()
         {
+            FriendsRepository repository = new FriendsRepository(context);
             CustomPrincipal currentUser = (CustomPrincipal)User;
             AddFriend newFriend = new AddFriend();
-            newFriend.firstUserId = currentUser.User.Id;
+            //newFriend.firstUserId = currentUser.User.Id;
+            List<User> tempList = repository.GetUsersListExceptId(currentUser.User.Id);
+            newFriend.Users = new List<Models.User>();
+            foreach (var user in tempList)
+            {
+                if (!repository.IsFriend(currentUser.User.Id, user.Id))
+                {
+                    newFriend.Users.Add(user);
+                }
+            }
+            //newFriend.Users = repository.GetUsersListExceptId(currentUser.User.Id);
             return View(newFriend);
         }
 
         [HttpPost]
-        public ActionResult AddFriend(AddFriend newFriend)
+        public ActionResult AddFriend(int id)
         {
+            CustomPrincipal currentUser = (CustomPrincipal)User;
+            UserRelationship newRelationship = new UserRelationship(currentUser.User.Id, id, false);
+            FriendsRepository repository = new FriendsRepository(context);
+            repository.AddFriend(newRelationship);
+            return RedirectToAction("Index");
+        }
 
-            UserRelationship newRelationship = new UserRelationship(newFriend.firstUserId, newFriend.secondUserId, false);
-            return View(/* Add ViewModel in here */);
+
+        [HttpPost]
+        public ActionResult AcceptRequest (int id)
+        {
+            FriendsRepository repository = new FriendsRepository(context);
+            repository.AcceptRequestById(id);
+            return RedirectToAction("Index");
         }
     }
 }
