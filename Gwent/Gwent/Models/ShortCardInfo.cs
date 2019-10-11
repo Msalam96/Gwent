@@ -12,5 +12,6 @@ namespace Gwent.Models
         public int? Strength { get; set; }
         public CardType CardType { get; set; }
         public SpecialAbility? SpecialAbility { get; set; }
+        public string Image { get; set; }
     }
 }

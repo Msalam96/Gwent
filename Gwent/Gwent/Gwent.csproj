@@ -182,11 +182,11 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AddCardResponse.cs" />
-    <Compile Include="Models\AddPileRequest.cs" />
     <Compile Include="Models\Card.cs" />
     <Compile Include="Models\CardType.cs" />
     <Compile Include="Models\Deck.cs" />
     <Compile Include="Models\DeckCreate.cs" />
+    <Compile Include="Models\LongPileInfo.cs" />
     <Compile Include="Models\Pile.cs" />
     <Compile Include="Models\ShortCardInfo.cs" />
     <Compile Include="Models\ShortDeckInfo.cs" />
