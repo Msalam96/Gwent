@@ -51,5 +51,8 @@ namespace Gwent.ApiControllers
 
             return deckInfo;
         }
+
+        [Route("{deckId}/piles/{pileName}")]
+        async public Task
     }
 }

@@ -3,6 +3,8 @@ using Gwent.Models;
 using System;
 using System.Threading.Tasks;
 using System.Data.Entity;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Gwent.Repositories
 {
@@ -160,31 +162,32 @@ namespace Gwent.Repositories
             }
         }
 
-        //async public Task<Deck> DrawCardsAsync(int deckId, int numberToDraw)
-        //{
+        async public Task<Pile> GetPile(int deckId, string pileName)
+        {
+            using(var context = new Context())
+            {
+                Deck deck = await GetDeck(deckId);
+                context.Decks.Attach(deck);
+                Pile pile = deck.Piles.FirstOrDefault(p => p.Name == pileName);
+            }
+        }
 
-        //    Deck deck = await _context.Decks
-        //        .Include(d => d.Cards)
-        //        .SingleAsync(d => d.Id == deckId);
+        async public Task<Pile> AddToPile(int deckId, string pileName, List<Card> cards)
+        {
+            using(var context = new Context())
+            {
+                Pile pile = await context.Piles
+                    .FirstOrDefaultAsync(p => p.Name == pileName && p.DeckId == deckId);
 
-        //    foreach(Card card in deck.Cards)
-        //    {
-        //        if (!card.Drawn)
-        //        {
-        //            card.Drawn = true;
-        //            numberToDraw--;
-        //        } 
-        //        if(numberToDraw == 0)
-        //        {
-        //            break;
-        //        }
-        //    }
+                foreach (var card in cards)
+                {
+                    card.Pile = pile;
+                    pile.Cards.Add(card);
+                }
 
-        //    await _context.SaveChangesAsync();
-
-        //    return deck;
-        //}
-
-        //async public Task<Deck> Shuffle()
+                await context.SaveChangesAsync();
+                return pile;
+            }
+        }
     }
 }

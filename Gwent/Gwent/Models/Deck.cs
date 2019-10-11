@@ -9,6 +9,7 @@ namespace Gwent.Models
         public Deck()
         {
             Cards = new List<Card>();
+            Piles = new List<Pile>();
         }
 
         public Deck(int id, string faction) : this()
@@ -23,5 +24,7 @@ namespace Gwent.Models
         public string Faction { get; set; }
 
         public IList<Card> Cards { get; set; }
+
+        public IList<Pile> Piles { get; set; }
     }
 }
