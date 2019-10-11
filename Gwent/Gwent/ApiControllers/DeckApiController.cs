@@ -22,7 +22,7 @@ namespace Gwent.ApiControllers
         }
 
         [Route("")]
-        async public Task<ShortDeckInfo> Post()
+        async public Task<ShortDeckInfo> Get()
         {
             Deck deck = await _repository.CreateNewShuffledDeckAsync();
 
