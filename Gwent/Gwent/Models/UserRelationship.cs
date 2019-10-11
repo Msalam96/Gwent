@@ -10,15 +10,18 @@ namespace Gwent.Models
         public UserRelationship() { }
         public UserRelationship(int firstUserId, int secondUserId, bool isAccepted)
         {
-            this.firstUserId = firstUserId;
-            this.secondUserId = secondUserId;
-            this.isAccepted = isAccepted;
+            this.FirstUserId = firstUserId;
+            this.SecondUserId = secondUserId;
+            this.IsAccepted = isAccepted;
         }
 
         public int Id { get; set; }
-        public int firstUserId { get; set; }            //foreign key
-        public int secondUserId { get; set; }           //foreign key
-        public bool isAccepted { get; set; }
+        public int FirstUserId { get; set; }            //foreign key
+        public int SecondUserId { get; set; }           //foreign key
+        public bool IsAccepted { get; set; }
+
+        public User FirstUser { get; set; }
+        public User SecondUser { get; set; }
     }
 
     //TODO Set up foreign key in this class

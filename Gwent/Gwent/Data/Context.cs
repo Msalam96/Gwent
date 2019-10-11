@@ -10,10 +10,12 @@ namespace Gwent.Data
         public DbSet<Pile> Piles { get; set; }
         public DbSet<Deck> Decks { get; set; }
         public DbSet<User> Users { get; set; }
+        public DbSet<UserRelationship> UserRelationships { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
+            modelBuilder.Conventions.Remove<OneToManyCascadeDeleteConvention>();
             modelBuilder.Entity<Card>()
                 .HasRequired(c => c.Deck)
                 .WithMany(d => d.Cards)
