@@ -3,6 +3,8 @@ using Gwent.Models;
 using System;
 using System.Threading.Tasks;
 using System.Data.Entity;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Gwent.Repositories
 {
@@ -156,35 +158,58 @@ namespace Gwent.Repositories
             {
                 return await context.Decks
                 .Include(d => d.Cards)
+                .Include(d => d.Piles)
                 .SingleAsync(d => d.Id == deckId);
             }
         }
 
-        //async public Task<Deck> DrawCardsAsync(int deckId, int numberToDraw)
-        //{
+        async public Task<Pile> GetPile(int deckId, string pileName)
+        {
+            using(var context = new Context())
+            {
+                Deck deck = await GetDeck(deckId);
+                context.Decks.Attach(deck);
+                Pile pile = deck.Piles.FirstOrDefault(p => p.Name == pileName);
 
-        //    Deck deck = await _context.Decks
-        //        .Include(d => d.Cards)
-        //        .SingleAsync(d => d.Id == deckId);
+                if (pile == null)
+                {
+                    pile = new Pile(0, pileName, deck.Id, deck);
+                    context.Piles.Add(pile);
+                    await context.SaveChangesAsync();
+                }
 
-        //    foreach(Card card in deck.Cards)
-        //    {
-        //        if (!card.Drawn)
-        //        {
-        //            card.Drawn = true;
-        //            numberToDraw--;
-        //        } 
-        //        if(numberToDraw == 0)
-        //        {
-        //            break;
-        //        }
-        //    }
+                return pile;
+            }
+        }
 
-        //    await _context.SaveChangesAsync();
+        async public Task<List<Card>> GetCards(int deckId, int numberofCards)
+        {
+            using(var context = new Context())
+            {
+                Deck deck = await GetDeck(deckId);
 
-        //    return deck;
-        //}
+                return deck.Cards.Take(numberofCards).ToList();
+            }
+        }
+        async public Task<Pile> AddToPile(int deckId, string pileName, int numberOfCards)
+        {
+            using(var context = new Context())
+            {
+                Pile pile = await context.Piles
+                    .FirstOrDefaultAsync(p => p.Name == pileName && p.DeckId == deckId);
 
-        //async public Task<Deck> Shuffle()
+                List<Card> cards = await context.Cards.Where(c => c.DeckId == deckId).Take(numberOfCards).ToListAsync();
+
+                foreach (var card in cards)
+                {
+                    card.Pile = pile;
+                    card.Drawn = true;
+                    pile.Cards.Add(card);
+                }
+
+                await context.SaveChangesAsync();
+                return pile;
+            }
+        }
     }
 }
