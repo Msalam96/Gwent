@@ -143,6 +143,13 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\Site.css" />
     <Content Include="CSS\board.css" />
+    <Content Include="CSS\Home.css" />
+    <Content Include="CSS\Images\OB_WP_1920x1080_EN.jpg" />
+    <Content Include="CSS\Images\Season of the Bear Cardback.png" />
+    <Content Include="CSS\Images\Season of the Draconid Cardback.png" />
+    <Content Include="CSS\Images\Season of the Elves Cardback.png" />
+    <Content Include="CSS\Images\Season of the Griffin Cardback.png" />
+    <Content Include="CSS\Images\Season of the Viper Cardback.png" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Scripts\bootstrap.js" />
