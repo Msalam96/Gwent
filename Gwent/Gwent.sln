@@ -5,6 +5,10 @@ VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gwent", "Gwent\Gwent.csproj", "{3B670BD3-6CF4-435E-94E9-4C6119ED914C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GwentSharedLibrary", "GwentSharedLibrary\GwentSharedLibrary.csproj", "{8CB9E10D-99DA-4A08-885D-23C62CFD2282}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GwentConsole", "GwentConsole\GwentConsole.csproj", "{15C2AE9D-4DCF-473F-9D84-0D8803AA0CA6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +19,14 @@ Global
 		{3B670BD3-6CF4-435E-94E9-4C6119ED914C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3B670BD3-6CF4-435E-94E9-4C6119ED914C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3B670BD3-6CF4-435E-94E9-4C6119ED914C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8CB9E10D-99DA-4A08-885D-23C62CFD2282}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8CB9E10D-99DA-4A08-885D-23C62CFD2282}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8CB9E10D-99DA-4A08-885D-23C62CFD2282}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8CB9E10D-99DA-4A08-885D-23C62CFD2282}.Release|Any CPU.Build.0 = Release|Any CPU
+		{15C2AE9D-4DCF-473F-9D84-0D8803AA0CA6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{15C2AE9D-4DCF-473F-9D84-0D8803AA0CA6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{15C2AE9D-4DCF-473F-9D84-0D8803AA0CA6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{15C2AE9D-4DCF-473F-9D84-0D8803AA0CA6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
