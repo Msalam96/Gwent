@@ -6,15 +6,12 @@ namespace GwentSharedLibrary.Models
     public class Deck
     {
 
-        public Deck()
-        {
-            Cards = new List<Card>();
-            Piles = new List<Pile>();
-        }
+        public Deck() { }
 
-        public Deck(int id, string faction) : this()
+        public Deck(int id, int userId, string faction) : this()
         {
             Id = id;
+            UserId = userId;
             Faction = faction;
         }
 
@@ -23,8 +20,10 @@ namespace GwentSharedLibrary.Models
         [Required]
         public string Faction { get; set; }
 
-        public IList<Card> Cards { get; set; }
+        public int UserId { get; set; }
 
-        public IList<Pile> Piles { get; set; }
+        User User { get; set; }
+
+
     }
 }
