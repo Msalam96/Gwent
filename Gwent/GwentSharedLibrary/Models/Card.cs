@@ -6,11 +6,10 @@ namespace GwentSharedLibrary.Models
     {
         public Card() { }
 
-        public Card(int id, bool drawn, string name, string description, int? strength, 
+        public Card(int id, string name, string description, int? strength, 
             CardType cardType, SpecialAbility? specialAbility, string imageUrl)
         {
             Id = id;
-            Drawn = drawn;
             Name = name;
             Description = description;
             Strength = strength;
@@ -21,8 +20,6 @@ namespace GwentSharedLibrary.Models
 
         public int Id { get; set; }
         
-        public bool Drawn { get; set; }
-
         public int Order { get; set; }
 
         [Required]
@@ -41,11 +38,5 @@ namespace GwentSharedLibrary.Models
         [Required]
         public string ImageUrl { get; set; }
 
-        [Required]
-        public int DeckId { get; set; }
-        public Deck Deck { get; set; }
-
-        public int? PileId { get; set; }
-        public Pile Pile { get; set; }
     }
 }
