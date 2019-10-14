@@ -1,6 +1,6 @@
 ﻿using Gwent.FormModels;
-using Gwent.Models;
-using Gwent.Repositories;
+using GwentSharedLibrary.Models;
+using GwentSharedLibrary.Repositories;
 using Gwent.Security;
 using System.Collections.Generic;
 using System.Web.Mvc;
@@ -25,7 +25,7 @@ namespace Gwent.Controllers
             AddFriend newFriend = new AddFriend();
             //newFriend.firstUserId = currentUser.User.Id;
             List<User> tempList = repository.GetUsersListExceptId(currentUser.User.Id);
-            newFriend.Users = new List<Models.User>();
+            newFriend.Users = new List<User>();
             foreach (var user in tempList)
             {
                 if (!repository.IsFriend(currentUser.User.Id, user.Id))

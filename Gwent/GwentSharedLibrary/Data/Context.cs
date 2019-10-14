@@ -1,8 +1,8 @@
-﻿using Gwent.Models;
+﻿using GwentSharedLibrary.Models;
 using System.Data.Entity;
 using System.Data.Entity.ModelConfiguration.Conventions;
 
-namespace Gwent.Data
+namespace GwentSharedLibrary.Data
 {
     public class Context : DbContext
     {

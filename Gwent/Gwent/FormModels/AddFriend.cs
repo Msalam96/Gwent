@@ -1,8 +1,6 @@
-﻿using Gwent.Models;
-using System;
+﻿using GwentSharedLibrary.Models;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+
 
 namespace Gwent.FormModels
 {

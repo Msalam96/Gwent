@@ -1,7 +1,7 @@
-﻿using Gwent.Models;
+﻿using GwentSharedLibrary.Models;
 using System.Data.Entity;
 
-namespace Gwent.Data
+namespace GwentSharedLibrary.Data
 {
     public class DatabaseIntializer : DropCreateDatabaseAlways<Context>
     {

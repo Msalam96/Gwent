@@ -1,12 +1,12 @@
-﻿using Gwent.Data;
-using Gwent.Models;
+﻿using GwentSharedLibrary.Data;
+using GwentSharedLibrary.Models;
 using System;
 using System.Threading.Tasks;
 using System.Data.Entity;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Gwent.Repositories
+namespace GwentSharedLibrary.Repositories
 {
     public class DeckRepository : IDeckRepository
     {

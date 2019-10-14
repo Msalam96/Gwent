@@ -1,11 +1,11 @@
-﻿using Gwent.Data;
-using Gwent.Models;
+﻿using GwentSharedLibrary.Data;
+using GwentSharedLibrary.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace Gwent.Repositories
+namespace GwentSharedLibrary.Repositories
 {
     public class AuthenticationRepository
     {

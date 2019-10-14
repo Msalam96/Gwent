@@ -1,4 +1,4 @@
-﻿namespace Gwent.Models
+﻿namespace GwentSharedLibrary.Models
 {
     public enum SpecialAbility
     {

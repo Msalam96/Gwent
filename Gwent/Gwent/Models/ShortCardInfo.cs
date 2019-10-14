@@ -1,4 +1,6 @@
-﻿namespace Gwent.Models
+﻿using GwentSharedLibrary.Models;
+
+namespace Gwent.Models
 {
     public class ShortCardInfo
     {
