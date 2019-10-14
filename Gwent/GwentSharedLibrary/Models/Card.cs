@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Gwent.Models
+namespace GwentSharedLibrary.Models
 {
     public class Card
     {

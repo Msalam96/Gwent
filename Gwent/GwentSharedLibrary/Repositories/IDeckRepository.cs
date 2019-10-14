@@ -1,8 +1,8 @@
-﻿using Gwent.Models;
+﻿using GwentSharedLibrary.Models;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace Gwent.Repositories
+namespace GwentSharedLibrary.Repositories
 {
     public interface IDeckRepository
     {

@@ -1,13 +1,9 @@
 ﻿using Gwent.FormModels;
-using Gwent.Models;
-using Gwent.Repositories;
+using GwentSharedLibrary.Models;
+using GwentSharedLibrary.Repositories;
 using Gwent.Security;
-using System;
-using System.Collections.Generic;
 using System.Data.Entity.Infrastructure;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
 

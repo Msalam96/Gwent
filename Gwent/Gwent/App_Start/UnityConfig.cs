@@ -1,4 +1,4 @@
-using Gwent.Repositories;
+using GwentSharedLibrary.Repositories;
 using System.Web.Http;
 using Unity;
 using Unity.WebApi;

@@ -1,5 +1,6 @@
-﻿using Gwent.Models;
-using Gwent.Repositories;
+﻿using GwentSharedLibrary.Models;
+using Gwent.Models;
+using GwentSharedLibrary.Repositories;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;

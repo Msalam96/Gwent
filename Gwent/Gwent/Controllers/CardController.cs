@@ -1,6 +1,6 @@
-﻿using Gwent.Data;
-using Gwent.Models;
-using Gwent.Repositories;
+﻿using GwentSharedLibrary.Data;
+using GwentSharedLibrary.Models;
+using GwentSharedLibrary.Repositories;
 using System.Collections.Generic;
 using System.Web.Mvc;
 

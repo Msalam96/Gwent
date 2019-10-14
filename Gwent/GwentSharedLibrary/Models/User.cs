@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Web;
 using System.ComponentModel;
 
-namespace Gwent.Models
+namespace GwentSharedLibrary.Models
 {
     public class User
     {

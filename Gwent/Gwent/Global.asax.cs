@@ -4,11 +4,11 @@ using System.Web.Mvc;
 using System.Web.Routing;
 using System.Web.Http;
 using System.Data.Entity;
-using Gwent.Data;
+using GwentSharedLibrary.Data;
 using System.Security.Principal;
 using Gwent.Security;
-using Gwent.Repositories;
-using Gwent.Models;
+using GwentSharedLibrary.Repositories;
+using GwentSharedLibrary.Models;
 using System.Threading;
 using System.Web.Security;
 
