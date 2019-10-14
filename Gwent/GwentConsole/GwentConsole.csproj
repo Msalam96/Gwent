@@ -52,6 +52,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ConsoleGame\TestGame.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -63,6 +64,10 @@
     <ProjectReference Include="..\GwentSharedLibrary\GwentSharedLibrary.csproj">
       <Project>{8cb9e10d-99da-4a08-885d-23c62cfd2282}</Project>
       <Name>GwentSharedLibrary</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Gwent\Gwent.csproj">
+      <Project>{3B670BD3-6CF4-435E-94E9-4C6119ED914C}</Project>
+      <Name>Gwent</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

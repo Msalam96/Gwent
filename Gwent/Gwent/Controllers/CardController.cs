@@ -17,11 +17,11 @@ namespace Gwent.Controllers
         }
 
         // GET: Card
-        public ActionResult Index()
-        {
-            var repository = new CardRepository(context);
-            List<Card> cards = repository.GetCards();
-            return View(cards);
-        }
+        //public ActionResult Index()
+        //{
+            //var repository = new CardRepository(context);
+            //List<Card> cards = repository.GetCards();
+            //return View(cards);
+        //}
     }
 }

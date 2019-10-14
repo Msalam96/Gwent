@@ -4,6 +4,13 @@
     {
         public Game() { }
 
+
+        public Game(int playerOneId, int playerTwoId)
+        {
+            PlayerOneId = playerOneId;
+            PlayerTwoId = playerTwoId; 
+        }
+
         public int Id { get; set; }
 
         public int PlayerOneId { get; set; }

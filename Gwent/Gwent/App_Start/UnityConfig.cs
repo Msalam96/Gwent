@@ -15,8 +15,8 @@ namespace Gwent
             // it is NOT necessary to register your controllers
 
             // e.g. container.RegisterType<ITestService, TestService>();
-            container.RegisterType<IDeckRepository, DeckRepository>();
-            GlobalConfiguration.Configuration.DependencyResolver = new UnityDependencyResolver(container);
+            //container.RegisterType<IDeckRepository, DeckRepository>();
+            //GlobalConfiguration.Configuration.DependencyResolver = new UnityDependencyResolver(container);
         }
     }
 }

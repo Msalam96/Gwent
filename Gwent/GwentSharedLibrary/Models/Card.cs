@@ -6,12 +6,10 @@ namespace GwentSharedLibrary.Models
     {
         public Card() { }
 
-        public Card(int id, string name, string description, int? strength, 
+        public Card(string name, int? strength, 
             CardType cardType, SpecialAbility? specialAbility, string imageUrl)
         {
-            Id = id;
             Name = name;
-            Description = description;
             Strength = strength;
             CardType = cardType;
             SpecialAbility = specialAbility;
@@ -24,9 +22,6 @@ namespace GwentSharedLibrary.Models
 
         [Required]
         public string Name { get; set; }
-
-        [Required]
-        public string Description { get; set; }
 
         public int? Strength { get; set; }
 
