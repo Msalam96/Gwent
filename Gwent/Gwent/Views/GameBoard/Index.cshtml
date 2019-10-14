@@ -3,92 +3,134 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
-      crossorigin="anonymous">
-<link rel="stylesheet" href="~/CSS/board.css">
+<div class="container">
+    <div class="row">
+        <div class="col-sm-3" style="background-color:green;height:600px">
+            <div class="row">
+                <div class="col-sm-12" style="background-color:white;height:100px"></div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12" style="background-color:yellow;height:100px">OPPONENT</div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12" style="background-color:white;height:100px"></div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12" style="background-color:blue;height:100px">YOU</div>
+            </div>
+        </div>
+        <div class="col-sm-6" style="background-color:pink;height:650px">
+            Gameboard
 
-<p>PLAYER 1</p>
-<div id="p1Field" class="container my-container">
-    <p>SIEGED</p>
-    <div id=p1sieged class="row my-row">
-        <div class="col-md-2 col-sm-6 my-col">
-            Row 1 Col 1
+            <p>SIEGED</p>
+            <div id=p1sieged class="row my-row">
+                <div class="col-md-2 col-sm-6 my-col">
+                    <img id="SiegedCard" src="">
+                </div>
+                <div class="col-md-2 col-sm-6 my-col">
+                    Row 1 Col 2
+                </div>
+                <div class="col-md-2 col-sm-6 my-col">
+                    Row 1 Col 3
+                </div>
+            </div>
+            <p>RANGED</p>
+            <div id="p1ranged" class="row my-row">
+
+                <div class="col-md-2 col-sm-6 my-col">
+                    <div class="test"></div>
+                    Row 2 Col 1
+                </div>
+                <div class="col-md-2 col-sm-6 my-col">
+                    Row 2 Col 2
+                </div>
+
+                <div class="col-md-2 col-sm-6 my-col">
+                    Row 2 Col 3
+                </div>
+            </div>
+            <p>CLOSE COMBAT</p>
+            <div id="p1closeCombat" class="row my-row">
+                <div class="col-md-2 col-sm-6 my-col">
+                    Row 3 Col 1
+                </div>
+                <div class="col-md-2 col-sm-6 my-col">
+                    Row 3 Col 2
+                </div>
+                <div class="col-md-2 col-sm-6 my-col">
+                    Row 3 Col 3
+                </div>
+            </div>
+            <p>ClOSE COMBAT</p>
+            <div id="p2closeCombat" class="row my-row">
+                <div class="col-md-2 col-sm-6 my-col">
+                    <img class="siegedCard" src="" data-cardCode="">
+                </div>
+                <div class="col-md-2 col-sm-6 my-col">
+                    <img class="siegedCard" src="" data-cardCode="">
+                </div>
+                <div class="col-md-2 col-sm-6 my-col">
+                    Row 1 Col 3
+                </div>
+            </div>
+            <p>RANGED</p>
+            <div id="p2ranged" class="row my-row">
+
+                <div class="col-md-2 col-sm-6 my-col">
+                    <img class="siegedCard" src="" data-cardCode="">
+                </div>
+                <div class="col-md-2 col-sm-6 my-col">
+                    <img class="siegedCard" src="" data-cardCode="">
+                </div>
+
+                <div class="col-md-2 col-sm-6 my-col">
+
+                </div>
+            </div>
+            <p>SIEGED</p>
+            <div id="p2sieged" class="row my-row">
+                <div class="col-md-2 col-sm-6 my-col">
+                    Row 3 Col 1
+                </div>
+                <div class="col-md-2 col-sm-6 my-col">
+                    Row 3 Col 2
+                </div>
+                <div class="col-md-2 col-sm-6 my-col">
+                    Row 3 Col 3
+                </div>
+            </div>
+            <h1>HAND</h1>
+            <div id="hand" class="row my-handDeck">
+                <div class="col-md-2 col-sm-6 my-col">
+                    <img id="s1" src="" data-cardCode="">
+                </div>
+                <div class="col-md-2 col-sm-6 my-col">
+                    <img id="s2" src="" data-cardCode="">
+                </div>
+
+                <div class="col-md-2 col-sm-6 my-col">
+                    <img id="s3" src="" data-cardCode="">
+                </div>
+            </div>
+
         </div>
-        <div class="col-md-2 col-sm-6 my-col">
-            Row 1 Col 2
-        </div>
-        <div class="col-md-2 col-sm-6 my-col">
-            Row 1 Col 3
+        <div class="col-sm-3" style="background-color:blue;height:600px">
+            Deck section
+            <div class="row">
+                <div class="col-sm-3" style=background-color:aqua;height:125px>Discard pile</div>
+                <div class="col-sm-3" style=background-color:burlywood;height:125px>Deck</div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12" style=background-color:white;height:200px></div>
+            </div>
+            <div class="row">
+                <div class="col-sm-3" style=background-color:aqua;height:125px>Discard pile</div>
+                <div class="col-sm-3" style=background-color:burlywood;height:125px>Deck</div>
+            </div>
         </div>
     </div>
-    <p>RANGED</p>
-    <div id="p1ranged" class="row my-row">
 
-        <div class="col-md-2 col-sm-6 my-col">
-            Row 2 Col 1
-        </div>
-        <div class="col-md-2 col-sm-6 my-col">
-            Row 2 Col 2
-        </div>
 
-        <div class="col-md-2 col-sm-6 my-col">
-            Row 2 Col 3
-        </div>
-    </div>
-    <p>CLOSE COMBAT</p>
-    <div id="p1closeCombat" class="row my-row">
-        <div class="col-md-2 col-sm-6 my-col">
-            Row 3 Col 1
-        </div>
-        <div class="col-md-2 col-sm-6 my-col">
-            Row 3 Col 2
-        </div>
-        <div class="col-md-2 col-sm-6 my-col">
-            Row 3 Col 3
-        </div>
-    </div>
 </div>
 
-<p>PLAYER 2</p>
-<div id="p2Field" class="container my-container">
-    <p>ClOSE COMBAT</p>
-    <div id="p2closeCombat" class="row my-row">
-        <div class="col-md-2 col-sm-6 my-col">
-            Row 1 Col 1
-        </div>
-        <div class="col-md-2 col-sm-6 my-col">
-            Row 1 Col 2
-        </div>
-        <div class="col-md-2 col-sm-6 my-col">
-            Row 1 Col 3
-        </div>
-    </div>
-    <p>RANGED</p>
-    <div id="p2ranged" class="row my-row">
-
-        <div class="col-md-2 col-sm-6 my-col">
-            Row 2 Col 1
-        </div>
-        <div class="col-md-2 col-sm-6 my-col">
-            Row 2 Col 2
-        </div>
-
-        <div class="col-md-2 col-sm-6 my-col">
-            Row 2 Col 3
-        </div>
-    </div>
-    <p>SIEGED</p>
-    <div id="p2sieged" class="row my-row">
-        <div class="col-md-2 col-sm-6 my-col">
-            Row 3 Col 1
-        </div>
-        <div class="col-md-2 col-sm-6 my-col">
-            Row 3 Col 2
-        </div>
-        <div class="col-md-2 col-sm-6 my-col">
-            Row 3 Col 3
-        </div>
-    </div>
-</div>
-<div class="hand"></div>
+<script src="~/Scripts/Gameboard.js"></script>
