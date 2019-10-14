@@ -10,6 +10,14 @@ namespace Gwent.Models
             Cards = new List<Card>();
         }
 
+        public Pile(int id, string name, int deckId, Deck deck) : this()
+        {
+            Id = id;
+            Name = name;
+            DeckId = deckId;
+            Deck = deck;
+        }
+
         public int Id { get; set; }
 
         [Required, MaxLength(255)]

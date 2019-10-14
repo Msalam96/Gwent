@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-
-namespace Gwent.Models
+﻿namespace Gwent.Models
 {
     public class ShortCardInfo
     {
@@ -12,5 +7,6 @@ namespace Gwent.Models
         public int? Strength { get; set; }
         public CardType CardType { get; set; }
         public SpecialAbility? SpecialAbility { get; set; }
+        public string Image { get; set; }
     }
 }
