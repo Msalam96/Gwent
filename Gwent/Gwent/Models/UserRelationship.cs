@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Web;
 
@@ -18,9 +19,12 @@ namespace Gwent.Models
         public int Id { get; set; }
         public int FirstUserId { get; set; }            //foreign key
         public int SecondUserId { get; set; }           //foreign key
+        [DisplayName("Is Accepted?")]
         public bool IsAccepted { get; set; }
 
+        [DisplayName("User_1")]
         public User FirstUser { get; set; }
+        [DisplayName("User_2")]
         public User SecondUser { get; set; }
     }
 
