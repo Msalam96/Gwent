@@ -2,10 +2,7 @@
 using Gwent.Models;
 using Gwent.Repositories;
 using Gwent.Security;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace Gwent.Controllers
