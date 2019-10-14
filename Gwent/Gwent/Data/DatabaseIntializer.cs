@@ -1,4 +1,5 @@
-﻿using System.Data.Entity;
+﻿using Gwent.Models;
+using System.Data.Entity;
 
 namespace Gwent.Data
 {
@@ -183,5 +184,18 @@ namespace Gwent.Data
         //        }
         //    }
         //}
+
+        protected override void Seed(Context context)
+        {
+            User omer = new User(0, "Omer", "Latif", "omerltf@gmail.com", "$2a$10$pQ.jLCkRVWCYoxLZ2K0.9OKDR5cg1IyDIrvXl3ZuwVCuotLJbDMYe");
+            User james = new User(0, "James", "Churchill", "jchurchill@gmail.com", "$2a$10$pQ.jLCkRVWCYoxLZ2K0.9OKDR5cg1IyDIrvXl3ZuwVCuotLJbDMYe");
+            User mo = new User(0, "Mohammad", "Salam", "msalam@gmail.com", "$2a$10$pQ.jLCkRVWCYoxLZ2K0.9OKDR5cg1IyDIrvXl3ZuwVCuotLJbDMYe");
+            User sarthak = new User(0, "Sarthak", "Thakur", "sthakur@gmail.com", "$2a$10$pQ.jLCkRVWCYoxLZ2K0.9OKDR5cg1IyDIrvXl3ZuwVCuotLJbDMYe");
+            context.Users.Add(omer);
+            context.Users.Add(james);
+            context.Users.Add(mo);
+            context.Users.Add(sarthak);
+            context.SaveChanges();
+        }
     }
 }

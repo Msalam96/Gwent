@@ -1,0 +1,79 @@
+﻿@model Gwent.FormModels.AddFriend
+
+@{
+    ViewBag.Title = "AddFriend";
+}
+
+<h2>Add Friend</h2>
+
+
+@*@using (Html.BeginForm()) 
+{*@
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        @*<div class="form-group">
+                @Html.LabelFor(model => model.secondUserId, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.secondUserId, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.secondUserId, "", new { @class = "text-danger" })
+                </div>
+            </div>*@
+
+        @*Add List of Users for Friends*@
+
+        <table class="table table-sm table-striped table-hover">
+            <thead class="thead-dark">
+                <tr>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Email Address</th>
+                    <th>&nbsp;</th>
+                </tr>
+            </thead>
+                
+            <tbody>
+                @foreach (var user in Model.Users)
+                {
+                    <tr>
+                        <td style="color:white">@user.FirstName</td>
+                        <td style="color:white">@user.LastName</td>
+                        <td style="color:white">@user.EmailAddress</td>
+                        <td style="color:white">@using (Html.BeginForm())
+                        {
+                            <input name="id" type="hidden" value="@user.Id"/>
+                            <button type="submit" class="btn btn-danger">Add Friend</button>
+                        }</td >
+                    </tr>
+                }
+            </tbody>
+         </table>
+
+                @*<div class="form-group">
+                    @Html.LabelFor(model => model.isAvailable, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        <div class="checkbox">
+                            @Html.EditorFor(model => model.isAvailable)
+                            @Html.ValidationMessageFor(model => model.isAvailable, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="Create" class="btn btn-default" />
+                    </div>
+                </div>
+    </div>
+}*@
+    </div>
+
+<div>
+    @Html.ActionLink("Back to List", "Index", new { @class = "btn btn-primary" })
+</div>
+
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
