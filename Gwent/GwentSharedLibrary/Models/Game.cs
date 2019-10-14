@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace GwentSharedLibrary.Models
+﻿namespace GwentSharedLibrary.Models
 {
-    class Game
+    public class Game
     {
+        public Game() { }
+
         public int Id { get; set; }
 
         public int PlayerOneId { get; set; }
@@ -15,6 +11,5 @@ namespace GwentSharedLibrary.Models
 
         public int PlayerTwoId { get; set; }
         public User PlayerTwo { get; set; }
-
     }
 }

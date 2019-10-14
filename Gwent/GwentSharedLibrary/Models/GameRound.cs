@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace GwentSharedLibrary.Models
+﻿namespace GwentSharedLibrary.Models
 {
-    class GameRound
+    public class GameRound
     {
         public int Id { get; set; }
 
