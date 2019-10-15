@@ -9,6 +9,7 @@ using System.Web.Mvc;
 
 namespace Gwent.Controllers
 {
+    [Authorize]
     public class NotificationsController : Controller
     {
         private Context context;
@@ -17,19 +18,14 @@ namespace Gwent.Controllers
             context = new Context();
         }
         // GET: Notifications
-        public ActionResult Index()
-        {
-            return View();
-        }
-
         [HttpGet]
-        public ActionResult Create()
+        public ActionResult Index()
         {
             NotificationModel model = new NotificationModel();
             CustomPrincipal currentUser = (CustomPrincipal)User;
             model.SenderUserId = currentUser.User.Id;
             model.PopulateSelectLists(context);
-            return View("Create", model);
+            return View("Index", model);
         }
         
     }

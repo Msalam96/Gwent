@@ -1,11 +1,39 @@
-﻿
+﻿@model Gwent.FormModels.NotificationModel
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Notifications";
 }
 
-<h2>Index</h2>
+<h2>Create</h2>
 
+@using (Html.BeginForm("Index", "Notifications", FormMethod.Post, new { @class = "pure-form pure-form-aligned", id = "notification-form" }))
+{
+    @Html.AntiForgeryToken()
 
+    <fieldset>
+        <div>
+            @Html.LabelFor(model => model.RecipientUserId)
+            @Html.DropDownListFor(model => model.RecipientUserId, Model.FriendList, "Friends")
+            @Html.ValidationMessageFor(model => model.RecipientUserId, "", new { @class = "pure-form-message-inline" })
+        </div>
 
+        <div class="pure-control-group">
+            @Html.LabelFor(model => model.Message)
+            @Html.EditorFor(model => model.Message)
+            @Html.ValidationMessageFor(model => model.Message, "", new { @class = "pure-form-message-inline" })
+        </div>
 
+        <div class="pure-control-group">
+            @Html.LabelFor(model => model.NotificationType)
+            @Html.DropDownListFor(model => model.NotificationType, Model.NotificationTypeList)
+            @Html.ValidationMessageFor(model => model.NotificationTypeList, "", new { @class = "pure-form-message-inline" })
+        </div>
+
+        <div class="pure-controls">
+            @Html.ActionLink("Cancel", "Index", new { }, new { @class = "pure-button" })
+            <button type="submit" class="pure-button pure-button-primary">Submit</button>
+        </div>
+    </fieldset>
+}
+
+<script src="~/Scripts/notifications.js"></script>
 
