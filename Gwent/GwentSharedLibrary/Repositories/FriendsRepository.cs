@@ -70,8 +70,7 @@ namespace GwentSharedLibrary.Repositories
                 context.Entry(relationship).State = EntityState.Modified;
                 context.SaveChanges();
                 //TODO Update entry through EF
-            }
-                                          
+            }                                          
         }
     }
 }
