@@ -19,7 +19,7 @@ namespace GwentConsole
             {
                 GameRepository repository = new GameRepository(context);
                 TestGame test = new TestGame();
-                Console.Write(test.StartNewGame(1, 2));
+                test.StartNewGame(1, 2);
                 Console.ReadKey();
             }
         }

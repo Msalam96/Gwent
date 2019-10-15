@@ -177,7 +177,7 @@ namespace GwentSharedLibrary.Repositories
             //Update Location of card (remove from hand, move to board)        
         }
 
-        public void PassTurn(GameRound myCurrentRound, int playerId)
+        public GameRound PassTurn(GameRound myCurrentRound, int playerId)
         {
             if (myCurrentRound.FirstPlayerId == playerId)
             {
@@ -190,6 +190,7 @@ namespace GwentSharedLibrary.Repositories
 
             context.Entry(myCurrentRound).State = EntityState.Modified;
             context.SaveChanges();
+            return myCurrentRound;
         }
 
         public void MoveCardsToDiscardPile(Pile hand)
