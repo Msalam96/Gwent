@@ -98,7 +98,7 @@ namespace GwentSharedLibrary.Repositories
             List<DeckCard> deckCards = context.DeckCards
                                         .Include(dc => dc.Card)
                                         .Where(dc => dc.DeckId == deckId)
-                                        .Take(1)            //change this to however many cards you need
+                                        .Take(10)            //change this to however many cards you need
                                         .ToList();
 
             foreach(var card in deckCards)
