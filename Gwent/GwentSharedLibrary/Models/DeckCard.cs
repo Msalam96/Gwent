@@ -7,6 +7,8 @@
         public int Id { get; set; }
         public int DeckId { get; set; }
         public int CardId { get; set; }
+        public bool IsDrawn { get; set; }
+
 
         public Card Card { get; set; }
         public Deck Deck { get; set; }

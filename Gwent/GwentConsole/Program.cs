@@ -1,4 +1,5 @@
-﻿using GwentSharedLibrary.Data;
+﻿using GwentConsole.ConsoleGame;
+using GwentSharedLibrary.Data;
 using GwentSharedLibrary.Repositories;
 using System;
 using System.Collections.Generic;
@@ -17,7 +18,8 @@ namespace GwentConsole
             using (var context = new Context())
             {
                 GameRepository repository = new GameRepository(context);
-                Console.Write(repository.StartNewGame(1, 2));
+                TestGame test = new TestGame();
+                Console.Write(test.StartNewGame(1, 2));
                 Console.ReadKey();
             }
         }
