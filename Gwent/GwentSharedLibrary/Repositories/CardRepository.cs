@@ -17,10 +17,10 @@ namespace GwentSharedLibrary.Repositories
             _context = context;
         }
 
-        public List<Card> GetCards() {
-            return _context.Cards
-                .Include(c => c.Deck)
-                .ToList();
-        }
+        //public List<Card> GetCards() {
+        //    return _context.Cards
+        //        .Include(c => c.Deck)
+        //        .ToList();
+        //}
     }
 }

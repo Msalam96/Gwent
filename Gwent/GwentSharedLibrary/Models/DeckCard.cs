@@ -1,6 +1,6 @@
 ﻿namespace GwentSharedLibrary.Models
 {
-    class DeckCard
+    public class DeckCard
     {
         public DeckCard () { }
         

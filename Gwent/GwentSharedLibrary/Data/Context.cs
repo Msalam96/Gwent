@@ -11,15 +11,17 @@ namespace GwentSharedLibrary.Data
         public DbSet<Deck> Decks { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<UserRelationship> UserRelationships { get; set; }
-
+        public DbSet<Game> Games { get; set; }
+        public DbSet<DeckUser> DeckUsers { get; set; }
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
             modelBuilder.Conventions.Remove<OneToManyCascadeDeleteConvention>();
-            modelBuilder.Entity<Card>()
-                .HasRequired(c => c.Deck)
-                .WithMany(d => d.Cards)
-                .WillCascadeOnDelete(false);
+
+            //modelBuilder.Entity<Card>()
+            //    .HasRequired(c => c.Deck)
+            //    .WithMany(d => d.Cards)
+            //    .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<User>()
                 .HasIndex(u => u.EmailAddress)

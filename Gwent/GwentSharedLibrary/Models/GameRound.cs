@@ -2,6 +2,16 @@
 {
     public class GameRound
     {
+        public GameRound() { }
+
+        public GameRound(int id, int gameId, int firstPlayerId, int secondPlayerId)
+        {
+            Id = id;
+            GameId = gameId;
+            FirstPlayerId = firstPlayerId;
+            SecondPlayerId = secondPlayerId;
+        }
+
         public int Id { get; set; }
 
         public int GameId { get; set; }
