@@ -5,6 +5,8 @@
 
 <h2>Create</h2>
 
+<div id="notifications"></div>
+
 @using (Html.BeginForm("Index", "Notifications", FormMethod.Post, new { @class = "pure-form pure-form-aligned", id = "notification-form" }))
 {
     @Html.AntiForgeryToken()
