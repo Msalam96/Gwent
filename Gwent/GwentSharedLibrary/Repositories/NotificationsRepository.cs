@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using System.Data.Entity;
 namespace GwentSharedLibrary.Repositories
 {
     public class NotificationsRepository
@@ -16,11 +16,20 @@ namespace GwentSharedLibrary.Repositories
         {
             this.context = context;
         }
-        //public List<Notification> GetNotificationsList(int id)
-        //{
-        //    return context.Notifications
-        //            .Where(ur => ur.SenderUserId == id)
-        //            .ToList();
-        //}
+
+        public List<Notification> GetNotificationsList(int id, DateTimeOffset from)
+        {
+            return context.Notifications
+                    .Include(n => n.SenderUser)
+                    .Where(n => n.RecipientUserId == id && n.SentOn>=from)
+                    .OrderByDescending(n => n.SentOn)
+                    .ToList();
+        }
+
+        public void AddNotification(Notification notification)
+        {
+            context.Notifications.Add(notification);
+            context.SaveChanges();
+        }
     }
 }
