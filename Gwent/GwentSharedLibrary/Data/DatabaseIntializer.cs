@@ -16,6 +16,15 @@ namespace GwentSharedLibrary.Data
             context.Users.Add(mo);
             context.Users.Add(sarthak);
 
+            UserRelationship moSarthak = new UserRelationship()
+            {
+                FirstUser = mo,
+                SecondUser = sarthak,
+                IsAccepted = true
+            };
+
+            context.UserRelationships.Add(moSarthak);
+
             Card footSolider = new Card("Redanian Foot Soldier", 1, CardType.CloseCombat, null, "https://thewitcher3.wiki.fextralife.com/file/The-Witcher-3/redanian_foot_soldier2_card.jpg");
             Card infantry = new Card("Poor F***ing Infantry", 1, CardType.CloseCombat, SpecialAbility.Bond, "https://vignette.wikia.nocookie.net/witcher/images/1/16/Tw3_gwent_card_face_Poor_Fucking_Infantry.png/revision/latest?cb=20160320094501");
             context.Cards.Add(footSolider);

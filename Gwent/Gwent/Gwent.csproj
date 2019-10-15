@@ -176,9 +176,11 @@
     <Compile Include="Controllers\GameBoardController.cs" />
     <Compile Include="Controllers\CardController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\NotificationsController.cs" />
     <Compile Include="FormModels\AddFriend.cs" />
     <Compile Include="FormModels\CreateUser.cs" />
     <Compile Include="FormModels\LoginModel.cs" />
+    <Compile Include="FormModels\NotificationModel.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -209,6 +211,8 @@
     <Content Include="Views\Authentication\Login.cshtml" />
     <Content Include="Views\Friends\AddFriend.cshtml" />
     <Content Include="Views\Friends\Index.cshtml" />
+    <Content Include="Views\Notifications\Index.cshtml" />
+    <Content Include="Views\Notifications\Create.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -222,6 +226,7 @@
       <Name>GwentSharedLibrary</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

@@ -13,6 +13,7 @@ namespace GwentSharedLibrary.Data
         public DbSet<UserRelationship> UserRelationships { get; set; }
         public DbSet<Game> Games { get; set; }
         public DbSet<DeckUser> DeckUsers { get; set; }
+        public DbSet<Notification> Notifications { get; set; }
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
