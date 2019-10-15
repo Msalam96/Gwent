@@ -1,11 +1,17 @@
 ﻿using GwentSharedLibrary.Models;
 using System.Data.Entity;
 using System.Data.Entity.ModelConfiguration.Conventions;
+using System.Diagnostics;
 
 namespace GwentSharedLibrary.Data
 {
     public class Context : DbContext
     {
+        public Context()
+        {
+            Database.Log = (message) => Debug.WriteLine(message);
+        }
+
         public DbSet<Card> Cards { get; set; }  
         public DbSet<Pile> Piles { get; set; }
         public DbSet<Deck> Decks { get; set; }
@@ -14,6 +20,7 @@ namespace GwentSharedLibrary.Data
         public DbSet<Game> Games { get; set; }
         public DbSet<DeckUser> DeckUsers { get; set; }
         public DbSet<DeckCard> DeckCards { get; set; }
+        public DbSet<PileCard> PileCards { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -28,6 +35,7 @@ namespace GwentSharedLibrary.Data
             modelBuilder.Entity<User>()
                 .HasIndex(u => u.EmailAddress)
                 .IsUnique();
+            //base.OnModelCreating(modelBuilder);
         }
     }
 }
