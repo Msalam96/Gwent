@@ -35,13 +35,18 @@ namespace GwentSharedLibrary.Repositories
 
             //GetGame(player1Id, player2Id);
             Deck PlayerOneDeck = GetPlayerDeck(player1Id);
-            Deck PlayerTwoDeck = GetPlayerDeck(player2Id);
+            //Deck PlayerTwoDeck = GetPlayerDeck(player2Id);
 
             var PlayerOneCards = GetCards(PlayerOneDeck.Id);
-            CreateHand(myGame, PlayerOneDeck);
-            //AddGameRound(myGame);
+            Pile hand = CreateHand(myGame, PlayerOneDeck);
+            PileCard pileCard = context.PileCards
+                                .Where(pc => pc.PileId == hand.Id)
+                                .FirstOrDefault();
+            GameRound gameRound = AddGameRound(myGame);
+            MakeMove(pileCard, gameRound);
+            PassTurn(gameRound, player1Id);
 
-            return "DeckIdOne: " + PlayerOneDeck.Id + " DeckIdTwo: " + PlayerTwoDeck.Id + " NumberOfCards_PlayerOne: " + PlayerOneCards.Count ;
+            return "DeckIdOne: " + PlayerOneDeck.Id + " NumberOfCards_PlayerOne: " + PlayerOneCards.Count ;
 
         }
 
@@ -59,10 +64,12 @@ namespace GwentSharedLibrary.Repositories
             return myGame;
         }
 
-        public void AddGameRound (Game game)
+        public GameRound AddGameRound (Game game)
         {
-
-            //GameRound gameRound = new GameRound();
+            GameRound gameRound = new GameRound(0, game.Id, game.PlayerOneId, game.PlayerTwoId);
+            context.GameRounds.Add(gameRound);
+            context.SaveChanges();
+            return gameRound;
         }
 
 
@@ -91,6 +98,7 @@ namespace GwentSharedLibrary.Repositories
             List<DeckCard> deckCards = context.DeckCards
                                         .Include(dc => dc.Card)
                                         .Where(dc => dc.DeckId == deckId)
+                                        .Take(1)            //change this to however many cards you need
                                         .ToList();
 
             foreach(var card in deckCards)
@@ -102,7 +110,7 @@ namespace GwentSharedLibrary.Repositories
 
         //Create a Pile for each player
 
-        public void CreateHand(Game myGame, Deck myDeck)
+        public Pile CreateHand(Game myGame, Deck myDeck)
         {
             Pile hand = new Pile(0, myDeck.Id, myDeck, myGame.Id, myGame);
 
@@ -121,6 +129,49 @@ namespace GwentSharedLibrary.Repositories
                 context.PileCards.Add(pileCard);
                 context.SaveChanges();
             }
+            return hand;
         }
+
+        //Make a move
+        public void MakeMove(PileCard myHandCard, GameRound currentGameRound /*, User playerId*/)
+        {
+            myHandCard.Location = Location.Board;
+            context.Entry(myHandCard).State = EntityState.Modified;
+
+            //Update player's score
+
+            GameRoundCard myGameRoundCard = new GameRoundCard()
+            {
+                GameRoundId = currentGameRound.Id,
+                GameRound = currentGameRound,
+                PileCard = myHandCard,
+                PileCardId = myHandCard.Id
+            };
+            context.GameRoundCards.Add(myGameRoundCard);
+            context.SaveChanges();
+
+            //Move PileCard to correct spot (for corresponding player)
+            //Update corresponding player's score
+            //Update Location of card (remove from hand, move to board)
+            
+        }
+
+        //Pass a turn
+        public void PassTurn(GameRound myCurrentRound, int playerId)
+        {
+            if (myCurrentRound.FirstPlayerId == playerId)
+            {
+                myCurrentRound.FirstPlayerPassed = true;
+            }
+            else if (myCurrentRound.SecondPlayerId == playerId)
+            {
+                myCurrentRound.SecondPlayerPassed = true;
+            }
+
+            context.Entry(myCurrentRound).State = EntityState.Modified;
+            context.SaveChanges();
+        }
+
+        //public void EndRound ()
     }
 }

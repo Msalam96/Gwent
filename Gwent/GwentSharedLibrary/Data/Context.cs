@@ -21,6 +21,9 @@ namespace GwentSharedLibrary.Data
         public DbSet<DeckUser> DeckUsers { get; set; }
         public DbSet<DeckCard> DeckCards { get; set; }
         public DbSet<PileCard> PileCards { get; set; }
+        public DbSet<GameRound> GameRounds { get; set; }
+        public DbSet<GameRoundCard> GameRoundCards { get; set; }
+
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
