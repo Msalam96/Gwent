@@ -23,6 +23,7 @@ namespace GwentSharedLibrary.Models
         [Required]
         public string Faction { get; set; }
 
+
         public List<DeckCard> DeckCards { get; set; }
         public List<DeckUser> DeckUsers { get; set; }
 
@@ -32,7 +33,8 @@ namespace GwentSharedLibrary.Models
             DeckCards.Add(new DeckCard()
             {
                 Card = card,
-                Deck = this
+                Deck = this,
+                IsDrawn = false
             });
         }
     }
