@@ -44,6 +44,7 @@ namespace GwentSharedLibrary.Repositories
                                 .FirstOrDefault();
             GameRound gameRound = AddGameRound(myGame);
             MakeMove(pileCard, gameRound);
+            PassTurn(gameRound, player1Id);
 
             return "DeckIdOne: " + PlayerOneDeck.Id + " NumberOfCards_PlayerOne: " + PlayerOneCards.Count ;
 
@@ -153,6 +154,22 @@ namespace GwentSharedLibrary.Repositories
             //Update corresponding player's score
             //Update Location of card (remove from hand, move to board)
             
+        }
+
+        //Pass a turn
+        public void PassTurn(GameRound myCurrentRound, int playerId)
+        {
+            if (myCurrentRound.FirstPlayerId == playerId)
+            {
+                myCurrentRound.FirstPlayerPassed = true;
+            }
+            else if (myCurrentRound.SecondPlayerId == playerId)
+            {
+                myCurrentRound.SecondPlayerPassed = true;
+            }
+
+            context.Entry(myCurrentRound).State = EntityState.Modified;
+            context.SaveChanges();
         }
 
         //public void EndRound ()
