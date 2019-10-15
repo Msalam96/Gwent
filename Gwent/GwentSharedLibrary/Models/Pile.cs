@@ -8,11 +8,13 @@ namespace GwentSharedLibrary.Models
         {
         }
 
-        public Pile(int id, int deckId, Deck deck) : this()
+        public Pile(int id, int deckId, Deck deck, int gameId, Game game) : this()
         {
             Id = id;
             DeckId = deckId;
             Deck = deck;
+            GameId = gameId;
+            Game = game;
         }
 
         public int Id { get; set; }

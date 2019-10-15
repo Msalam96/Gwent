@@ -37,10 +37,11 @@ namespace GwentSharedLibrary.Repositories
             Deck PlayerOneDeck = GetPlayerDeck(player1Id);
             Deck PlayerTwoDeck = GetPlayerDeck(player2Id);
 
-            var Cards = GetCards(PlayerOneDeck.Id);
+            var PlayerOneCards = GetCards(PlayerOneDeck.Id);
+            CreateHand(myGame, PlayerOneDeck);
             //AddGameRound(myGame);
 
-            return "DeckIdOne: " + PlayerOneDeck.Id + "DeckIdTwo: " + PlayerTwoDeck.Id;
+            return "DeckIdOne: " + PlayerOneDeck.Id + " DeckIdTwo: " + PlayerTwoDeck.Id + " NumberOfCards_PlayerOne: " + PlayerOneCards.Count ;
 
         }
 
@@ -100,5 +101,26 @@ namespace GwentSharedLibrary.Repositories
         }
 
         //Create a Pile for each player
+
+        public void CreateHand(Game myGame, Deck myDeck)
+        {
+            Pile hand = new Pile(0, myDeck.Id, myDeck, myGame.Id, myGame);
+
+            List<Card> cardsList = GetCards(myDeck.Id);
+
+            foreach (var card in cardsList)
+            {
+                PileCard pileCard = new PileCard()
+                {
+                    CardId = card.Id,
+                    Card = card,
+                    PileId = hand.Id,
+                    Pile = hand,
+                    Location = Location.Hand
+                };
+                context.PileCards.Add(pileCard);
+                context.SaveChanges();
+            }
+        }
     }
 }
