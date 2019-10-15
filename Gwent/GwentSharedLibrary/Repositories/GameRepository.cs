@@ -36,6 +36,8 @@ namespace GwentSharedLibrary.Repositories
             //GetGame(player1Id, player2Id);
             Deck PlayerOneDeck = GetPlayerDeck(player1Id);
             Deck PlayerTwoDeck = GetPlayerDeck(player2Id);
+
+            var Cards = GetCards(PlayerOneDeck.Id);
             //AddGameRound(myGame);
 
             return "DeckIdOne: " + PlayerOneDeck.Id + "DeckIdTwo: " + PlayerTwoDeck.Id;
@@ -80,6 +82,23 @@ namespace GwentSharedLibrary.Repositories
 
             return deckUsers.Deck;
         }
+        //Get Card From Deck
+
+        public List<Card> GetCards (int deckId)
+        {
+            List<Card> cardList = new List<Card>();
+            List<DeckCard> deckCards = context.DeckCards
+                                        .Include(dc => dc.Card)
+                                        .Where(dc => dc.DeckId == deckId)
+                                        .ToList();
+
+            foreach(var card in deckCards)
+            {
+                cardList.Add(card.Card);
+            }
+            return cardList;
+        }
+
         //Create a Pile for each player
     }
 }
