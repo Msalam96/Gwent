@@ -77,10 +77,35 @@ namespace GwentSharedLibrary.Data
             deck.AddCard(trebuchet);
             context.Decks.Add(deck);
 
+            Deck deck2 = new Deck(0, "Northern Realms");
+            deck2.AddCard(footSolider);
+            deck2.AddCard(infantry);
+            deck2.AddCard(infantry);
+            deck2.AddCard(yarpen);
+            deck2.AddCard(commando);
+            deck2.AddCard(commando);
+            deck2.AddCard(stennis);
+            deck2.AddCard(denesle);
+            deck2.AddCard(ves);
+            deck2.AddCard(thyssen);
+            deck2.AddCard(glevissig);
+            deck2.AddCard(skaggs);
+            deck2.AddCard(metz);
+            deck2.AddCard(sile);
+            deck2.AddCard(dethmold);
+            deck2.AddCard(expert);
+            deck2.AddCard(expert);
+            deck2.AddCard(expert);
+            deck2.AddCard(banner);
+            deck2.AddCard(ballista);
+            deck2.AddCard(trebuchet);
+            deck2.AddCard(trebuchet);
+            context.Decks.Add(deck2);
+
             omer.AddDeck(deck);
-            james.AddDeck(deck);
-            mo.AddDeck(deck);
-            sarthak.AddDeck(deck);
+            james.AddDeck(deck2);
+            //mo.AddDeck(deck);
+            //sarthak.AddDeck(deck);
             context.SaveChanges();           
            
            
