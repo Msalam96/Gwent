@@ -1,5 +1,6 @@
 ﻿using Gwent.Security;
 using GwentSharedLibrary.Data;
+using GwentSharedLibrary.Logic;
 using GwentSharedLibrary.Models;
 using GwentSharedLibrary.Repositories;
 using System;
@@ -27,6 +28,7 @@ namespace GwentConsole.ConsoleGame
                 int player2Score = 0;
                 
                 GameRepository repository = new GameRepository(context);
+                GameLogic gameLogic = new GameLogic(repository);
                 Game myGame = repository.CreateGame(player1Id, player2Id);      //Creates the game with two players
 
                 Deck PlayerOneDeck = repository.GetPlayerDeck(player1Id);

@@ -59,6 +59,17 @@ namespace GwentSharedLibrary.Repositories
                     .FirstOrDefault();
         }
 
+        public List<GameRound> GetCurrentGameRounds (Game game)
+        {
+            return context.GameRounds
+                    .Include(gr => gr.Game)
+                    .Include(gr => gr.FirstPlayer)
+                    .Include(gr => gr.SecondPlayer)
+                    .OrderByDescending(gr => gr.Id)
+                    .Where(gr => gr.Id == game.Id)
+                    .ToList();
+        }
+
         public Deck GetPlayerDeck(int playerId)
         {
             //Deck deck = context.Decks
@@ -152,6 +163,15 @@ namespace GwentSharedLibrary.Repositories
                     .Include(pc => pc.Card)
                     .Include(pc => pc.Pile)
                     .Where(pc => pc.CardId == cardId)
+                    .FirstOrDefault();
+        }
+
+        public PileCard GetPileCardById (int pileCardId)
+        {
+            return context.PileCards
+                    .Include(pc => pc.Card)
+                    .Include(pc => pc.Pile)
+                    .Where(pc => pc.Id == pileCardId)
                     .FirstOrDefault();
         }
 

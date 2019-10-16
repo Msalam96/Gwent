@@ -52,6 +52,7 @@
   <ItemGroup>
     <Compile Include="Data\Context.cs" />
     <Compile Include="Data\DatabaseIntializer.cs" />
+    <Compile Include="Logic\GameLogic.cs" />
     <Compile Include="Models\Card.cs" />
     <Compile Include="Models\CardType.cs" />
     <Compile Include="Models\Deck.cs" />
@@ -60,9 +61,12 @@
     <Compile Include="Models\Game.cs" />
     <Compile Include="Models\GameRound.cs" />
     <Compile Include="Models\GameRoundCard.cs" />
+    <Compile Include="Models\GameState.cs" />
     <Compile Include="Models\Location.cs" />
     <Compile Include="Models\Pile.cs" />
     <Compile Include="Models\PileCard.cs" />
+    <Compile Include="Models\PlayerHandState.cs" />
+    <Compile Include="Models\PlayerState.cs" />
     <Compile Include="Models\SpecialAbility.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Models\UserRelationship.cs" />
