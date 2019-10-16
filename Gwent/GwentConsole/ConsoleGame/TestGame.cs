@@ -31,6 +31,8 @@ namespace GwentConsole.ConsoleGame
                 GameRepository repository = new GameRepository(context);
                 GameLogic gameLogic = new GameLogic(repository);
                 currentState = gameLogic.StartGame(1, 2);
+                Game game = repository.GetGame(1, 2);
+                currentState = gameLogic.PlayCard(1, game);
                 string json = JsonConvert.SerializeObject(currentState);
                 Console.WriteLine(json);
                 //Console.WriteLine(currentState.GameId.ToString() + " " + currentState.RoundNumber.ToString() + currentState.Player1State.FirstName + currentState.Player1State.PlayerId);
