@@ -34,7 +34,7 @@ namespace Gwent.ApiControllers
                 SenderName = $"{n.SenderUser.FirstName} {n.SenderUser.LastName}",
                 Message = n.Message,
                 SentOn = n.SentOn,
-                NotificationType = n.NotificationType
+                NotificationType = n.NotificationType.ToString()
             }).ToList();
 
             return Ok(flattenedNotifications);

@@ -8,3 +8,11 @@
 .my-col img {
     height: 100% !important;
 }
+
+.sieged {
+   background: url(Images/gwentSiegedRow.jpg) !important;
+}
+#opponentStats{
+    background-color:black;
+    height:100px;
+}

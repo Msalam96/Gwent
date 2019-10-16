@@ -154,6 +154,7 @@
     <Content Include="Content\Site.css" />
     <Content Include="CSS\board.css" />
     <Content Include="CSS\Home.css" />
+    <Content Include="CSS\Images\gwentSiegedRow.jpg" />
     <Content Include="CSS\Images\OB_WP_1920x1080_EN.jpg" />
     <Content Include="CSS\Images\Season of the Bear Cardback.png" />
     <Content Include="CSS\Images\Season of the Draconid Cardback.png" />

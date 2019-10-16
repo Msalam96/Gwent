@@ -5,58 +5,67 @@
 
 <div class="container">
     <div class="row">
-        <div class="col-sm-3" style="background-color:green;height:600px">
+        <div class="col-sm-3" style="background-color:saddlebrown;height:600px">
             <div class="row">
                 <div class="col-sm-12" style="background-color:white;height:100px"></div>
             </div>
+            @* OPPONENT STATS ROW *@
             <div class="row">
-                <div class="col-sm-12" style="background-color:red;height:100px">
-                    <span id="oppName"></span>
+                <div  id="opponentStats" class="col-sm-12" style="background-color:black;height:100px; opacity:0.5;">
+                    <span id="oppName" style="color:gold; font-weight:bold;"></span>
                     <div class="row">
-                        <div class="col-sm-2" style="background-color:red;height:50px"></div>
-                        <div class="col-sm-2" style="background-color:blue;height:50px">
+                        
+                        <div class="col-sm-3" style="background-color:red;height:50px">HAND:</div>
+                        <div class="col-sm-3" style="background-color:blue;height:50px">
                             <span id="numPlayerCard"></span>
                         </div>
-                        <div class="col-sm-2" style="background-color:red;height:50px"></div>
-                        <div class="col-sm-2" style="background-color:brown;height:50px">
+                        <div class="col-sm-3" style="background-color:red;height:50px">ROUNDS:</div>
+                        <div class="col-sm-3" style="background-color:brown;height:50px">
                             <span id="oppRoundWon"></span>
-                        </div>
-                        <div class="col-sm-2" style="background-color:red;height:50px"></div>
-                        <div id="oppTotPower" class="col-sm-2" style="background-color:green;height:50px">
-                            <span></span>
                         </div>
                     </div>
                 </div>
             </div>
+
+            @* PLAYER STATS ROW *@
             <div class="row">
-                <div class="col-sm-12" style="background-color:white;height:100px"></div>
+                <div class="col-sm-10" style="color:black;background-color:white;height:100px">TOTAL POWER:</div>
+                <div class="col-sm-2" style="background-color:green;height:100px">
+                    <span id="oppTotPower" style="color:gold; font-weight:bold;"></span>
+                </div>
             </div>
             <div class="row">
-                <div class="col-sm-12" style="background-color:blue;height:100px">
-                    <span id="playerName"></span>
+                <div class="col-sm-12" style="background-color:saddlebrown;height:100px">
+                    <span id="playerName" style="color:gold; font-weight:bold;"></span>
                     <div class="row">
-                        <div class="col-sm-2" style="background-color:blue;height:50px"></div>
-                        <div class="col-sm-2" style="background-color:green;height:50px">
+                        <div class="col-sm-3" style="background-color:blue;height:50px">HAND:</div>
+                        <div class="col-sm-3" style="background-color:green;height:50px">
                             <span id="numOppCard"></span>
                         </div>
-                        <div class="col-sm-2" style="background-color:blue;height:50px"></div>
-                        <div class="col-sm-2" style="background-color:brown;height:50px">
+                        <div class="col-sm-3" style="background-color:blue;height:50px">ROUND:</div>
+                        <div class="col-sm-3" style="background-color:brown;height:50px">
                             <span id="playerRoundWon"></span>
                         </div>
-                        <div class="col-sm-2" style="background-color:blue;height:50px"></div>
-                        <div id="playerTotPower" class="col-sm-2" style="background-color:green;height:50px">
-                            <span></span>
-                        </div>
+                       
+                        
                     </div>
+                </div>
+            </div>
+
+            <div class="row">
+
+                <div class="col-sm-10" style="color:black;background-color:white;height:100px">TOTAL POWER:</div>
+                <div id="playerTotPower" class="col-sm-2" style="color:gold; font-weight:bold;background-color:green;height:100px">
+                    <span></span>
                 </div>
             </div>
         </div>
        
-        <div class="col-sm-6" style="background-color:pink;height:650px">
+        <div class="col-sm-6" style="height:650px">
             Gameboard
 
             <p style="color:red">SIEGED</p>
-            <div id="p1sieged" class="row my-row">
+            <div id="p1sieged" class="row my-row sieged">
                 <div id ="oppSiegedScoreDiv"class="col-md-2 col-sm-6 my-col">
                     <span>SCORE</span>
                 </div>
