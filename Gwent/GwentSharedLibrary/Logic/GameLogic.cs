@@ -113,21 +113,21 @@ namespace GwentSharedLibrary.Logic
         {
             return new GameState()
             {
-                //GameId = myGame.Id,
-                //RoundNumber = gameRepository.GetCurrentGameRounds(myGame).Count,
-                //Player1State = new PlayerState()
-                //{
-                //    FirstName = myGame.PlayerOne.FirstName,
-                //    PlayerId = myGame.PlayerOne.Id,
-                //    PlayerHandState = PlayerStateHelper(myGame.PlayerOneId)
-                //    //PlayerHandState = new Dictionary<string, PlayerHandState>(
-                //},
-                //Player2State = new PlayerState()
-                //{
-                //    FirstName = myGame.PlayerTwo.FirstName,
-                //    PlayerId = myGame.PlayerTwoId,
-                //    PlayerHandState = PlayerStateHelper(myGame.PlayerTwoId)
-                //},
+                GameId = myGame.Id,
+                RoundNumber = gameRepository.GetCurrentGameRounds(myGame).Count,
+                Player1State = new PlayerState()
+                {
+                    FirstName = myGame.PlayerOne.FirstName,
+                    PlayerId = myGame.PlayerOne.Id,
+                    PlayerHandState = PlayerStateHelper(myGame.PlayerOneId)
+                    //PlayerHandState = new Dictionary<string, PlayerHandState>(
+                },
+                Player2State = new PlayerState()
+                {
+                    FirstName = myGame.PlayerTwo.FirstName,
+                    PlayerId = myGame.PlayerTwoId,
+                    PlayerHandState = PlayerStateHelper(myGame.PlayerTwoId)
+                },
                 RoundState = new RoundState()
                 {
                     GameRoundId = gameRepository.GetCurrentRound(myGame).Id,
