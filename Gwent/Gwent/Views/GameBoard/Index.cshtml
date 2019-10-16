@@ -10,107 +10,93 @@
                 <div class="col-sm-12" style="background-color:white;height:100px"></div>
             </div>
             <div class="row">
-                <div class="col-sm-12" style="background-color:yellow;height:100px">OPPONENT</div>
+                <div class="col-sm-12" style="background-color:red;height:100px">
+                    <span id="oppName"></span>
+                    <div class="row">
+                        <div class="col-sm-2" style="background-color:red;height:50px"></div>
+                        <div class="col-sm-2" style="background-color:blue;height:50px">
+                            <span id="numPlayerCard"></span>
+                        </div>
+                        <div class="col-sm-2" style="background-color:red;height:50px"></div>
+                        <div class="col-sm-2" style="background-color:brown;height:50px">
+                            <span id="oppRoundWon"></span>
+                        </div>
+                        <div class="col-sm-2" style="background-color:red;height:50px"></div>
+                        <div id="oppTotPower" class="col-sm-2" style="background-color:green;height:50px">
+                            <span></span>
+                        </div>
+                    </div>
+                </div>
             </div>
             <div class="row">
                 <div class="col-sm-12" style="background-color:white;height:100px"></div>
             </div>
             <div class="row">
-                <div class="col-sm-12" style="background-color:blue;height:100px">YOU</div>
+                <div class="col-sm-12" style="background-color:blue;height:100px">
+                    <span id="playerName"></span>
+                    <div class="row">
+                        <div class="col-sm-2" style="background-color:blue;height:50px"></div>
+                        <div class="col-sm-2" style="background-color:green;height:50px">
+                            <span id="numOppCard"></span>
+                        </div>
+                        <div class="col-sm-2" style="background-color:blue;height:50px"></div>
+                        <div class="col-sm-2" style="background-color:brown;height:50px">
+                            <span id="playerRoundWon"></span>
+                        </div>
+                        <div class="col-sm-2" style="background-color:blue;height:50px"></div>
+                        <div id="playerTotPower" class="col-sm-2" style="background-color:green;height:50px">
+                            <span></span>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
+       
         <div class="col-sm-6" style="background-color:pink;height:650px">
             Gameboard
 
-            <p>SIEGED</p>
-            <div id=p1sieged class="row my-row">
-                <div class="col-md-2 col-sm-6 my-col">
-                    <img id="SiegedCard" src="">
-                </div>
-                <div class="col-md-2 col-sm-6 my-col">
-                    Row 1 Col 2
-                </div>
-                <div class="col-md-2 col-sm-6 my-col">
-                    Row 1 Col 3
+            <p style="color:red">SIEGED</p>
+            <div id="p1sieged" class="row my-row">
+                <div id ="oppSiegedScoreDiv"class="col-md-2 col-sm-6 my-col">
+                    <span>SCORE</span>
                 </div>
             </div>
             <p>RANGED</p>
             <div id="p1ranged" class="row my-row">
-
-                <div class="col-md-2 col-sm-6 my-col">
-                    <div class="test"></div>
-                    Row 2 Col 1
-                </div>
-                <div class="col-md-2 col-sm-6 my-col">
-                    Row 2 Col 2
-                </div>
-
-                <div class="col-md-2 col-sm-6 my-col">
-                    Row 2 Col 3
+                <div id ="oppRangeScoreDiv"class="col-md-2 col-sm-6 my-col">
+                    <span>SCORE</span>
                 </div>
             </div>
             <p>CLOSE COMBAT</p>
-            <div id="p1closeCombat" class="row my-row">
-                <div class="col-md-2 col-sm-6 my-col">
-                    Row 3 Col 1
-                </div>
-                <div class="col-md-2 col-sm-6 my-col">
-                    Row 3 Col 2
-                </div>
-                <div class="col-md-2 col-sm-6 my-col">
-                    Row 3 Col 3
+            <div id="p1CloseCombat" class="row my-row">
+                <div id ="oppCloseCombatScoreDiv"class="col-md-2 col-sm-6 my-col">
+                    <span>SCORE</span>
                 </div>
             </div>
+
+
             <p>ClOSE COMBAT</p>
-            <div id="p2closeCombat" class="row my-row">
-                <div class="col-md-2 col-sm-6 my-col">
-                    <img class="siegedCard" src="" data-cardCode="">
-                </div>
-                <div class="col-md-2 col-sm-6 my-col">
-                    <img class="siegedCard" src="" data-cardCode="">
-                </div>
-                <div class="col-md-2 col-sm-6 my-col">
-                    Row 1 Col 3
+            <div id="p2CloseCombat" class="row my-row">
+                <div id ="playerCloseCombatScoreDiv" class="col-md-2 col-sm-6 my-col">
+                    <span>SCORE</span>
                 </div>
             </div>
             <p>RANGED</p>
             <div id="p2ranged" class="row my-row">
-
-                <div class="col-md-2 col-sm-6 my-col">
-                    <img class="siegedCard" src="" data-cardCode="">
-                </div>
-                <div class="col-md-2 col-sm-6 my-col">
-                    <img class="siegedCard" src="" data-cardCode="">
-                </div>
-
-                <div class="col-md-2 col-sm-6 my-col">
-
+                <div id ="playerRangedScoreDiv"class="col-md-2 col-sm-6 my-col">
+                    <span>SCORE</span>
                 </div>
             </div>
-            <p>SIEGED</p>
+
+            <p style="color:red">SIEGED</p>
             <div id="p2sieged" class="row my-row">
-                <div class="col-md-2 col-sm-6 my-col">
-                    Row 3 Col 1
-                </div>
-                <div class="col-md-2 col-sm-6 my-col">
-                    Row 3 Col 2
-                </div>
-                <div class="col-md-2 col-sm-6 my-col">
-                    Row 3 Col 3
+                <div id ="playerSiegedScoreDiv" class="col-md-2 col-sm-6 my-col">
+                    <span>SCORE</span>
                 </div>
             </div>
             <h1>HAND</h1>
             <div id="hand" class="row my-handDeck">
-                <div class="col-md-2 col-sm-6 my-col">
-                    <img id="s1" src="" data-cardCode="">
-                </div>
-                <div class="col-md-2 col-sm-6 my-col">
-                    <img id="s2" src="" data-cardCode="">
-                </div>
-
-                <div class="col-md-2 col-sm-6 my-col">
-                    <img id="s3" src="" data-cardCode="">
-                </div>
+                
             </div>
 
         </div>
@@ -133,4 +119,5 @@
 
 </div>
 
-<script src="~/Scripts/Gameboard.js"></script>
+@*<script src="~/Scripts/Gameboard.js"></script>*@
+<script src="~/Scripts/gamestate.js"></script>
