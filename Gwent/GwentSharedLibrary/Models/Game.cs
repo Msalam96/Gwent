@@ -1,9 +1,13 @@
-﻿namespace GwentSharedLibrary.Models
+﻿using System.Collections.Generic;
+
+namespace GwentSharedLibrary.Models
 {
     public class Game
     {
-        public Game() { }
-
+        public Game()
+        {
+            Piles = new List<Pile>();
+        }
 
         public Game(int playerOneId, int playerTwoId)
         {
@@ -18,5 +22,7 @@
 
         public int PlayerTwoId { get; set; }
         public User PlayerTwo { get; set; }
+
+        public List<Pile> Piles { get; set; }
     }
 }
