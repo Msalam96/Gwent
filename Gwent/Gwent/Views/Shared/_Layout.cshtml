@@ -18,6 +18,12 @@
             <div class="navbar-brand">
                 @Html.ActionLink("Gwent", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
             </div>
+            <div class="navbar-brand">
+                @*@Html.ActionLink("Notifications", "Index", "Notifications", new { area = ""}, new { @class = "navbar-brand"})*@
+                <a href="@Url.Action("Index", "Notifications")" class="btn btn-Dark">
+                    Notifications <span class="badge badge-light">4</span>
+                </a>
+            </div>
             <div >
                 <ul class="nav navbar-nav"></ul>
                 @if (Request.IsAuthenticated)
@@ -41,7 +47,6 @@
             <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
         </footer>
     </div>
-
     <script src="~/Scripts/jquery-1.10.2.min.js"></script>
     <script src="~/Scripts/bootstrap.min.js"></script>
 </body>

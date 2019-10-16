@@ -4,29 +4,57 @@
     const notificationForm = gebi("notification-form");
     const notificationDiv = gebi("notifications");
 
-    const today = new Date();
-    const dd = String(today.getDate()).padStart(2, '0');
-    const mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
-    const yyyy = today.getFullYear();
+    //const today = new Date();
+    //const dd = String(today.getDate()).padStart(2, '0');
+    //const mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+    //const yyyy = today.getFullYear();
 
     //const lastMessageTime = mm + '-' + dd + '-' + yyyy;
 
-    const lastMessageTime = today.toISOString();
-
-    console.log(lastMessageTime);
-    console.log(today.getTimezoneOffset())
+    let lastMessageTime = new Date();
+    lastMessageTime.setHours(lastMessageTime.getHours()-1);
+    setInterval(async () => {
+        const nextMessageTime =  new Date();
+        console.log("Retrieving messages from: "+lastMessageTime);
+        await getNotifications(lastMessageTime);
+        lastMessageTime = nextMessageTime;
+    }, 1000);
     
     async function getNotifications(from)
     {
-        const url = "http://localhost:50710/api/notifications?from="+from;
-        console.log(url);
+        const url = "http://localhost:50710/api/notifications?from="+from.toISOString();;
         const response = await fetch(url, {
             credentials:"include",
         });
-        console.log(response);
+        const data = await response.json();
+        renderNotifications(data);
     }
-    notificationForm.addEventListener('submit', async (event) =>
-    {
+
+    function renderNotifications(notifications) {
+        if(notifications.length===0)
+        {
+            return;
+        }
+        const notificationHtml = notifications.map((notification) => {
+            //Id = n.Id,
+            //SenderUserId = n.SenderUserId,
+            //SenderEmailAddress = n.SenderUser.EmailAddress,
+            //SenderName = $"{n.SenderUser.FirstName} {n.SenderUser.LastName}",
+            //Message = n.Message,
+            //SentOn = n.SentOn,
+            //NotificationType = n.NotificationType
+            return `
+                <div>
+                    <h4>${notification.SenderName}</h4>
+                    <h4>${notification.Message}</h4>
+                </div>
+            `;
+        });
+        const html = notificationHtml.join("");
+
+        notificationDiv.innerHTML = html+notificationDiv.innerHTML;
+    }
+    notificationForm.addEventListener('submit', async (event) => {
         event.preventDefault();
         console.log(event.target);
         const recipientUserId = event.target.RecipientUserId.value;
@@ -53,6 +81,4 @@
         });
         console.log(response)
     });
-
-    getNotifications(lastMessageTime);
 })();
