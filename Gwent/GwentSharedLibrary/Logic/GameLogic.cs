@@ -12,82 +12,96 @@ namespace GwentSharedLibrary.Logic
     {
 
         private GameRepository gameRepository;
+        public Game Game { get; private set; }
 
-        public GameLogic (GameRepository gameRepository) {
+        public GameLogic(GameRepository gameRepository)
+        {
             this.gameRepository = gameRepository;
         }
 
-        public GameState StartGame (int playerOneId, int playerTwoId)
+        public GameLogic(GameRepository gameRepository, int gameId) : this(gameRepository)
         {
-            Game game = gameRepository.CreateGame(playerOneId, playerTwoId);
+            this.Game = gameRepository.GetGameById(gameId);
+        }
+
+        public void StartGame(int playerOneId, int playerTwoId)
+        {
+            Game game = new Game(playerOneId, playerTwoId);
+            gameRepository.CreateGame(game);
 
             Deck playerOneDeck = gameRepository.GetPlayerDeck(playerOneId);
             Deck playerTwoDeck = gameRepository.GetPlayerDeck(playerTwoId);
 
-            Pile playerOneHand = gameRepository.CreateHand(game, playerOneDeck);
-            Pile playerTwoHand = gameRepository.CreateHand(game, playerTwoDeck);
+            Pile playerOneHand = gameRepository.CreateHand(game.Id, playerOneDeck);
+            Pile playerTwoHand = gameRepository.CreateHand(game.Id, playerTwoDeck);
 
             GameRound currentRound = gameRepository.AddGameRound(game);
-            return GetGameState(game);
+
+            Game = game;
         }
 
-        public GameState PlayCard (int pileCardId, Game myGame)
+        public void PlayCard(int pileCardId)
         {
+            //foreach(var pileCard in Game.Piles)
             PileCard cardToPlay = gameRepository.GetPileCardById(pileCardId);
-            GameRound currentGameRound = gameRepository.GetCurrentGameRounds(myGame)[0];
+            GameRound currentGameRound = gameRepository.GetCurrentGameRounds(cardToPlay.Pile.GameId)[0];
             gameRepository.MakeMove(cardToPlay, currentGameRound);
-            return GetGameState(myGame);
         }
 
-        public GameState PassMove (int playerId, Game myGame)
+        public void PassMove(int playerId)
         {
-            GameRound currentGameRound = gameRepository.GetCurrentGameRounds(myGame)[0];
+            Game myGame = gameRepository.GetGameById(Game.Id);
+            GameRound currentGameRound = gameRepository.GetCurrentGameRounds(myGame.Id)[0];
             currentGameRound = gameRepository.PassTurn(currentGameRound, playerId);
-            return GetGameState(myGame);
+
+            if (HasRoundEnded(currentGameRound))
+            {
+                WhoWins();
+            }
         }
 
-        public bool HasRoundEnded (GameRound currentRound)
+        public bool HasRoundEnded(GameRound currentRound)
         {
             //each time a player passes, this method is called
             return (currentRound.FirstPlayerPassed && currentRound.SecondPlayerPassed);
         }
 
-        public GameState WhoWins(GameState gameState, GameRound gameRound, Pile player1hand, Pile player2hand)
+        public void WhoWins()
         {
+            GameState gameState = GetGameState();
+            List<GameRound> rounds = gameRepository.GetCurrentGameRounds(Game.Id);
+            GameRound currentRound = rounds[0];
+
             //Each time round ends, this method is called
-            if (HasRoundEnded(gameRound))
+            
+            foreach (var pile in Game.Piles)
             {
-                gameRepository.MoveCardsToDiscardPile(player1hand);
-                gameRepository.MoveCardsToDiscardPile(player2hand);
-                if (gameState.RoundState.Player1RoundState.Score > gameState.RoundState.Player2RoundState.Score)
-                {
-                    gameState.Player1State.RoundsWon++;
-                    if(gameState.Player1State.RoundsWon == 2)
-                    {
-                        gameState.Winner.PlayerId = gameState.Player1State.PlayerId;
-                        gameState.Winner.PlayerName = gameState.Player1State.FirstName;
-                    }
-                }
-                else if (gameState.RoundState.Player1RoundState.Score < gameState.RoundState.Player2RoundState.Score)
-                {
-                    gameState.Player2State.RoundsWon++;
-                    if (gameState.Player2State.RoundsWon == 2)
-                    {
-                        gameState.Winner.PlayerId = gameState.Player2State.PlayerId;
-                        gameState.Winner.PlayerName = gameState.Player2State.FirstName;
-                    }
-                }
-                //Equal scores?
+                gameRepository.MoveCardsToDiscardPile(pile);
             }
 
-            gameRound = gameRepository.AddGameRound(gameRound.Game);
-            return gameState;
+            //gameRepository.MoveCardsToDiscardPile();
+            //gameRepository.MoveCardsToDiscardPile(player2hand);
+            if (gameState.RoundState.Player1RoundState.Score > gameState.RoundState.Player2RoundState.Score)
+            {
+                currentRound.WinnerPlayerId = currentRound.FirstPlayerId;
+            }
+            else if (gameState.RoundState.Player1RoundState.Score < gameState.RoundState.Player2RoundState.Score)
+            {
+                currentRound.WinnerPlayerId = currentRound.SecondPlayerId;
+            }
+            //Equal scores?
 
+            gameRepository.UpdateGameRound(currentRound);
+
+            int playerOneWins = rounds.Where(r => r.WinnerPlayerId == Game.PlayerOneId).Count();
+            int playerTwoWins = rounds.Where(r => r.WinnerPlayerId == Game.PlayerTwoId).Count();
+
+            if (playerOneWins < 2 && playerTwoWins < 2)
+            {
+                gameRepository.AddGameRound(Game);
+            }
         }
 
-        //once both players have passed
-        //use a private method to see who won
-        //update roundswon in PlayerState
         private List<PlayerHandState> PlayerStateHelper(int playerId)
         {
             Pile playerPile = gameRepository.GetPileByDeckId(gameRepository.GetPlayerDeck(playerId).Id);
@@ -96,12 +110,15 @@ namespace GwentSharedLibrary.Logic
 
             foreach (var pileCard in playerPileCards)
             {
-                PlayerHandState playerHandState = new PlayerHandState()
+                if(pileCard.Location == Location.Hand)
                 {
-                    PileCardId = pileCard.Id,
-                    ImageUrl = pileCard.Card.ImageUrl
-                };
-                playerPileInfo.Add(playerHandState);
+                    PlayerHandState playerHandState = new PlayerHandState()
+                    {
+                        PileCardId = pileCard.Id,
+                        ImageUrl = pileCard.Card.ImageUrl
+                    };
+                    playerPileInfo.Add(playerHandState);
+                }
             }
             return playerPileInfo;
         }
@@ -115,9 +132,9 @@ namespace GwentSharedLibrary.Logic
 
             //int score = 0;
 
-            foreach(var pileCard in playerPileCards)
+            foreach (var pileCard in playerPileCards)
             {
-                if(pileCard.Card.CardType == cardType && pileCard.Location == Location.Board)
+                if (pileCard.Card.CardType == cardType && pileCard.Location == Location.Board)
                 {
                     //score += pileCard.Card.Strength.Value;
                     BoardCardState boardCardState = new BoardCardState();
@@ -125,24 +142,28 @@ namespace GwentSharedLibrary.Logic
                     boardCardState.PileCardId = pileCard.Id;
                     boardCardState.Image = pileCard.Card.ImageUrl;
                     boardCardState.SetScore(pileCard.Card.Strength.Value);
-                    
+
                     playerBoardInfo.Add(boardCardState);
                 }
             }
             return playerBoardInfo;
         }
 
-        public GameState GetGameState(Game myGame)
+        public GameState GetGameState()
         {
+            Game myGame = gameRepository.GetGameById(Game.Id);
+            var rounds = gameRepository.GetCurrentGameRounds(Game.Id);
+            var roundNumber = rounds.Count;
+
             return new GameState()
             {
                 GameId = myGame.Id,
-                RoundNumber = gameRepository.GetCurrentGameRounds(myGame).Count,
+                RoundNumber = roundNumber,
                 Player1State = new PlayerState()
                 {
                     FirstName = myGame.PlayerOne.FirstName,
                     PlayerId = myGame.PlayerOne.Id,
-                    //RoundsWon = 0, 
+                    RoundsWon = rounds.Where(r => r.WinnerPlayerId == myGame.PlayerOneId).Count(), 
                     PlayerHandState = PlayerStateHelper(myGame.PlayerOneId)
                     //PlayerHandState = new Dictionary<string, PlayerHandState>(
                 },
@@ -150,11 +171,12 @@ namespace GwentSharedLibrary.Logic
                 {
                     FirstName = myGame.PlayerTwo.FirstName,
                     PlayerId = myGame.PlayerTwoId,
+                    RoundsWon = rounds.Where(r => r.WinnerPlayerId == myGame.PlayerTwoId).Count(),
                     PlayerHandState = PlayerStateHelper(myGame.PlayerTwoId)
                 },
                 RoundState = new RoundState()
                 {
-                    GameRoundId = gameRepository.GetCurrentRound(myGame).Id,
+                    GameRoundId = gameRepository.GetCurrentGameRounds(Game.Id)[0].Id,
                     Player1RoundState = new PlayerRoundState()
                     {
                         CloseCombat = new CardTypeState()
@@ -185,12 +207,7 @@ namespace GwentSharedLibrary.Logic
                             BoardCardState = GetCardsOnBoard(CardType.Seige, myGame.PlayerTwoId)
                         },
                     },
-                },
-                Winner = new Winner()
-                {
-                    PlayerId = 0,
-                    PlayerName = ""
-                },
+                }
             };
         }
     }

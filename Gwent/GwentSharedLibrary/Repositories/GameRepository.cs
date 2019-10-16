@@ -18,56 +18,59 @@ namespace GwentSharedLibrary.Repositories
             this.context = context;
         }
 
-        public Game CreateGame(int player1Id, int player2Id)
+        public void CreateGame(Game game)
         {
-            Game game = new Game(player1Id, player2Id);
             context.Games.Add(game);
             context.SaveChanges();
-            return game;
-
-            //AddGameRound(int gameId, int firstPlayerId, int secondPLayerId, false, false);
         }
 
-        public Game GetGame (int player1Id, int player2Id)
+        //public Game GetGame (int player1Id, int player2Id)
+        //{
+        //    //Get their game from the DB
+        //    Game myGame = context.Games
+        //                    .Include(g => g.PlayerOne)
+        //                    .Include(g => g.PlayerTwo)
+        //                    .Where(g => g.PlayerOneId == player1Id && g.PlayerTwoId == player2Id)
+        //                    .SingleOrDefault();
+
+        //    return myGame;
+        //}
+
+        public Game GetGameById (int gameId)
         {
-            //Get their game from the DB
             Game myGame = context.Games
                             .Include(g => g.PlayerOne)
                             .Include(g => g.PlayerTwo)
-                            .Where(g => g.PlayerOneId == player1Id && g.PlayerTwoId == player2Id)
+                            .Include(g => g.Piles.Select(p => p.PileCards.Select(pc => pc.Card)))
+                            .Where(g => g.Id == gameId)
                             .SingleOrDefault();
-
             return myGame;
         }
 
         public GameRound AddGameRound (Game game)
         {
+
             GameRound gameRound = new GameRound(0, game.Id, game.PlayerOneId, game.PlayerTwoId);
             context.GameRounds.Add(gameRound);
             context.SaveChanges();
             return gameRound;
         }
 
-        public GameRound GetCurrentRound (Game game)
+        public List<GameRound> GetCurrentGameRounds(int gameId)
         {
             return context.GameRounds
                     .Include(gr => gr.Game)
                     .Include(gr => gr.FirstPlayer)
                     .Include(gr => gr.SecondPlayer)
                     .OrderByDescending(gr => gr.Id)
-                    .Where(gr => gr.Id == game.Id)
-                    .FirstOrDefault();
+                    .Where(gr => gr.GameId == gameId)
+                    .ToList();
         }
 
-        public List<GameRound> GetCurrentGameRounds (Game game)
+        public void UpdateGameRound (GameRound gameRound)
         {
-            return context.GameRounds
-                    .Include(gr => gr.Game)
-                    .Include(gr => gr.FirstPlayer)
-                    .Include(gr => gr.SecondPlayer)
-                    .OrderByDescending(gr => gr.Id)
-                    .Where(gr => gr.Id == game.Id)
-                    .ToList();
+            context.Entry(gameRound).State = EntityState.Modified;
+            context.SaveChanges();
         }
 
         public Deck GetPlayerDeck(int playerId)
@@ -123,9 +126,13 @@ namespace GwentSharedLibrary.Repositories
                     .FirstOrDefault();
         }
 
-        public Pile CreateHand(Game myGame, Deck myDeck)            //Creates Pile (hand) and adds PileCards to that Pile
+        public Pile CreateHand(int gameId, Deck myDeck)            //Creates Pile (hand) and adds PileCards to that Pile
         {
-            Pile hand = new Pile(0, myDeck.Id, myDeck, myGame.Id, myGame);
+            Pile hand = new Pile()
+            {
+                DeckId = myDeck.Id,
+                GameId = gameId
+            };
 
             List<Card> cardsList = DrawCards(myDeck.Id, 10);
 

@@ -2,7 +2,6 @@
 {
     public class PileCard
     {
-
         public int Id { get; set; }
 
         public int PileId { get; set; }

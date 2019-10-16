@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace GwentSharedLibrary.Models
 {
@@ -6,24 +7,17 @@ namespace GwentSharedLibrary.Models
     {
         public Pile()
         {
-        }
-
-        public Pile(int id, int deckId, Deck deck, int gameId, Game game) : this()
-        {
-            Id = id;
-            DeckId = deckId;
-            Deck = deck;
-            GameId = gameId;
-            Game = game;
+            PileCards = new List<PileCard>();
         }
 
         public int Id { get; set; }
 
-        [Required]
         public int DeckId { get; set; }
         public Deck Deck { get; set; }
         
         public int GameId { get; set; }
         public Game Game { get; set; }
+
+        public List<PileCard> PileCards { get; set; }
     }
 }

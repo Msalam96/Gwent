@@ -16,15 +16,32 @@ namespace GwentSharedLibrary.Models
 
         public RoundState RoundState { get; set; }
 
-        public Winner Winner { get; set; }
+        public Winner Winner {
+            get {
+                if (Player1State.RoundsWon == 2)
+                {
+                    return new Winner()
+                    {
+                        PlayerId = Player1State.PlayerId,
+                        PlayerName = Player1State.FirstName
+                    };
+                }
+                else if (Player2State.RoundsWon == 2)
+                {
+                    return new Winner()
+                    {
+                        PlayerId = Player2State.PlayerId,
+                        PlayerName = Player2State.FirstName
+                    };
+                }
+                else { return null; }
+            } }
         //Make class PlayerState
         //One for PlayerOne
         //One for PlayerTwo
 
 
         //Make class RoundState
-        
-
 
     }
 }
