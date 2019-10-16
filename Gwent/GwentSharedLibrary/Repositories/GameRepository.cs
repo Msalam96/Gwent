@@ -115,6 +115,14 @@ namespace GwentSharedLibrary.Repositories
         //    return deckCard.Card;
         //}
 
+        public Pile GetPileByDeckId (int deckId) {
+            return context.Piles
+                    .Include(p => p.Deck)
+                    .Include(p => p.Game)
+                    .Where(p => p.DeckId == deckId)
+                    .FirstOrDefault();
+        }
+
         public Pile CreateHand(Game myGame, Deck myDeck)            //Creates Pile (hand) and adds PileCards to that Pile
         {
             Pile hand = new Pile(0, myDeck.Id, myDeck, myGame.Id, myGame);

@@ -11,8 +11,10 @@ namespace GwentSharedLibrary.Models
         public int GameId { get; set; }
         public int RoundNumber { get; set; }
 
-        public Dictionary<string, PlayerState> Player1State { get; set; }
-        public Dictionary<string, PlayerState> Player2State { get; set; }
+        public PlayerState Player1State { get; set; }
+        public PlayerState Player2State { get; set; }
+
+        public RoundState RoundState { get; set; }
         //Make class PlayerState
         //One for PlayerOne
         //One for PlayerTwo

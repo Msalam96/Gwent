@@ -17,7 +17,7 @@ namespace GwentSharedLibrary.Logic
             this.gameRepository = gameRepository;
         }
 
-        public void StartGame (int playerOneId, int playerTwoId)
+        public GameState StartGame (int playerOneId, int playerTwoId)
         {
             Game game = gameRepository.CreateGame(playerOneId, playerTwoId);
 
@@ -28,19 +28,22 @@ namespace GwentSharedLibrary.Logic
             Pile playerTwoHand = gameRepository.CreateHand(game, playerTwoDeck);
 
             GameRound currentRound = gameRepository.AddGameRound(game);
+            return GetGameState(game);
         }
 
-        public void PlayCard (int pileCardId, Game myGame)
+        public GameState PlayCard (int pileCardId, Game myGame)
         {
             PileCard cardToPlay = gameRepository.GetPileCardById(pileCardId);
             GameRound currentGameRound = gameRepository.GetCurrentGameRounds(myGame)[0];
             gameRepository.MakeMove(cardToPlay, currentGameRound);
+            return GetGameState(myGame);
         }
 
-        public void PassMove (int playerId, Game myGame)
+        public GameState PassMove (int playerId, Game myGame)
         {
             GameRound currentGameRound = gameRepository.GetCurrentGameRounds(myGame)[0];
             currentGameRound = gameRepository.PassTurn(currentGameRound, playerId);
+            return GetGameState(myGame);
         }
 
         private void CalculateScore()
@@ -62,13 +65,103 @@ namespace GwentSharedLibrary.Logic
         //once both players have passed
         //use a private method to see who won
         //update roundswon in PlayerState
+        private List<PlayerHandState> PlayerStateHelper(int playerId)
+        {
+            Pile playerPile = gameRepository.GetPileByDeckId(gameRepository.GetPlayerDeck(playerId).Id);
+            List<PileCard> playerPileCards = gameRepository.GetCardsInPile(playerPile);
+            var playerPileInfo = new List<PlayerHandState>();
+
+            foreach (var pileCard in playerPileCards)
+            {
+                PlayerHandState playerHandState = new PlayerHandState()
+                {
+                    PileCardId = pileCard.Id,
+                    ImageUrl = pileCard.Card.ImageUrl
+                };
+                playerPileInfo.Add(playerHandState);
+            }
+            return playerPileInfo;
+        }
+
+        //Helper function to get cards on board of type
+        public List<BoardCardState> GetCardsOnBoard(CardType cardType, int playerId)
+        {
+            Pile playerPile = gameRepository.GetPileByDeckId(gameRepository.GetPlayerDeck(playerId).Id);
+            List<PileCard> playerPileCards = gameRepository.GetCardsInPile(playerPile);
+            var playerBoardInfo = new List<BoardCardState>();
+
+            //int score = 0;
+
+            foreach(var pileCard in playerPileCards)
+            {
+                if(pileCard.Card.CardType == cardType && pileCard.Location == Location.Board)
+                {
+                    //score += pileCard.Card.Strength.Value;
+                    BoardCardState boardCardState = new BoardCardState();
+
+                    boardCardState.PileCardId = pileCard.Id;
+                    boardCardState.Image = pileCard.Card.ImageUrl;
+                    boardCardState.SetScore(pileCard.Card.Strength.Value);
+                    
+                    playerBoardInfo.Add(boardCardState);
+                }
+            }
+            return playerBoardInfo;
+        }
 
         public GameState GetGameState(Game myGame)
         {
             return new GameState()
             {
-                GameId = myGame.Id,
-                RoundNumber = gameRepository.GetCurrentGameRounds(myGame).Count
+                //GameId = myGame.Id,
+                //RoundNumber = gameRepository.GetCurrentGameRounds(myGame).Count,
+                //Player1State = new PlayerState()
+                //{
+                //    FirstName = myGame.PlayerOne.FirstName,
+                //    PlayerId = myGame.PlayerOne.Id,
+                //    PlayerHandState = PlayerStateHelper(myGame.PlayerOneId)
+                //    //PlayerHandState = new Dictionary<string, PlayerHandState>(
+                //},
+                //Player2State = new PlayerState()
+                //{
+                //    FirstName = myGame.PlayerTwo.FirstName,
+                //    PlayerId = myGame.PlayerTwoId,
+                //    PlayerHandState = PlayerStateHelper(myGame.PlayerTwoId)
+                //},
+                RoundState = new RoundState()
+                {
+                    GameRoundId = gameRepository.GetCurrentRound(myGame).Id,
+                    Player1RoundState = new PlayerRoundState()
+                    {
+                        CloseCombat = new CardTypeState()
+                        {
+                            BoardCardState = GetCardsOnBoard(CardType.CloseCombat, myGame.PlayerOneId),
+                        },
+                        Ranged = new CardTypeState()
+                        {
+                            BoardCardState = GetCardsOnBoard(CardType.Ranged, myGame.PlayerOneId)
+                        },
+                        Siege = new CardTypeState()
+                        {
+                            BoardCardState = GetCardsOnBoard(CardType.Seige, myGame.PlayerOneId)
+                        },
+                    },
+                    Player2RoundState = new PlayerRoundState()
+                    {
+                        CloseCombat = new CardTypeState()
+                        {
+                            BoardCardState = GetCardsOnBoard(CardType.CloseCombat, myGame.PlayerTwoId),
+                        },
+                        Ranged = new CardTypeState()
+                        {
+                            BoardCardState = GetCardsOnBoard(CardType.Ranged, myGame.PlayerTwoId)
+                        },
+                        Siege = new CardTypeState()
+                        {
+                            BoardCardState = GetCardsOnBoard(CardType.Seige, myGame.PlayerTwoId)
+                        },
+                    },
+                }
             };
         }
     }

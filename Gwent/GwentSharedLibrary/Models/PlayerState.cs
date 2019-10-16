@@ -12,8 +12,8 @@ namespace GwentSharedLibrary.Models
         public int PlayerId { get; set; }
         public int RoundsWon { get; set; }
         
-        public PlayerHandState playerHand { get; set; }
-
+        //public PlayerHandState playerHand { get; set; }
+        public List<PlayerHandState> PlayerHandState { get; set; }
         //Create class PlayerHandState
     }
 }
