@@ -15,6 +15,8 @@ namespace GwentSharedLibrary.Models
         public PlayerState Player2State { get; set; }
 
         public RoundState RoundState { get; set; }
+
+        public Winner Winner { get; set; }
         //Make class PlayerState
         //One for PlayerOne
         //One for PlayerTwo

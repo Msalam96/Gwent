@@ -32,7 +32,18 @@ namespace GwentConsole.ConsoleGame
                 GameLogic gameLogic = new GameLogic(repository);
                 currentState = gameLogic.StartGame(1, 2);
                 Game game = repository.GetGame(1, 2);
+                Deck p1deck = repository.GetPlayerDeck(1);
+                Deck p2deck = repository.GetPlayerDeck(2);
                 currentState = gameLogic.PlayCard(1, game);
+                currentState = gameLogic.PassMove(2, game);
+                currentState = gameLogic.PassMove(1, game);
+                GameRound currentRound = repository.GetCurrentRound(game);
+                currentState = gameLogic.WhoWins(currentState, currentRound, repository.GetPileByDeckId(p1deck.Id), repository.GetPileByDeckId(p2deck.Id));
+                currentState = gameLogic.PlayCard(2, game);
+                currentState = gameLogic.PassMove(2, game);
+                currentState = gameLogic.PassMove(1, game);
+                currentRound = repository.GetCurrentRound(game);
+                currentState = gameLogic.WhoWins(currentState, currentRound, repository.GetPileByDeckId(p1deck.Id), repository.GetPileByDeckId(p2deck.Id));
                 string json = JsonConvert.SerializeObject(currentState);
                 Console.WriteLine(json);
                 //Console.WriteLine(currentState.GameId.ToString() + " " + currentState.RoundNumber.ToString() + currentState.Player1State.FirstName + currentState.Player1State.PlayerId);

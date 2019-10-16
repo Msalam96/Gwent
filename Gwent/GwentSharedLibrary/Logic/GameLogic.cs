@@ -46,20 +46,43 @@ namespace GwentSharedLibrary.Logic
             return GetGameState(myGame);
         }
 
-        private void CalculateScore()
-        {
-            //Each Time MakeMove is called, this method gets called
-        }
-
-        private bool HasRoundEnded (GameRound currentRound)
+        public bool HasRoundEnded (GameRound currentRound)
         {
             //each time a player passes, this method is called
             return (currentRound.FirstPlayerPassed && currentRound.SecondPlayerPassed);
         }
 
-        private void WhoWon()
+        public GameState WhoWins(GameState gameState, GameRound gameRound, Pile player1hand, Pile player2hand)
         {
             //Each time round ends, this method is called
+            if (HasRoundEnded(gameRound))
+            {
+                gameRepository.MoveCardsToDiscardPile(player1hand);
+                gameRepository.MoveCardsToDiscardPile(player2hand);
+                if (gameState.RoundState.Player1RoundState.Score > gameState.RoundState.Player2RoundState.Score)
+                {
+                    gameState.Player1State.RoundsWon++;
+                    if(gameState.Player1State.RoundsWon == 2)
+                    {
+                        gameState.Winner.PlayerId = gameState.Player1State.PlayerId;
+                        gameState.Winner.PlayerName = gameState.Player1State.FirstName;
+                    }
+                }
+                else if (gameState.RoundState.Player1RoundState.Score < gameState.RoundState.Player2RoundState.Score)
+                {
+                    gameState.Player2State.RoundsWon++;
+                    if (gameState.Player2State.RoundsWon == 2)
+                    {
+                        gameState.Winner.PlayerId = gameState.Player2State.PlayerId;
+                        gameState.Winner.PlayerName = gameState.Player2State.FirstName;
+                    }
+                }
+                //Equal scores?
+            }
+
+            gameRound = gameRepository.AddGameRound(gameRound.Game);
+            return gameState;
+
         }
 
         //once both players have passed
@@ -119,6 +142,7 @@ namespace GwentSharedLibrary.Logic
                 {
                     FirstName = myGame.PlayerOne.FirstName,
                     PlayerId = myGame.PlayerOne.Id,
+                    //RoundsWon = 0, 
                     PlayerHandState = PlayerStateHelper(myGame.PlayerOneId)
                     //PlayerHandState = new Dictionary<string, PlayerHandState>(
                 },
@@ -161,7 +185,12 @@ namespace GwentSharedLibrary.Logic
                             BoardCardState = GetCardsOnBoard(CardType.Seige, myGame.PlayerTwoId)
                         },
                     },
-                }
+                },
+                Winner = new Winner()
+                {
+                    PlayerId = 0,
+                    PlayerName = ""
+                },
             };
         }
     }
