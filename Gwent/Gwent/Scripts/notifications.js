@@ -43,10 +43,20 @@
             //Message = n.Message,
             //SentOn = n.SentOn,
             //NotificationType = n.NotificationType
+
             return `
                 <div>
-                    <h4>${notification.SenderName}</h4>
-                    <h4>${notification.Message}</h4>
+                    <table class = "table"> 
+                        <thead>
+                            <tr>
+                                <th>${notification.SenderName}</th>
+                                <th>${notification.Message}</th>
+                                <th> <a href="Home/Index" class="btn btn-primary">
+                               ${notification.NotificationType} <span id ="totalNotifications"class="badge badge-light">0</span> </th>      
+                                </a>
+                            </tr>
+                        </thead
+                    </table>
                 </div>
             `;
         });

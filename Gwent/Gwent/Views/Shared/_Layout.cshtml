@@ -21,7 +21,7 @@
             <div class="navbar-brand">
                 @*@Html.ActionLink("Notifications", "Index", "Notifications", new { area = ""}, new { @class = "navbar-brand"})*@
                 <a href="@Url.Action("Index", "Notifications")" class="btn btn-Dark">
-                    Notifications <span class="badge badge-light">4</span>
+                    Notifications <span id ="totalNotifications"class="badge badge-light">0</span>
                 </a>
             </div>
             <div >
@@ -47,6 +47,7 @@
             <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
         </footer>
     </div>
+     <script src="~/Scripts/notificationCount.js"></script>
     <script src="~/Scripts/jquery-1.10.2.min.js"></script>
     <script src="~/Scripts/bootstrap.min.js"></script>
 </body>
