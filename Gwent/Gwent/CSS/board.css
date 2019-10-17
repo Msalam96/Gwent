@@ -1,4 +1,6 @@
-﻿
+﻿.boardBackground{
+     background: url(Images/gwentPlayerStatBackground.jpg) !important
+}
 .my-col {
     border: 3px dotted blue;
     height:100px;
@@ -26,6 +28,5 @@
     
 }
 #opponentStats{
-    background-color:black;
     height:100px;
 }
