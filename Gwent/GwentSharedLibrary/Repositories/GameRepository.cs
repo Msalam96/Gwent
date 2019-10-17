@@ -51,6 +51,10 @@ namespace GwentSharedLibrary.Repositories
         {
 
             GameRound gameRound = new GameRound(0, game.Id, game.PlayerOneId, game.PlayerTwoId);
+
+            //Sets activePlayer to PlayerOne no matter who wins
+            //gameRound.ActivePlayerId = game.PlayerOneId;
+
             context.GameRounds.Add(gameRound);
             context.SaveChanges();
             return gameRound;
@@ -217,10 +221,12 @@ namespace GwentSharedLibrary.Repositories
             if (myCurrentRound.FirstPlayerId == playerId)
             {
                 myCurrentRound.FirstPlayerPassed = true;
+                myCurrentRound.ActivePlayerId = myCurrentRound.SecondPlayerId;
             }
             else if (myCurrentRound.SecondPlayerId == playerId)
             {
                 myCurrentRound.SecondPlayerPassed = true;
+                myCurrentRound.ActivePlayerId = myCurrentRound.FirstPlayerId;
             }
 
             context.Entry(myCurrentRound).State = EntityState.Modified;
