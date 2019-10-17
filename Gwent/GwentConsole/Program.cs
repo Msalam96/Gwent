@@ -19,7 +19,9 @@ namespace GwentConsole
             {
                 GameRepository repository = new GameRepository(context);
                 TestGame test = new TestGame();
-                test.StartNewGame(1, 2);
+                int playerOneId = 1;
+                int playerTwoId = 2;
+                test.StartNewGame(playerOneId, playerTwoId);
                 Console.ReadKey();
             }
 

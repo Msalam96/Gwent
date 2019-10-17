@@ -7,6 +7,7 @@ namespace GwentSharedLibrary.Models
         public Game()
         {
             Piles = new List<Pile>();
+            Messages = new List<GameMessage>();
         }
 
         public Game(int playerOneId, int playerTwoId)
@@ -24,5 +25,6 @@ namespace GwentSharedLibrary.Models
         public User PlayerTwo { get; set; }
 
         public List<Pile> Piles { get; set; }
+        public List<GameMessage> Messages { get; set; }
     }
 }

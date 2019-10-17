@@ -36,16 +36,44 @@ namespace GwentSharedLibrary.Repositories
         //    return myGame;
         //}
 
+        public void AddGameMessage (int gameId, string message, int recepientUserId)
+        {
+            GameMessage myMessage = new GameMessage(gameId, message, recepientUserId);
+            context.GameMessages.Add(myMessage);
+            context.SaveChanges();
+        }
+
+        //get undelivered messages (update isDelivered to true once message is sent back)
+        public List<GameMessage> getUndeliveredMessages (int gameId, int recepientUserId)                               //returns undelivered messages and sets isDelivered=true;
+        {
+            List<GameMessage> messages = new List<GameMessage>();
+            messages = context.GameMessages
+                    .Include(gm => gm.Game)
+                    .Include(gm => gm.RecepientUser)
+                    .Where(gm => gm.GameId == gameId && gm.RecepientUserId == recepientUserId && gm.IsDelivered==false)
+                    .OrderBy(gm=>gm.Id)
+                    .ToList();
+            foreach (var message in messages)
+            {
+                message.IsDelivered = true;
+                context.Entry(message).State = EntityState.Modified;
+                context.SaveChanges();
+            }
+            return messages;
+        }
+
         public Game GetGameById (int gameId)
         {
             Game myGame = context.Games
                             .Include(g => g.PlayerOne)
                             .Include(g => g.PlayerTwo)
                             .Include(g => g.Piles.Select(p => p.PileCards.Select(pc => pc.Card)))
+                            //.Include(g=> g.Messages)
                             .Where(g => g.Id == gameId)
                             .SingleOrDefault();
             return myGame;
         }
+
 
         public GameRound AddGameRound (Game game)
         {
