@@ -1,4 +1,18 @@
-﻿<!DOCTYPE html>
+﻿@{ 
+    string controller = "";
+    string action = "";
+    if (ViewContext.RouteData.Values["controller"] != null)
+    {
+        controller = ViewContext.RouteData.Values["controller"].ToString();
+    }
+    if (ViewContext.RouteData.Values["action"] != null)
+    {
+        action = ViewContext.RouteData.Values["action"].ToString();
+    }
+    bool displayNotificationsCounter = (
+            Request.IsAuthenticated && !(controller == "Notifications" && action == "Index"));
+}
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -19,10 +33,10 @@
                 @Html.ActionLink("Gwent", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
             </div>
             <div class="navbar-brand">
-                @if (Request.IsAuthenticated)
+                @if (displayNotificationsCounter)
                 {
                     <a onclick="return resetCount()" id="notificationLink" class="btn btn-primary">
-                        Notifications <span id="totalNotifications" class="badge badge-light">0</span>
+                        Notifications <span id="totalNotifications" class="badge badge-light">&nbsp;</span>
                     </a>
                 }
             </div>
@@ -50,16 +64,19 @@
             <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
         </footer>
     </div>
-     <script src="~/Scripts/notificationCount.js"></script>
     <script src="~/Scripts/jquery-1.10.2.min.js"></script>
     <script src="~/Scripts/bootstrap.min.js"></script>
-    <script>
+    @if (displayNotificationsCounter)
+    {
+        <script src="~/Scripts/notificationCount.js"></script>
+        <script>
         function resetCount()
         {
             localStorage.setItem("notifiCount", 0);
             console.log(localStorage.getItem("notifiCount"));
-            location.href = "Notifications/Index";
+            location.href = "/Notifications/Index";
         }
-    </script>
+        </script>
+    }
 </body>
 </html>

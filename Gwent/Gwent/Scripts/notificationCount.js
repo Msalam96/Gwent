@@ -2,7 +2,8 @@
     const gebi = (e) => document.getElementById(e);
     const countSpan = gebi("totalNotifications");
 
-    const notificationCountString = localStorage.getItem("notifiCount");
+    const notificationCountString = window.localStorage.getItem("notifiCount");
+    console.log('Notification count string: ' + notificationCountString);
     let notificationCount = parseInt(notificationCountString, 10);
     if (isNaN(notificationCount)) {
         notificationCount = 0;
@@ -14,12 +15,8 @@
         console.log("Retrieving messages from: "+lastMessageTime);
         const notifications = await getNotifications(lastMessageTime);
         lastMessageTime = nextMessageTime;
-
         notificationCount += notifications.length;
-        localStorage.setItem("notifiCount", notificationCount);
-
-        console.log("STORED ITEM IS : " + localStorage.getItem("notifiCount"))
-
+        window.localStorage.setItem("notifiCount", notificationCount);
         countSpan.innerHTML = notificationCount;          
     }, 1000);
 
