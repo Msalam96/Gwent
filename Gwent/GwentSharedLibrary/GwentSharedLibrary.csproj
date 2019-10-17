@@ -69,6 +69,8 @@
     <Compile Include="Models\GameRoundCard.cs" />
     <Compile Include="Models\GameState.cs" />
     <Compile Include="Models\Location.cs" />
+    <Compile Include="Models\Notifcation.cs" />
+    <Compile Include="Models\NotificationType.cs" />
     <Compile Include="Models\Pile.cs" />
     <Compile Include="Models\PileCard.cs" />
     <Compile Include="Models\PlayerHandState.cs" />
@@ -84,6 +86,7 @@
     <Compile Include="Repositories\CardRepository.cs" />
     <Compile Include="Repositories\DeckRepository.cs" />
     <Compile Include="Repositories\GameRepository.cs" />
+    <Compile Include="Repositories\NotificationsRepository.cs" />
     <Compile Include="Repositories\Old_DeckRepository.cs" />
     <Compile Include="Repositories\FriendsRepository.cs" />
     <Compile Include="Repositories\IDeckRepository.cs" />

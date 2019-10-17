@@ -9,7 +9,7 @@
         <script src="~/Scripts/modernizr-2.6.2.js"></script>*@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="~/CSS/Home.css" />
-    <link rel="stylesheet" type="text/css" href="~/CSS/board.css">
+    <link rel="stylesheet" type="text/css" href="~/CSS/board.css"/>
 </head>
 <body>
     <div class="container">
@@ -18,7 +18,16 @@
             <div class="navbar-brand">
                 @Html.ActionLink("Gwent", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
             </div>
+            <div class="navbar-brand">
+                @if (Request.IsAuthenticated)
+                {
+                    <a onclick="return resetCount()" id="notificationLink" class="btn btn-primary">
+                        Notifications <span id="totalNotifications" class="badge badge-light">0</span>
+                    </a>
+                }
+            </div>
             <div >
+
                 <ul class="nav navbar-nav"></ul>
                 @if (Request.IsAuthenticated)
                 {
@@ -33,7 +42,7 @@
             </div>
         </div>
     </div>
-
+    </div>
     <div class="container mt-5 pt-5 body-content">
         @RenderBody()
         <hr />
@@ -41,8 +50,16 @@
             <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
         </footer>
     </div>
-
+     <script src="~/Scripts/notificationCount.js"></script>
     <script src="~/Scripts/jquery-1.10.2.min.js"></script>
     <script src="~/Scripts/bootstrap.min.js"></script>
+    <script>
+        function resetCount()
+        {
+            localStorage.setItem("notifiCount", 0);
+            console.log(localStorage.getItem("notifiCount"));
+            location.href = "Notifications/Index";
+        }
+    </script>
 </body>
 </html>

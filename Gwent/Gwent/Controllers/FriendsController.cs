@@ -14,7 +14,7 @@ namespace Gwent.Controllers
         {
             CustomPrincipal currentUser = (CustomPrincipal)User;
             FriendsRepository repository = new FriendsRepository(context);
-            List<UserRelationship> userRelationships = repository.GetFriendsById(currentUser.User.Id);
+            List<UserRelationship> userRelationships = repository.GetUserRelationshipsById(currentUser.User.Id);
             return View(userRelationships);
         }
 

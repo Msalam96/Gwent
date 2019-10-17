@@ -15,19 +15,6 @@ namespace GwentSharedLibrary.Repositories
             this.context = context;
         }
 
-        public User GetUserById(int id)
-        {
-            return context.Users
-                    .Where(u => u.Id == id)
-                    .SingleOrDefault();
-        }
-
-        public List<User> GetUsersList()
-        {
-            return context.Users
-                    .ToList();
-        }
-
         public List<User> GetUsersListExceptId(int id)
         {
             return context.Users
@@ -35,7 +22,7 @@ namespace GwentSharedLibrary.Repositories
                     .ToList();
         }
 
-        public List<UserRelationship> GetFriendsById (int id)
+        public List<UserRelationship> GetUserRelationshipsById(int id)
         {
             return context.UserRelationships
                     .Include(u => u.FirstUser)
@@ -44,6 +31,39 @@ namespace GwentSharedLibrary.Repositories
                     .ToList();
         }
 
+        public List<User> GetFriendsById(int id)
+        {
+            List<User> friends = new List<User>();
+
+            var emailAddress = context.Users
+                .Where(u => u.Id == id)
+                .Select(u => u.EmailAddress)
+                .Single();
+
+            var userRelationships = context.UserRelationships
+                    .Include(u => u.FirstUser)
+                    .Include(u => u.SecondUser)
+                    .Where(ur => (ur.FirstUserId == id || ur.SecondUserId == id) && ur.IsAccepted)
+                    .ToList();
+
+            var firstUsers = userRelationships
+                .Where(ur => ur.FirstUser.EmailAddress != emailAddress)
+                .Select(ur => ur.FirstUser)
+                .ToList();
+
+            var secondUsers = userRelationships
+                .Where(ur => ur.SecondUser.EmailAddress != emailAddress)
+                .Select(ur => ur.SecondUser)
+                .ToList();
+
+            friends.AddRange(firstUsers);
+            friends.AddRange(secondUsers);
+
+            friends = friends.OrderBy(u => u.EmailAddress).ToList();
+
+            return friends;
+        }
+        
         public bool IsFriend(int id_1, int id_2)
         {
             return context.UserRelationships
