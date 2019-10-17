@@ -43,13 +43,14 @@ namespace GwentConsole.ConsoleGame
         public void StartNewGame(int player1Id, int player2Id)
         {
             int gameId = PerformAction((gameLogic) => gameLogic.StartGame(1, 2));
-            PerformAction((gameLogic) => gameLogic.PassMove(1), gameId);
-            PerformAction((gameLogic) => gameLogic.PlayCard(11), gameId);
+            //PerformAction((gameLogic) => gameLogic.PassMove(1), gameId);
+            PerformAction((gameLogic) => gameLogic.PlayCard(5), gameId);
             PerformAction((gameLogic) => gameLogic.PassMove(2), gameId);
-            PerformAction((gameLogic) => gameLogic.PlayCard(12), gameId);
+            PerformAction((gameLogic) => gameLogic.PlayCard(2), gameId);
             PerformAction((gameLogic) => gameLogic.PassMove(1), gameId);
-            PerformAction((gameLogic) => gameLogic.PassMove(2), gameId);
-           
+            //PerformAction((gamLogic) => gameLogic.PassMove(1), gameId);
+            //PerformAction((gameLogic) => gameLogic.PassMove(2), gameId);
+
 
 
 

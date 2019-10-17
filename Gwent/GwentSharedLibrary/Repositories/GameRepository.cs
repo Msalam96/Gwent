@@ -99,7 +99,7 @@ namespace GwentSharedLibrary.Repositories
             List<Card> cardList = new List<Card>();
             List<DeckCard> deckCards = context.DeckCards
                                         .Include(dc => dc.Card)
-                                        .Where(dc => dc.DeckId == deckId || dc.IsDrawn==false)
+                                        .Where(dc => dc.DeckId == deckId && dc.IsDrawn==false)
                                         .Take(numberOfCards)            //change this to however many cards you need
                                         .ToList();
 
@@ -210,10 +210,18 @@ namespace GwentSharedLibrary.Repositories
             };
             context.GameRoundCards.Add(myGameRoundCard);
             context.SaveChanges();
-
             //Move PileCard to correct spot (for corresponding player)
             //Update corresponding player's score
             //Update Location of card (remove from hand, move to board)        
+        }
+
+        public List<GameRoundCard> GetGameRoundCards(int gameRoundId)
+        {
+            return context.GameRoundCards
+                .Include(grc => grc.PileCard)
+                .Include(grc => grc.GameRound)
+                .Where(grc => grc.GameRoundId == gameRoundId)
+                .ToList();
         }
 
         public GameRound PassTurn(GameRound myCurrentRound, int playerId)

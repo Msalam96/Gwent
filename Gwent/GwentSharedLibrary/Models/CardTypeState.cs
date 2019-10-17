@@ -8,7 +8,13 @@ namespace GwentSharedLibrary.Models
         public int Score {
             get
             {
-                return BoardCardState.Sum(bc => bc.getScore());
+                if(!Weather)
+                {
+                    return BoardCardState.Sum(bc => bc.getScore());
+                } else
+                {
+                    return 1;
+                }
                 //int sum = 0;
                 //foreach (var boardCard in BoardCardState)
                 //{
@@ -19,5 +25,7 @@ namespace GwentSharedLibrary.Models
         }
 
         public List<BoardCardState> BoardCardState { get; set; }
+
+        public bool Weather { private get; set; }
     }
 }
