@@ -26,6 +26,9 @@
         public bool FirstPlayerPassed { get; set; }
         public bool SecondPlayerPassed { get; set; }
 
+        public int? ActivePlayerId { get; set; }
+        public User ActivePlayer { get; set; }
+
         public int? WinnerPlayerId { get; set; }
         public User WinnerPlayer { get; set; }
     }
