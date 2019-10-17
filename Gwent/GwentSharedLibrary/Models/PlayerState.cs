@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace GwentSharedLibrary.Models
 {
@@ -12,8 +8,6 @@ namespace GwentSharedLibrary.Models
         public int PlayerId { get; set; }
         public int RoundsWon { get; set; }
         
-        //public PlayerHandState playerHand { get; set; }
         public List<PlayerHandState> PlayerHandState { get; set; }
-        //Create class PlayerHandState
     }
 }
