@@ -7,7 +7,8 @@ namespace GwentSharedLibrary.Models
         public string FirstName { get; set; }
         public int PlayerId { get; set; }
         public int RoundsWon { get; set; }
+        public bool IsActive { get; set; }
         
-        public List<PlayerHandState> PlayerHandState { get; set; }
+        public List<PlayerHandState> Hand { get; set; }
     }
 }

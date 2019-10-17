@@ -47,8 +47,8 @@ namespace GwentConsole.ConsoleGame
             PerformAction((gameLogic) => gameLogic.PlayCard(11), player2Id, gameId);
             PerformAction((gameLogic) => gameLogic.PassMove(player2Id), player2Id, gameId);
             PerformAction((gameLogic) => gameLogic.PlayCard(12), player2Id, gameId);
-            //PerformAction((gameLogic) => gameLogic.PassMove(player1Id), player1Id, gameId);
-            //PerformAction((gameLogic) => gameLogic.PassMove(player2Id), player2Id, gameId);
+            PerformAction((gameLogic) => gameLogic.PassMove(player1Id), player1Id, gameId);
+            PerformAction((gameLogic) => gameLogic.PassMove(player2Id), player2Id, gameId);
            
 
 
