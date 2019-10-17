@@ -43,6 +43,25 @@ namespace GwentSharedLibrary.Repositories
             context.SaveChanges();
         }
 
+        //get undelivered messages (update isDelivered to true once message is sent back)
+        public List<GameMessage> getUndeliveredMessages (int gameId, int recepientUserId)                               //returns undelivered messages and sets isDelivered=true;
+        {
+            List<GameMessage> messages = new List<GameMessage>();
+            messages = context.GameMessages
+                    .Include(gm => gm.Game)
+                    .Include(gm => gm.RecepientUser)
+                    .Where(gm => gm.GameId == gameId && gm.RecepientUserId == recepientUserId && gm.IsDelivered==false)
+                    .OrderBy(gm=>gm.Id)
+                    .ToList();
+            foreach (var message in messages)
+            {
+                message.IsDelivered = true;
+                context.Entry(message).State = EntityState.Modified;
+                context.SaveChanges();
+            }
+            return messages;
+        }
+
         public Game GetGameById (int gameId)
         {
             Game myGame = context.Games
@@ -55,7 +74,6 @@ namespace GwentSharedLibrary.Repositories
             return myGame;
         }
 
-        //get undelivered messages (update isDevlered to true once message is sent back)
 
         public GameRound AddGameRound (Game game)
         {
