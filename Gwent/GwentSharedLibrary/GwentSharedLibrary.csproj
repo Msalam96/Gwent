@@ -65,6 +65,7 @@
     <Compile Include="Models\DeckCard.cs" />
     <Compile Include="Models\DeckUser.cs" />
     <Compile Include="Models\Game.cs" />
+    <Compile Include="Models\GameMessage.cs" />
     <Compile Include="Models\GameRound.cs" />
     <Compile Include="Models\GameRoundCard.cs" />
     <Compile Include="Models\GameState.cs" />

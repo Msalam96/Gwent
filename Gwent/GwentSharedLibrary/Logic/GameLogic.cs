@@ -182,6 +182,8 @@ namespace GwentSharedLibrary.Logic
             var activePlayerId = rounds[0].ActivePlayerId.Value;
             return new GameState()
             {
+                //MessagesColection filter based on receipientId and by GameId and isDelivered=false
+                //Once message is retrieved, set isDelivered = true (need updateMessage method in gameRepo)
                 GameId = myGame.Id,
                 RoundNumber = roundNumber,
                 Player1State = new PlayerState()

@@ -113,8 +113,8 @@ namespace GwentSharedLibrary.Data
 
             omer.AddDeck(deck);
             james.AddDeck(deck2);
-            //mo.AddDeck(deck);
-            //sarthak.AddDeck(deck);
+            mo.AddDeck(deck);
+            sarthak.AddDeck(deck);
             context.SaveChanges();           
            
            

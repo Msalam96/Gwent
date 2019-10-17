@@ -36,16 +36,26 @@ namespace GwentSharedLibrary.Repositories
         //    return myGame;
         //}
 
+        public void AddGameMessage (int gameId, string message, int recepientUserId)
+        {
+            GameMessage myMessage = new GameMessage(gameId, message, recepientUserId);
+            context.GameMessages.Add(myMessage);
+            context.SaveChanges();
+        }
+
         public Game GetGameById (int gameId)
         {
             Game myGame = context.Games
                             .Include(g => g.PlayerOne)
                             .Include(g => g.PlayerTwo)
                             .Include(g => g.Piles.Select(p => p.PileCards.Select(pc => pc.Card)))
+                            //.Include(g=> g.Messages)
                             .Where(g => g.Id == gameId)
                             .SingleOrDefault();
             return myGame;
         }
+
+        //get undelivered messages (update isDevlered to true once message is sent back)
 
         public GameRound AddGameRound (Game game)
         {
