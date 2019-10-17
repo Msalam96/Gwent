@@ -249,7 +249,8 @@ namespace GwentSharedLibrary.Logic
                 FirstName = player.FirstName,
                 PlayerId = player.Id,
                 RoundsWon = rounds.Where(r => r.WinnerPlayerId == player.Id).Count(),
-                Hand = PlayerStateHelper(player.Id)
+                Hand = PlayerStateHelper(player.Id),
+                IsActive = player.Id == activePlayerId
             };
 
             var playerOpponentState = new PlayerState()
@@ -257,7 +258,8 @@ namespace GwentSharedLibrary.Logic
                 FirstName = playerOpponent.FirstName,
                 PlayerId = playerOpponent.Id,
                 RoundsWon = rounds.Where(r => r.WinnerPlayerId == playerOpponent.Id).Count(),
-                Hand = PlayerStateHelper(playerOpponent.Id)
+                Hand = PlayerStateHelper(playerOpponent.Id),
+                IsActive = playerOpponent.Id == activePlayerId
             };
 
             var gameState = new GameState()
@@ -298,8 +300,7 @@ namespace GwentSharedLibrary.Logic
                         {
                             Cards = GetCardsOnBoard(CardType.Seige, playerOpponent.Id)
                         },
-                    },
-                    ActivePlayerId = activePlayerId
+                    }
                 }
             };
 
