@@ -8,6 +8,6 @@ namespace GwentSharedLibrary.Models
         public int PlayerId { get; set; }
         public int RoundsWon { get; set; }
         
-        public List<PlayerHandState> PlayerHandState { get; set; }
+        public List<PlayerHandState> Hand { get; set; }
     }
 }

@@ -8,7 +8,7 @@ namespace GwentSharedLibrary.Models
         public int Score {
             get
             {
-                return BoardCardState.Sum(bc => bc.getScore());
+                return Cards.Sum(bc => bc.getScore());
                 //int sum = 0;
                 //foreach (var boardCard in BoardCardState)
                 //{
@@ -18,6 +18,6 @@ namespace GwentSharedLibrary.Models
             }
         }
 
-        public List<BoardCardState> BoardCardState { get; set; }
+        public List<BoardCardState> Cards { get; set; }
     }
 }
