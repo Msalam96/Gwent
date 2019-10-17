@@ -1,5 +1,7 @@
 ﻿(async() =>{
     const gebi = (e) => document.getElementById(e);
+    const notificationLink = gebi("notificationLink");
+
     let notificationCount = localStorage.getItem("notifiCount");
     myStorage = window.localStorage;
     let lastMessageTime = new Date();
@@ -26,9 +28,12 @@
         localStorage.setItem("notifiCount", totCount)
 
         console.log("STORED ITEM IS : " + localStorage.getItem("notifiCount"))
-
     }
-
+    debugger;
+    //notificationLink.addEventListener('click', async (event) => {
+    //    localStorage.setItem("notifiCount", 0)
+    //});
+   
     function getCount(notifications) {
         if(notifications.length===0)
         {

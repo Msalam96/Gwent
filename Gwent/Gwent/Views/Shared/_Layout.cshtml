@@ -20,11 +20,12 @@
             </div>
             <div class="navbar-brand">
                 @*@Html.ActionLink("Notifications", "Index", "Notifications", new { area = ""}, new { @class = "navbar-brand"})*@
-                <a href="@Url.Action("Index", "Notifications")" class="btn btn-Dark">
+                <a onclick="return resetCount()" id ="notificationLink" class="btn btn-primary">
                     Notifications <span id ="totalNotifications"class="badge badge-light">0</span>
                 </a>
             </div>
             <div >
+
                 <ul class="nav navbar-nav"></ul>
                 @if (Request.IsAuthenticated)
                 {
@@ -39,7 +40,7 @@
             </div>
         </div>
     </div>
-
+    </div>
     <div class="container mt-5 pt-5 body-content">
         @RenderBody()
         <hr />
@@ -50,5 +51,13 @@
      <script src="~/Scripts/notificationCount.js"></script>
     <script src="~/Scripts/jquery-1.10.2.min.js"></script>
     <script src="~/Scripts/bootstrap.min.js"></script>
+    <script>
+        function resetCount()
+        {
+            debugger;
+            localStorage.setItem("notifiCount", 0)
+            location.href = "Notifications/Index"
+        }
+    </script>
 </body>
 </html>
