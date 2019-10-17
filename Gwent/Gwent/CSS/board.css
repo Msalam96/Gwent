@@ -20,6 +20,11 @@
 .closeCombat{
     background: url(Images/gwentCloseCombatRow.jpg) !important
 }
+
+.stats{
+    background: url(Images/gwentPlayerStatBackground.jpg) !important
+    
+}
 #opponentStats{
     background-color:black;
     height:100px;

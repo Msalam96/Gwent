@@ -98,12 +98,12 @@ namespace GwentSharedLibrary.Logic
 
             //gameRepository.MoveCardsToDiscardPile();
             //gameRepository.MoveCardsToDiscardPile(player2hand);
-            if (gameState.RoundState.Player1RoundState.Score > gameState.RoundState.Player2RoundState.Score)
+            if (gameState.Round.Player1.Score > gameState.Round.Player2.Score)
             {
                 currentRound.WinnerPlayerId = currentRound.FirstPlayerId;
                 roundWinnerId = currentRound.FirstPlayerId;
             }
-            else if (gameState.RoundState.Player1RoundState.Score < gameState.RoundState.Player2RoundState.Score)
+            else if (gameState.Round.Player1.Score < gameState.Round.Player2.Score)
             {
                 currentRound.WinnerPlayerId = currentRound.SecondPlayerId;
                 roundWinnerId = currentRound.SecondPlayerId;
@@ -165,7 +165,7 @@ namespace GwentSharedLibrary.Logic
                     BoardCardState boardCardState = new BoardCardState();
 
                     boardCardState.PileCardId = pileCard.Id;
-                    boardCardState.Image = pileCard.Card.ImageUrl;
+                    boardCardState.ImageUrl = pileCard.Card.ImageUrl;
                     boardCardState.SetScore(pileCard.Card.Strength.Value);
 
                     playerBoardInfo.Add(boardCardState);
@@ -184,51 +184,51 @@ namespace GwentSharedLibrary.Logic
             {
                 GameId = myGame.Id,
                 RoundNumber = roundNumber,
-                Player1State = new PlayerState()
+                Player1 = new PlayerState()
                 {
                     FirstName = myGame.PlayerOne.FirstName,
                     PlayerId = myGame.PlayerOne.Id,
                     RoundsWon = rounds.Where(r => r.WinnerPlayerId == myGame.PlayerOneId).Count(),
-                    PlayerHandState = PlayerStateHelper(myGame.PlayerOneId)
+                    Hand = PlayerStateHelper(myGame.PlayerOneId)
                 },
-                Player2State = new PlayerState()
+                Player2 = new PlayerState()
                 {
                     FirstName = myGame.PlayerTwo.FirstName,
                     PlayerId = myGame.PlayerTwoId,
                     RoundsWon = rounds.Where(r => r.WinnerPlayerId == myGame.PlayerTwoId).Count(),
-                    PlayerHandState = PlayerStateHelper(myGame.PlayerTwoId)
+                    Hand = PlayerStateHelper(myGame.PlayerTwoId)
                 },
-                RoundState = new RoundState()
+                Round = new RoundState()
                 {
                     GameRoundId = gameRepository.GetCurrentGameRounds(Game.Id)[0].Id,
-                    Player1RoundState = new PlayerRoundState()
+                    Player1 = new PlayerRoundState()
                     {
                         CloseCombat = new CardTypeState()
                         {
-                            BoardCardState = GetCardsOnBoard(CardType.CloseCombat, myGame.PlayerOneId),
+                            Cards = GetCardsOnBoard(CardType.CloseCombat, myGame.PlayerOneId),
                         },
-                        Ranged = new CardTypeState()
+                        Range = new CardTypeState()
                         {
-                            BoardCardState = GetCardsOnBoard(CardType.Ranged, myGame.PlayerOneId)
+                            Cards = GetCardsOnBoard(CardType.Ranged, myGame.PlayerOneId)
                         },
                         Siege = new CardTypeState()
                         {
-                            BoardCardState = GetCardsOnBoard(CardType.Seige, myGame.PlayerOneId)
+                            Cards = GetCardsOnBoard(CardType.Seige, myGame.PlayerOneId)
                         },
                     },
-                    Player2RoundState = new PlayerRoundState()
+                    Player2 = new PlayerRoundState()
                     {
                         CloseCombat = new CardTypeState()
                         {
-                            BoardCardState = GetCardsOnBoard(CardType.CloseCombat, myGame.PlayerTwoId),
+                            Cards = GetCardsOnBoard(CardType.CloseCombat, myGame.PlayerTwoId),
                         },
-                        Ranged = new CardTypeState()
+                        Range = new CardTypeState()
                         {
-                            BoardCardState = GetCardsOnBoard(CardType.Ranged, myGame.PlayerTwoId)
+                            Cards = GetCardsOnBoard(CardType.Ranged, myGame.PlayerTwoId)
                         },
                         Siege = new CardTypeState()
                         {
-                            BoardCardState = GetCardsOnBoard(CardType.Seige, myGame.PlayerTwoId)
+                            Cards = GetCardsOnBoard(CardType.Seige, myGame.PlayerTwoId)
                         },
                     },
                     ActivePlayerId = activePlayerId

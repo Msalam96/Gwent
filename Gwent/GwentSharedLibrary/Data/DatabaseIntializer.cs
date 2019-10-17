@@ -111,10 +111,10 @@ namespace GwentSharedLibrary.Data
             deck2.AddCard(trebuchet);
             context.Decks.Add(deck2);
 
-            omer.AddDeck(deck);
-            james.AddDeck(deck2);
-            //mo.AddDeck(deck);
-            //sarthak.AddDeck(deck);
+            //omer.AddDeck(deck);
+            //james.AddDeck(deck2);
+            mo.AddDeck(deck);
+            sarthak.AddDeck(deck2);
             context.SaveChanges();           
            
            

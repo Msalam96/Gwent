@@ -3,7 +3,7 @@
     public class BoardCardState
     {
         public int PileCardId { get; set; }
-        public string Image { get; set; }
+        public string ImageUrl { get; set; }
 
         public void SetScore (int score)
         {

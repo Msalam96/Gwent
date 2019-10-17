@@ -99,7 +99,7 @@ namespace GwentSharedLibrary.Repositories
             List<Card> cardList = new List<Card>();
             List<DeckCard> deckCards = context.DeckCards
                                         .Include(dc => dc.Card)
-                                        .Where(dc => dc.DeckId == deckId || dc.IsDrawn==false)
+                                        .Where(dc => dc.DeckId == deckId && dc.IsDrawn==false)
                                         .Take(numberOfCards)            //change this to however many cards you need
                                         .ToList();
 

@@ -5,11 +5,11 @@
         public int Score {
             get
             {
-                return CloseCombat.Score + Ranged.Score + Siege.Score;
+                return CloseCombat.Score + Range.Score + Siege.Score;
             }
         }
         public CardTypeState CloseCombat { get; set; }
-        public CardTypeState Ranged { get; set; }
+        public CardTypeState Range { get; set; }
         public CardTypeState Siege { get; set; }
     }
 }

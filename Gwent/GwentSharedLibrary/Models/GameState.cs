@@ -11,27 +11,27 @@ namespace GwentSharedLibrary.Models
         public int GameId { get; set; }
         public int RoundNumber { get; set; }
 
-        public PlayerState Player1State { get; set; }
-        public PlayerState Player2State { get; set; }
+        public PlayerState Player1 { get; set; }
+        public PlayerState Player2 { get; set; }
 
-        public RoundState RoundState { get; set; }
+        public RoundState Round { get; set; }
 
         public Winner Winner {
             get {
-                if (Player1State.RoundsWon == 2)
+                if (Player1.RoundsWon == 2)
                 {
                     return new Winner()
                     {
-                        PlayerId = Player1State.PlayerId,
-                        PlayerName = Player1State.FirstName
+                        PlayerId = Player1.PlayerId,
+                        PlayerName = Player1.FirstName
                     };
                 }
-                else if (Player2State.RoundsWon == 2)
+                else if (Player2.RoundsWon == 2)
                 {
                     return new Winner()
                     {
-                        PlayerId = Player2State.PlayerId,
-                        PlayerName = Player2State.FirstName
+                        PlayerId = Player2.PlayerId,
+                        PlayerName = Player2.FirstName
                     };
                 }
                 else { return null; }

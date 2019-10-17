@@ -18,7 +18,7 @@ let notificationsApi = null;
     lastMessageTime.setHours(lastMessageTime.getHours()-1);
     setInterval(async () => {
         const nextMessageTime =  new Date();
-        console.log("Retrieving messages from: "+lastMessageTime);
+        //console.log("Retrieving messages from: "+lastMessageTime);
         await getNotifications(lastMessageTime);
         lastMessageTime = nextMessageTime;
     }, 1000);
@@ -134,7 +134,6 @@ let notificationsApi = null;
                 "Content-Type": "application/json"
             }
         });
-        console.log(response);
     }
 
     notificationForm.addEventListener('submit', async (event) => {
