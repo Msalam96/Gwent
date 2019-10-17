@@ -8,6 +8,11 @@ namespace GwentSharedLibrary.Models
 {
     public class GameState
     {
+        public GameState()
+        {
+            Messages = new List<string>();
+        }
+
         public int GameId { get; set; }
         public int RoundNumber { get; set; }
 
@@ -35,13 +40,9 @@ namespace GwentSharedLibrary.Models
                     };
                 }
                 else { return null; }
-            } }
-        //Make class PlayerState
-        //One for PlayerOne
-        //One for PlayerTwo
+            }
+        }
 
-
-        //Make class RoundState
-
+        public List<string> Messages { get; set; }
     }
 }

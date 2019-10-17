@@ -28,6 +28,7 @@ namespace GwentSharedLibrary.Repositories
                     .Where(u => u.EmailAddress == emailAddress)
                     .SingleOrDefault();
         }
+
         public User GetById (int id)
         {
             return context.Users

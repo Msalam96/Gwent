@@ -14,7 +14,7 @@ namespace GwentConsole.ConsoleGame
 {
     public class TestGame
     {
-        public int PerformAction(Action<GameLogic> action, int? gameId = null)
+        public int PerformAction(Action<GameLogic> action, int playerId, int? gameId = null)
         {
             using (var context = new Context())
             {
@@ -30,7 +30,7 @@ namespace GwentConsole.ConsoleGame
                 }
 
                 action(gameLogic);
-                GameState gameState = gameLogic.GetGameState();
+                GameState gameState = gameLogic.GetGameState(playerId);
                 string json = JsonConvert.SerializeObject(gameState);
                 Console.WriteLine(json);
                 Console.WriteLine(new String('*', 50));
@@ -42,13 +42,13 @@ namespace GwentConsole.ConsoleGame
         /*Game Controller Methods*/
         public void StartNewGame(int player1Id, int player2Id)
         {
-            int gameId = PerformAction((gameLogic) => gameLogic.StartGame(1, 2));
-            PerformAction((gameLogic) => gameLogic.PassMove(1), gameId);
-            PerformAction((gameLogic) => gameLogic.PlayCard(11), gameId);
-            PerformAction((gameLogic) => gameLogic.PassMove(2), gameId);
-            PerformAction((gameLogic) => gameLogic.PlayCard(12), gameId);
-            PerformAction((gameLogic) => gameLogic.PassMove(1), gameId);
-            PerformAction((gameLogic) => gameLogic.PassMove(2), gameId);
+            int gameId = PerformAction((gameLogic) => gameLogic.StartGame(player1Id, player2Id), player1Id);
+            PerformAction((gameLogic) => gameLogic.PassMove(player1Id), player1Id, gameId);
+            PerformAction((gameLogic) => gameLogic.PlayCard(11), player2Id, gameId);
+            PerformAction((gameLogic) => gameLogic.PassMove(player2Id), player2Id, gameId);
+            PerformAction((gameLogic) => gameLogic.PlayCard(12), player2Id, gameId);
+            //PerformAction((gameLogic) => gameLogic.PassMove(player1Id), player1Id, gameId);
+            //PerformAction((gameLogic) => gameLogic.PassMove(player2Id), player2Id, gameId);
            
 
 

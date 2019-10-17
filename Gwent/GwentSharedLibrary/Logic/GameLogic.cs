@@ -51,13 +51,31 @@ namespace GwentSharedLibrary.Logic
             GameRound currentGameRound = gameRepository.GetCurrentGameRounds(cardToPlay.Pile.GameId)[0];
             gameRepository.MakeMove(cardToPlay, currentGameRound);
 
+            string playCardMessage = currentGameRound.ActivePlayer.FirstName + " played a " + cardToPlay.Card.CardType + " card";
+            if (currentGameRound.ActivePlayerId == Game.PlayerOneId)
+            {
+                SendMessage(Game.PlayerTwoId, playCardMessage);
+            }
+            else
+            {
+                SendMessage(Game.PlayerOneId, playCardMessage);
+            }          
+
             if (currentGameRound.ActivePlayerId == currentGameRound.FirstPlayerId && !currentGameRound.SecondPlayerPassed)
             {
                 currentGameRound.ActivePlayerId = currentGameRound.SecondPlayerId;
+
+                string message = "It's " + currentGameRound.SecondPlayer.FirstName + "'s turn";
+                SendMessage(Game.PlayerOneId, message);
+                SendMessage(Game.PlayerTwoId, message);
             }
             else if (currentGameRound.ActivePlayerId == currentGameRound.SecondPlayerId && !currentGameRound.FirstPlayerPassed)
             {
                 currentGameRound.ActivePlayerId = currentGameRound.FirstPlayerId;
+
+                string message = "It's " + currentGameRound.FirstPlayer.FirstName + "'s turn";
+                SendMessage(Game.PlayerOneId, message);
+                SendMessage(Game.PlayerTwoId, message);
             }
             gameRepository.UpdateGameRound(currentGameRound);
         }
@@ -68,10 +86,26 @@ namespace GwentSharedLibrary.Logic
             GameRound currentGameRound = gameRepository.GetCurrentGameRounds(myGame.Id)[0];
             currentGameRound = gameRepository.PassTurn(currentGameRound, playerId);
 
+            if (Game.PlayerOneId == playerId)
+            {
+                string message = Game.PlayerOne.FirstName + " has passed their turn.";
+                SendMessage(Game.PlayerTwoId, message);
+            }
+            else if (Game.PlayerTwoId == playerId)
+            {
+                string message = Game.PlayerTwo.FirstName + " has passed their turn.";
+                SendMessage(Game.PlayerOneId, message);            
+            }
 
             if (HasRoundEnded(currentGameRound))
             {
-                WhoWins();
+                WhoWins(playerId);
+            }
+            else
+            {
+                string message = "It's " + currentGameRound.ActivePlayer.FirstName + "'s turn.";
+                SendMessage(Game.PlayerOneId, message);
+                SendMessage(Game.PlayerTwoId, message);
             }
 
 
@@ -83,9 +117,9 @@ namespace GwentSharedLibrary.Logic
             return (currentRound.FirstPlayerPassed && currentRound.SecondPlayerPassed);
         }
 
-        public void WhoWins()
+        public void WhoWins(int playerId)
         {
-            GameState gameState = GetGameState();
+            GameState gameState = GetGameState(playerId);
             List<GameRound> rounds = gameRepository.GetCurrentGameRounds(Game.Id);
             GameRound currentRound = rounds[0];
             var roundWinnerId = 0;
@@ -102,11 +136,21 @@ namespace GwentSharedLibrary.Logic
             {
                 currentRound.WinnerPlayerId = currentRound.FirstPlayerId;
                 roundWinnerId = currentRound.FirstPlayerId;
+
+                //Do I send this message to both players or just one player????
+                string message = currentRound.FirstPlayer.FirstName + " has won the round.";
+                SendMessage(currentRound.SecondPlayerId, message);
+                SendMessage(currentRound.FirstPlayerId, message);
             }
             else if (gameState.Round.Player1.Score < gameState.Round.Player2.Score)
             {
                 currentRound.WinnerPlayerId = currentRound.SecondPlayerId;
                 roundWinnerId = currentRound.SecondPlayerId;
+
+                //Do I send this message to both players or just one player????
+                string message = currentRound.SecondPlayer.FirstName + " has won the round.";
+                SendMessage(currentRound.SecondPlayerId, message);
+                SendMessage(currentRound.FirstPlayerId, message);
             }
             //Equal scores?
 
@@ -174,13 +218,19 @@ namespace GwentSharedLibrary.Logic
             return playerBoardInfo;
         }
 
-        public GameState GetGameState()
+        public void SendMessage (int recepientUserId, string message)
+        {
+            gameRepository.AddGameMessage(Game.Id, message, recepientUserId);
+        }
+
+        public GameState GetGameState(int userId)
         {
             Game myGame = gameRepository.GetGameById(Game.Id);
             var rounds = gameRepository.GetCurrentGameRounds(Game.Id);
             var roundNumber = rounds.Count;
             var activePlayerId = rounds[0].ActivePlayerId.Value;
-            return new GameState()
+
+            var gameState = new GameState()
             {
                 GameId = myGame.Id,
                 RoundNumber = roundNumber,
@@ -234,6 +284,30 @@ namespace GwentSharedLibrary.Logic
                     ActivePlayerId = activePlayerId
                 }
             };
+
+            if (gameState.Winner != null)
+            {
+                // TODO winning messages
+                string winnerMessage = gameState.Winner.PlayerName + " Has Won The Game. Congratulations!";
+                string loserMessage = gameState.Winner.PlayerName + " Has Won The Game. Better luck next time!";
+
+                if (gameState.Winner.PlayerId == myGame.PlayerOneId)
+                {
+                    SendMessage(myGame.PlayerOneId, winnerMessage);
+                    SendMessage(myGame.PlayerTwoId, loserMessage);
+                }
+                else
+                {
+                    SendMessage(myGame.PlayerTwoId, winnerMessage);
+                    SendMessage(myGame.PlayerOneId, loserMessage);
+                }
+            }
+
+            var messages = gameRepository.getUndeliveredMessages(myGame.Id, userId);
+
+            gameState.Messages = messages.Count > 0 ? messages.Select(m => m.Message).ToList() : null;
+
+            return gameState;
         }
     }
 }
