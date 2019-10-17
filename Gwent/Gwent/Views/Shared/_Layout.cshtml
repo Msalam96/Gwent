@@ -19,10 +19,12 @@
                 @Html.ActionLink("Gwent", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
             </div>
             <div class="navbar-brand">
-                @*@Html.ActionLink("Notifications", "Index", "Notifications", new { area = ""}, new { @class = "navbar-brand"})*@
-                <a onclick="return resetCount()" id ="notificationLink" class="btn btn-primary">
-                    Notifications <span id ="totalNotifications"class="badge badge-light">0</span>
-                </a>
+                @if (Request.IsAuthenticated)
+                {
+                    <a onclick="return resetCount()" id="notificationLink" class="btn btn-primary">
+                        Notifications <span id="totalNotifications" class="badge badge-light">0</span>
+                    </a>
+                }
             </div>
             <div >
 
@@ -54,9 +56,9 @@
     <script>
         function resetCount()
         {
-            debugger;
-            localStorage.setItem("notifiCount", 0)
-            location.href = "Notifications/Index"
+            localStorage.setItem("notifiCount", 0);
+            console.log(localStorage.getItem("notifiCount"));
+            location.href = "Notifications/Index";
         }
     </script>
 </body>
