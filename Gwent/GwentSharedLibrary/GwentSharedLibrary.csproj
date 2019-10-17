@@ -38,6 +38,10 @@
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
@@ -52,22 +56,31 @@
   <ItemGroup>
     <Compile Include="Data\Context.cs" />
     <Compile Include="Data\DatabaseIntializer.cs" />
+    <Compile Include="Logic\GameLogic.cs" />
+    <Compile Include="Models\BoardCardState.cs" />
     <Compile Include="Models\Card.cs" />
     <Compile Include="Models\CardType.cs" />
+    <Compile Include="Models\CardTypeState.cs" />
     <Compile Include="Models\Deck.cs" />
     <Compile Include="Models\DeckCard.cs" />
     <Compile Include="Models\DeckUser.cs" />
     <Compile Include="Models\Game.cs" />
     <Compile Include="Models\GameRound.cs" />
     <Compile Include="Models\GameRoundCard.cs" />
+    <Compile Include="Models\GameState.cs" />
     <Compile Include="Models\Location.cs" />
     <Compile Include="Models\Notifcation.cs" />
     <Compile Include="Models\NotificationType.cs" />
     <Compile Include="Models\Pile.cs" />
     <Compile Include="Models\PileCard.cs" />
+    <Compile Include="Models\PlayerHandState.cs" />
+    <Compile Include="Models\PlayerRoundState.cs" />
+    <Compile Include="Models\PlayerState.cs" />
+    <Compile Include="Models\RoundState.cs" />
     <Compile Include="Models\SpecialAbility.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Models\UserRelationship.cs" />
+    <Compile Include="Models\Winner.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\AuthenticationRepository.cs" />
     <Compile Include="Repositories\CardRepository.cs" />

@@ -16,6 +16,8 @@ namespace Gwent
 
             container.RegisterType<Context>();
             container.RegisterType<NotificationsRepository>();
+            container.RegisterType<GameRepository>();
+            container.RegisterType<AuthenticationRepository>();
 
             GlobalConfiguration.Configuration.DependencyResolver = 
                 new WebApiResolver(container);
