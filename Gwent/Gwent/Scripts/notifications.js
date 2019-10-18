@@ -1,18 +1,9 @@
 ﻿
-let notificationsApi = null;
-
 (async() => {
     const gebi = (e) => document.getElementById(e);
 
     const notificationForm = gebi("notification-form");
     const notificationDiv = gebi("notifications");
-
-    //const today = new Date();
-    //const dd = String(today.getDate()).padStart(2, '0');
-    //const mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
-    //const yyyy = today.getFullYear();
-
-    //const lastMessageTime = mm + '-' + dd + '-' + yyyy;
 
     let lastMessageTime = new Date();
     lastMessageTime.setHours(lastMessageTime.getHours()-1);
@@ -31,21 +22,6 @@ let notificationsApi = null;
         });
         const data = await response.json();
         renderNotifications(data);
-
-    }
-
-    async function acceptGameInvite(recipientUserId) {
-        // Send a notification that the game invite was accepted
-        const data = {
-            recipientUserId,
-            message: 'Waiting for you to join the game!',
-            notificationType: 'AcceptedInvite'
-        };
-
-        await createNotification(data);
-
-        // Redirect the user to the game page
-        location.href = '/Gameboard/Index';
     }
 
     function renderNotifications(notifications) {
@@ -57,13 +33,6 @@ let notificationsApi = null;
 
         //switch(notificationType);
         const notificationHtml = notifications.map((notification) => {
-            //Id = n.Id,
-            //SenderUserId = n.SenderUserId,
-            //SenderEmailAddress = n.SenderUser.EmailAddress,
-            //SenderName = $"{n.SenderUser.FirstName} {n.SenderUser.LastName}",
-            //Message = n.Message,
-            //SentOn = n.SentOn,
-            //NotificationType = n.NotificationType
             if (notification.NotificationType === 'Invite') {
                 return `
                     <div>
@@ -76,7 +45,7 @@ let notificationsApi = null;
                             <tbody>
                                 <tr> 
                                     <td>${notification.Message}</td>
-                                    <td><a href="javascript:notificationsApi.acceptGameInvite(${notification.SenderUserId})" class="btn">JOIN</a></td>
+                                    <td><a href="/Gameboard/Index?StartNewGame=True&Player2Id=${notification.SenderUserId}" class="btn">JOIN</a></td>
                                 </tr>
                             </tbody>
                         </table>                    
@@ -94,7 +63,7 @@ let notificationsApi = null;
                             <tbody>
                                 <tr> 
                                     <td>${notification.Message}</td>
-                                    <td><a href="/GameBoard/Index" class="btn">JOIN</a></td>
+                                    <td><a href="${notification.NavigateToUrl}" class="btn">JOIN</a></td>
                                 </tr>
                             </tbody>
                         </table>                    
@@ -155,10 +124,4 @@ let notificationsApi = null;
 
         await createNotification(data);
     });
-
-    return {
-        acceptGameInvite
-    };
-})().then((api) => {
-    notificationsApi = api;
-});
+})();

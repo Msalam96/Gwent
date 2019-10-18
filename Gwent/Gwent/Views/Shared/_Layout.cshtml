@@ -10,7 +10,9 @@
         action = ViewContext.RouteData.Values["action"].ToString();
     }
     bool displayNotificationsCounter = (
-            Request.IsAuthenticated && !(controller == "Notifications" && action == "Index"));
+            Request.IsAuthenticated && 
+            !(controller == "Notifications" && action == "Index") &&
+            !(controller == "Gameboard" && action == "Index"));
 }
 <!DOCTYPE html>
 <html>

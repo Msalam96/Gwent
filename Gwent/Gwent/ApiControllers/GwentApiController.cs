@@ -23,9 +23,6 @@ namespace Gwent.ApiControllers
         [HttpPost]
         public IHttpActionResult NewGame(int player2Id)
         {
-            //User user = authRepo.GetByEmail(User.Identity.Name);
-            //int player1Id = user.Id;
-
             CustomPrincipal user = (CustomPrincipal)User;
             int player1Id = user.User.Id;
 
