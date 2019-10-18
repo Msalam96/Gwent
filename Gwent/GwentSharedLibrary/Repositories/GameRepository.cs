@@ -105,6 +105,15 @@ namespace GwentSharedLibrary.Repositories
             context.SaveChanges();
         }
 
+        public List<Deck> GetDecks ()
+        {
+            List<Deck> myDecks = context.Decks
+                                    .Include(d => d.DeckUsers)
+                                    .Include(d => d.DeckCards)
+                                    .ToList();
+            return myDecks;
+        }
+
         public Deck GetPlayerDeck(int playerId)
         {
             //Deck deck = context.Decks
