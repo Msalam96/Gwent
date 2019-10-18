@@ -3,7 +3,7 @@
     const countSpan = gebi("totalNotifications");
 
     const notificationCountString = window.localStorage.getItem("notifiCount");
-    console.log('Notification count string: ' + notificationCountString);
+    //console.log('Notification count string: ' + notificationCountString);
     let notificationCount = parseInt(notificationCountString, 10);
     if (isNaN(notificationCount)) {
         notificationCount = 0;
@@ -12,7 +12,7 @@
     let lastMessageTime = new Date();
     setInterval(async () => {
         const nextMessageTime =  new Date();
-        console.log("Retrieving messages from: "+lastMessageTime);
+        //console.log("Retrieving messages from: "+lastMessageTime);
         const notifications = await getNotifications(lastMessageTime);
         lastMessageTime = nextMessageTime;
         notificationCount += notifications.length;

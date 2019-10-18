@@ -127,7 +127,7 @@ namespace GwentSharedLibrary.Repositories
             List<Card> cardList = new List<Card>();
             List<DeckCard> deckCards = context.DeckCards
                                         .Include(dc => dc.Card)
-                                        .Where(dc => dc.DeckId == deckId || dc.IsDrawn==false)
+                                        .Where(dc => dc.DeckId == deckId && dc.IsDrawn==false)
                                         .Take(numberOfCards)            //change this to however many cards you need
                                         .ToList();
 
@@ -150,20 +150,20 @@ namespace GwentSharedLibrary.Repositories
         //    return deckCard.Card;
         //}
 
-        public Pile GetPileByDeckId (int deckId) {
+        public Pile GetPile(int gameId, int userId) {
             return context.Piles
-                    .Include(p => p.Deck)
                     .Include(p => p.Game)
-                    .Where(p => p.DeckId == deckId)
+                    .Include(p => p.PileCards.Select(pc => pc.Card))
+                    .Where(p => p.GameId == gameId && p.UserId == userId)
                     .FirstOrDefault();
         }
 
-        public Pile CreateHand(int gameId, Deck myDeck)            //Creates Pile (hand) and adds PileCards to that Pile
+        public Pile CreateHand(int gameId, int userId, Deck myDeck)            //Creates Pile (hand) and adds PileCards to that Pile
         {
             Pile hand = new Pile()
             {
-                DeckId = myDeck.Id,
-                GameId = gameId
+                GameId = gameId,
+                UserId = userId
             };
 
             List<Card> cardsList = DrawCards(myDeck.Id, 10);

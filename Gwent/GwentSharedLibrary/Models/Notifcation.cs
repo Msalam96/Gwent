@@ -18,16 +18,19 @@ namespace GwentSharedLibrary.Models
         public string Message { get; set; }
         public NotificationType NotificationType { get; set; }
         public DateTimeOffset SentOn { get; set; }
+        public string NavigateToUrl { get; set; }
 
         public Notification(){}
 
-        public Notification(int senderUserId, int recipientUserId, string message, NotificationType notificationType)
+        public Notification(int senderUserId, int recipientUserId, 
+            string message, NotificationType notificationType, string navigateToUrl)
         {
             SenderUserId = senderUserId;
             RecipientUserId = recipientUserId;
             Message = message;
             NotificationType = notificationType;
             SentOn = DateTimeOffset.Now;
+            NavigateToUrl = navigateToUrl;
         }      
     }
 }

@@ -32,8 +32,8 @@ namespace GwentSharedLibrary.Logic
             Deck playerOneDeck = gameRepository.GetPlayerDeck(playerOneId);
             Deck playerTwoDeck = gameRepository.GetPlayerDeck(playerTwoId);
 
-            Pile playerOneHand = gameRepository.CreateHand(game.Id, playerOneDeck);
-            Pile playerTwoHand = gameRepository.CreateHand(game.Id, playerTwoDeck);
+            Pile playerOneHand = gameRepository.CreateHand(game.Id, playerOneId, playerOneDeck);
+            Pile playerTwoHand = gameRepository.CreateHand(game.Id, playerTwoId, playerTwoDeck);
 
             GameRound currentRound = gameRepository.AddGameRound(game);
 
@@ -134,23 +134,23 @@ namespace GwentSharedLibrary.Logic
             //gameRepository.MoveCardsToDiscardPile(player2hand);
             if (gameState.Round.Player.Score > gameState.Round.PlayerOpponent.Score)
             {
-                currentRound.WinnerPlayerId = currentRound.FirstPlayerId;
-                roundWinnerId = currentRound.FirstPlayerId;
+                currentRound.WinnerPlayerId = gameState.Player.PlayerId;
+                roundWinnerId = gameState.Player.PlayerId;
 
                 //Do I send this message to both players or just one player????
-                string message = currentRound.FirstPlayer.FirstName + " has won the round.";
-                SendMessage(currentRound.SecondPlayerId, message);
-                SendMessage(currentRound.FirstPlayerId, message);
+                string message = gameState.Player.FirstName + " has won the round.";
+                SendMessage(gameState.Player.PlayerId, message);
+                SendMessage(gameState.PlayerOpponent.PlayerId, message);
             }
             else if (gameState.Round.Player.Score < gameState.Round.PlayerOpponent.Score)
             {
-                currentRound.WinnerPlayerId = currentRound.SecondPlayerId;
-                roundWinnerId = currentRound.SecondPlayerId;
+                currentRound.WinnerPlayerId = gameState.PlayerOpponent.PlayerId;
+                roundWinnerId = gameState.PlayerOpponent.PlayerId;
 
                 //Do I send this message to both players or just one player????
-                string message = currentRound.SecondPlayer.FirstName + " has won the round.";
-                SendMessage(currentRound.SecondPlayerId, message);
-                SendMessage(currentRound.FirstPlayerId, message);
+                string message = gameState.PlayerOpponent.FirstName + " has won the round.";
+                SendMessage(gameState.Player.PlayerId, message);
+                SendMessage(gameState.PlayerOpponent.PlayerId, message);
             }
             //Equal scores?
 
@@ -171,13 +171,11 @@ namespace GwentSharedLibrary.Logic
             }
         }
 
-        private List<PlayerHandState> PlayerStateHelper(int playerId)
+        private List<PlayerHandState> PlayerStateHelper(Pile pile)
         {
-            Pile playerPile = gameRepository.GetPileByDeckId(gameRepository.GetPlayerDeck(playerId).Id);
-            List<PileCard> playerPileCards = gameRepository.GetCardsInPile(playerPile);
             var playerPileInfo = new List<PlayerHandState>();
 
-            foreach (var pileCard in playerPileCards)
+            foreach (var pileCard in pile.PileCards)
             {
                 if(pileCard.Location == Location.Hand)
                 {
@@ -193,15 +191,11 @@ namespace GwentSharedLibrary.Logic
         }
 
         //Helper function to get cards on board of type
-        public List<BoardCardState> GetCardsOnBoard(CardType cardType, int playerId)
+        public List<BoardCardState> GetCardsOnBoard(CardType cardType, Pile pile)
         {
-            Pile playerPile = gameRepository.GetPileByDeckId(gameRepository.GetPlayerDeck(playerId).Id);
-            List<PileCard> playerPileCards = gameRepository.GetCardsInPile(playerPile);
             var playerBoardInfo = new List<BoardCardState>();
 
-            //int score = 0;
-
-            foreach (var pileCard in playerPileCards)
+            foreach (var pileCard in pile.PileCards)
             {
                 if (pileCard.Card.CardType == cardType && pileCard.Location == Location.Board)
                 {
@@ -244,12 +238,15 @@ namespace GwentSharedLibrary.Logic
                 playerOpponent = myGame.PlayerOne;
             }
 
+            Pile playerPile = Game.Piles.Where(p => p.UserId == player.Id).Single();
+            Pile playerOpponentPile = Game.Piles.Where(p => p.UserId == playerOpponent.Id).Single();
+
             var playerState = new PlayerState()
             {
                 FirstName = player.FirstName,
                 PlayerId = player.Id,
                 RoundsWon = rounds.Where(r => r.WinnerPlayerId == player.Id).Count(),
-                Hand = PlayerStateHelper(player.Id),
+                Hand = PlayerStateHelper(playerPile),
                 IsActive = player.Id == activePlayerId
             };
 
@@ -258,7 +255,7 @@ namespace GwentSharedLibrary.Logic
                 FirstName = playerOpponent.FirstName,
                 PlayerId = playerOpponent.Id,
                 RoundsWon = rounds.Where(r => r.WinnerPlayerId == playerOpponent.Id).Count(),
-                Hand = PlayerStateHelper(playerOpponent.Id),
+                Hand = PlayerStateHelper(playerOpponentPile),
                 IsActive = playerOpponent.Id == activePlayerId
             };
 
@@ -270,35 +267,35 @@ namespace GwentSharedLibrary.Logic
                 PlayerOpponent = playerOpponentState,
                 Round = new RoundState()
                 {
-                    GameRoundId = gameRepository.GetCurrentGameRounds(Game.Id)[0].Id,
+                    GameRoundId = rounds[0].Id,
                     Player = new PlayerRoundState()
                     {
                         CloseCombat = new CardTypeState()
                         {
-                            Cards = GetCardsOnBoard(CardType.CloseCombat, player.Id),
+                            Cards = GetCardsOnBoard(CardType.CloseCombat, playerPile),
                         },
                         Range = new CardTypeState()
                         {
-                            Cards = GetCardsOnBoard(CardType.Ranged, player.Id)
+                            Cards = GetCardsOnBoard(CardType.Ranged, playerPile)
                         },
                         Siege = new CardTypeState()
                         {
-                            Cards = GetCardsOnBoard(CardType.Seige, player.Id)
+                            Cards = GetCardsOnBoard(CardType.Seige, playerPile)
                         },
                     },
                     PlayerOpponent = new PlayerRoundState()
                     {
                         CloseCombat = new CardTypeState()
                         {
-                            Cards = GetCardsOnBoard(CardType.CloseCombat, playerOpponent.Id),
+                            Cards = GetCardsOnBoard(CardType.CloseCombat, playerOpponentPile),
                         },
                         Range = new CardTypeState()
                         {
-                            Cards = GetCardsOnBoard(CardType.Ranged, playerOpponent.Id)
+                            Cards = GetCardsOnBoard(CardType.Ranged, playerOpponentPile)
                         },
                         Siege = new CardTypeState()
                         {
-                            Cards = GetCardsOnBoard(CardType.Seige, playerOpponent.Id)
+                            Cards = GetCardsOnBoard(CardType.Seige, playerOpponentPile)
                         },
                     }
                 }

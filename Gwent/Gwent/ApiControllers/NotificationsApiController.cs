@@ -34,7 +34,8 @@ namespace Gwent.ApiControllers
                 SenderName = $"{n.SenderUser.FirstName} {n.SenderUser.LastName}",
                 Message = n.Message,
                 SentOn = n.SentOn,
-                NotificationType = n.NotificationType.ToString()
+                NotificationType = n.NotificationType.ToString(),
+                NavigateToUrl = n.NavigateToUrl
             }).ToList();
 
             return Ok(flattenedNotifications);
@@ -45,6 +46,7 @@ namespace Gwent.ApiControllers
             public int RecipientUserId { get; set; }
             public string Message { get; set; }
             public NotificationType NotificationType { get; set; }
+            public string NavigateToUrl { get; set; }
         }
 
         [Route("")]
@@ -57,7 +59,7 @@ namespace Gwent.ApiControllers
 
             CustomPrincipal user = (CustomPrincipal)User;
             Notification notification = new Notification(user.User.Id, request.RecipientUserId, 
-                request.Message, request.NotificationType);
+                request.Message, request.NotificationType, request.NavigateToUrl);
             notificationsRepository.AddNotification(notification);
 
             //TODO need to create get for single notification
