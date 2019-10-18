@@ -45,7 +45,7 @@
                             <tbody>
                                 <tr> 
                                     <td>${notification.Message}</td>
-                                    <td><a href="/Gameboard/Index?StartNewGame=True&Player2Id=${notification.SenderUserId}" class="btn">JOIN</a></td>
+                                    <td><a href="/Gameboard/Index?StartNewGame=True&Player2Id=${notification.SenderUserId}" class="btn btn-success">JOIN</a></td>
                                 </tr>
                             </tbody>
                         </table>                    
@@ -63,7 +63,7 @@
                             <tbody>
                                 <tr> 
                                     <td>${notification.Message}</td>
-                                    <td><a href="${notification.NavigateToUrl}" class="btn">JOIN</a></td>
+                                    <td><a href="${notification.NavigateToUrl}" class="btn btn-success">JOIN</a></td>
                                 </tr>
                             </tbody>
                         </table>                    

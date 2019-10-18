@@ -3,7 +3,7 @@
     ViewBag.Title = "Notifications";
 }
 
-<h2>Create</h2>
+<h2>Send A Message</h2>
 
 
 @using (Html.BeginForm("Index", "Notifications", FormMethod.Post, new { @class = "pure-form pure-form-aligned", id = "notification-form" }))
@@ -30,8 +30,8 @@
         </div>
 
         <div class="pure-controls">
-            @Html.ActionLink("Cancel", "Index", new { }, new { @class = "pure-button" })
-            <button type="submit" class="pure-button pure-button-primary">Submit</button>
+            @Html.ActionLink("Cancel", "Index", new { }, new { @class = "pure-button pure-button-primary btn-danger" })
+            <button type="submit" class="pure-button pure-button-primary btn-success">Submit</button>
         </div>
     </fieldset>
 }
