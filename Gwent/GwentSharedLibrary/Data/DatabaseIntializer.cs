@@ -160,6 +160,12 @@ namespace GwentSharedLibrary.Data
             deck2.AddCard(albrich);
             context.Decks.Add(deck2);
 
+
+            Deck deck3 = deck;
+            Deck deck4 = deck2;
+            context.Decks.Add(deck3);
+            context.Decks.Add(deck4);
+
             omer.AddDeck(deck);
             james.AddDeck(deck2);
             mo.AddDeck(deck);
