@@ -34,7 +34,9 @@ namespace Gwent.FormModels
         {
             get
             {
-                var notificationTypes = Enum.GetNames(typeof(NotificationType));
+                var notificationTypes = Enum.GetNames(typeof(NotificationType))
+                    .Where(nt => nt != "AcceptedInvite")
+                    .ToList();
                 return new SelectList(notificationTypes);
             }
         }

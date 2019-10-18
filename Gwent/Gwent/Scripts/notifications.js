@@ -21,6 +21,7 @@
             credentials:"include",
         });
         const data = await response.json();
+        console.log(data);
         renderNotifications(data);
     }
 
@@ -123,5 +124,7 @@
         };
 
         await createNotification(data);
+
+        event.target.Message.value = '';
     });
 })();

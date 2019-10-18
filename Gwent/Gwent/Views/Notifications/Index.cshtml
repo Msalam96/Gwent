@@ -10,30 +10,32 @@
 {
     @Html.AntiForgeryToken()
 
-    <fieldset>
-        <div>
-            @Html.LabelFor(model => model.RecipientUserId)
-            @Html.DropDownListFor(model => model.RecipientUserId, Model.FriendList, "Friends")
-            @Html.ValidationMessageFor(model => model.RecipientUserId, "", new { @class = "pure-form-message-inline" })
+    <div class="form-horizontal">
+        <div class="form-group">
+            @Html.LabelFor(model => model.RecipientUserId, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.DropDownListFor(model => model.RecipientUserId, Model.FriendList, "Friends", new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.RecipientUserId, "", new { @class = "text-danger" })
         </div>
 
-        <div class="pure-control-group">
-            @Html.LabelFor(model => model.Message)
-            @Html.EditorFor(model => model.Message)
-            @Html.ValidationMessageFor(model => model.Message, "", new { @class = "pure-form-message-inline" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.Message, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.EditorFor(model => model.Message, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Message, "", new { @class = "text-danger" })
         </div>
 
-        <div class="pure-control-group">
-            @Html.LabelFor(model => model.NotificationType)
-            @Html.DropDownListFor(model => model.NotificationType, Model.NotificationTypeList)
-            @Html.ValidationMessageFor(model => model.NotificationTypeList, "", new { @class = "pure-form-message-inline" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.NotificationType, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.DropDownListFor(model => model.NotificationType, Model.NotificationTypeList, "", new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.NotificationTypeList, "", new { @class = "text-danger" })
         </div>
 
-        <div class="pure-controls">
-            @Html.ActionLink("Cancel", "Index", new { }, new { @class = "pure-button pure-button-primary btn-danger" })
-            <button type="submit" class="pure-button pure-button-primary btn-success">Submit</button>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                @Html.ActionLink("Cancel", "Index", new { }, new { @class = "btn btn-danger" })
+                <button type="submit" class="btn btn-success">Submit</button>
+            </div>
         </div>
-    </fieldset>
+    </div>
 }
 
 <div id="notifications"></div>
