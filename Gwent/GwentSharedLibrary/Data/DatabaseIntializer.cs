@@ -9,7 +9,7 @@ namespace GwentSharedLibrary.Data
         {
             User omer = new User(0, "Omer", "Latif", "omerltf@gmail.com", "$2a$10$pQ.jLCkRVWCYoxLZ2K0.9OKDR5cg1IyDIrvXl3ZuwVCuotLJbDMYe");
             User james = new User(0, "James", "Churchill", "jchurchill@gmail.com", "$2a$10$pQ.jLCkRVWCYoxLZ2K0.9OKDR5cg1IyDIrvXl3ZuwVCuotLJbDMYe");
-            User mo = new User(0, "Mohammad", "Salam", "msalam@gmail.com", "$2a$10$pQ.jLCkRVWCYoxLZ2K0.9OKDR5cg1IyDIrvXl3ZuwVCuotLJbDMYe");
+            User mo = new User(0, "Mohammed", "Salam", "msalam@gmail.com", "$2a$10$pQ.jLCkRVWCYoxLZ2K0.9OKDR5cg1IyDIrvXl3ZuwVCuotLJbDMYe");
             User sarthak = new User(0, "Sarthak", "Thakur", "sthakur@gmail.com", "$2a$10$pQ.jLCkRVWCYoxLZ2K0.9OKDR5cg1IyDIrvXl3ZuwVCuotLJbDMYe");
             context.Users.Add(omer);
             context.Users.Add(james);
@@ -24,6 +24,10 @@ namespace GwentSharedLibrary.Data
             };
 
             context.UserRelationships.Add(moSarthak);
+
+            Card frost = new Card("Frost", null, CardType.Weather, SpecialAbility.Frost, "https://thewitcher3.wiki.fextralife.com/file/The-Witcher-3/biting_frost_card.jpg");
+            Card fog = new Card("Fog", null, CardType.Weather, SpecialAbility.Fog, "https://thewitcher3.wiki.fextralife.com/file/The-Witcher-3/impenetrable_fog_card.jpg");
+            Card rain = new Card("Rain", null, CardType.Weather, SpecialAbility.Rain, "https://thewitcher3.wiki.fextralife.com/file/The-Witcher-3/torrential_rain_card.jpg");
 
             Card footSolider = new Card("Redanian Foot Soldier", 1, CardType.CloseCombat, null, "https://thewitcher3.wiki.fextralife.com/file/The-Witcher-3/redanian_foot_soldier2_card.jpg");
             Card infantry = new Card("Poor F***ing Infantry", 1, CardType.CloseCombat, SpecialAbility.Bond, "https://vignette.wikia.nocookie.net/witcher/images/1/16/Tw3_gwent_card_face_Poor_Fucking_Infantry.png/revision/latest?cb=20160320094501");
@@ -43,6 +47,9 @@ namespace GwentSharedLibrary.Data
             Card ballista = new Card("Ballista", 6, CardType.Seige, null, "https://thewitcher3.wiki.fextralife.com/file/The-Witcher-3/ballista2_card.jpg");
             Card trebuchet = new Card("Trebuchet", 6, CardType.Seige, null, "https://thewitcher3.wiki.fextralife.com/file/The-Witcher-3/trebuchet2_card.jpg");
 
+            context.Cards.Add(frost);
+            context.Cards.Add(rain);
+            context.Cards.Add(fog);
             context.Cards.Add(footSolider);
             context.Cards.Add(infantry);
             context.Cards.Add(yarpen);
@@ -86,29 +93,71 @@ namespace GwentSharedLibrary.Data
             deck.AddCard(trebuchet);
             context.Decks.Add(deck);
 
-            Deck deck2 = new Deck(0, "Northern Realms");
-            deck2.AddCard(footSolider);
-            deck2.AddCard(infantry);
-            deck2.AddCard(infantry);
-            deck2.AddCard(yarpen);
-            deck2.AddCard(commando);
-            deck2.AddCard(commando);
-            deck2.AddCard(stennis);
-            deck2.AddCard(denesle);
-            deck2.AddCard(ves);
-            deck2.AddCard(thyssen);
-            deck2.AddCard(glevissig);
-            deck2.AddCard(skaggs);
-            deck2.AddCard(metz);
-            deck2.AddCard(sile);
-            deck2.AddCard(dethmold);
-            deck2.AddCard(expert);
-            deck2.AddCard(expert);
-            deck2.AddCard(expert);
-            deck2.AddCard(banner);
-            deck2.AddCard(ballista);
-            deck2.AddCard(trebuchet);
-            deck2.AddCard(trebuchet);
+            Card vreemde = new Card("Vreemde", 2, CardType.CloseCombat, null, "https://thewitcher3.wiki.fextralife.com/file/The-Witcher-3/vreemde_card.jpg");
+            Card nausicaa = new Card("Nausicaa", 2, CardType.CloseCombat, SpecialAbility.Bond, "https://thewitcher3.wiki.fextralife.com/file/The-Witcher-3/nausicaa_cavalry_rider_card.jpg");
+            Card morteisen = new Card("Morteisen", 3, CardType.CloseCombat, null, "https://thewitcher3.wiki.fextralife.com/file/The-Witcher-3/morteisen_card.jpg");
+            Card rainfarn = new Card("Rainfarn", 4, CardType.CloseCombat, null, "https://thewitcher3.wiki.fextralife.com/file/The-Witcher-3/rainfarn_card.jpg");
+            Card vattier = new Card("Vattier", 4, CardType.CloseCombat, SpecialAbility.Spy, "https://thewitcher3.wiki.fextralife.com/file/The-Witcher-3/vattier_de_rideaux_card.jpg");
+            Card cahir = new Card("Cahir", 6, CardType.CloseCombat, null, "https://thewitcher3.wiki.fextralife.com/file/The-Witcher-3/cahir_mawr_dyffryn_aep_ceallach.jpg");
+            Card letho = new Card("Letho", 10, CardType.CloseCombat, SpecialAbility.Hero, "https://thewitcher3.wiki.fextralife.com/file/The-Witcher-3/letho_of_gulet_card.jpg");
+            Card etolian = new Card("Etolian", 1, CardType.Ranged, SpecialAbility.Medic, "https://thewitcher3.wiki.fextralife.com/file/The-Witcher-3/etolian_auxiliary_archers2_card.jpg");
+            Card young = new Card("Young Emissary", 5, CardType.CloseCombat, SpecialAbility.Bond, "https://thewitcher3.wiki.fextralife.com/file/The-Witcher-3/young_emissary2_card.jpg");
+            Card renauld = new Card("Renauld", 5, CardType.Ranged, null, "https://thewitcher3.wiki.fextralife.com/file/The-Witcher-3/renuald_aep_matsen_card.jpg");
+            Card black = new Card("Black Infantry Archer", 10, CardType.Ranged, null, "https://thewitcher3.wiki.fextralife.com/file/The-Witcher-3/black_infatry_archer2_card.jpg");
+            Card technician = new Card("Siege Technician", 0, CardType.Seige, SpecialAbility.Medic, "https://thewitcher3.wiki.fextralife.com/file/The-Witcher-3/siege_technician_card.jpg");
+            Card rotten = new Card("Rotten Mangonel", 3, CardType.Seige, null, "https://thewitcher3.wiki.fextralife.com/file/The-Witcher-3/rotten_mangonel_card.jpg");
+            Card zerrikanian = new Card("Zerrikanian", 5, CardType.Seige, null, "https://thewitcher3.wiki.fextralife.com/file/The-Witcher-3/zerrikanian_fire_scorpion_card.jpg");
+            Card engineer = new Card("Siege Engineer", 6, CardType.Seige, null, "https://thewitcher3.wiki.fextralife.com/file/The-Witcher-3/siege_engineer_card.jpg");
+            Card heavy = new Card("Heavy Zerrikanian", 10, CardType.Seige, null, "https://thewitcher3.wiki.fextralife.com/file/The-Witcher-3/heavy_zerrikanian_fire_scorpion_card.jpg");
+            Card albrich = new Card("Albrich", 2, CardType.Ranged, null, "https://thewitcher3.wiki.fextralife.com/file/The-Witcher-3/albrich_card.jpg");
+            Card cynthia = new Card("Cynthia", 4, CardType.Ranged, null, "https://thewitcher3.wiki.fextralife.com/file/The-Witcher-3/cynthia_card.jpg");
+
+            context.Cards.Add(vreemde);
+            context.Cards.Add(nausicaa);
+            context.Cards.Add(morteisen);
+            context.Cards.Add(rainfarn);
+            context.Cards.Add(vattier);
+            context.Cards.Add(cahir);
+            context.Cards.Add(letho);
+            context.Cards.Add(etolian);
+            context.Cards.Add(young);
+            context.Cards.Add(renauld);
+            context.Cards.Add(black);
+            context.Cards.Add(technician);
+            context.Cards.Add(rotten);
+            context.Cards.Add(zerrikanian);
+            context.Cards.Add(engineer);
+            context.Cards.Add(heavy);
+            context.Cards.Add(albrich);
+            context.Cards.Add(cynthia);
+
+            Deck deck2 = new Deck(0, "Nilfgaardian Empire");
+            deck2.AddCard(frost);
+            deck2.AddCard(fog);
+            deck2.AddCard(rain);
+            deck2.AddCard(vreemde);
+            deck2.AddCard(nausicaa);
+            deck2.AddCard(nausicaa);
+            deck2.AddCard(nausicaa);
+            deck2.AddCard(morteisen);
+            deck2.AddCard(rainfarn);
+            deck2.AddCard(vattier);
+            deck2.AddCard(cahir);
+            deck2.AddCard(letho);
+            deck2.AddCard(etolian);
+            deck2.AddCard(etolian);
+            deck2.AddCard(young);
+            deck2.AddCard(young);
+            deck2.AddCard(renauld);
+            deck2.AddCard(black);
+            deck2.AddCard(black);
+            deck2.AddCard(technician);
+            deck2.AddCard(rotten);
+            deck2.AddCard(zerrikanian);
+            deck2.AddCard(engineer);
+            deck2.AddCard(heavy);
+            deck2.AddCard(cynthia);
+            deck2.AddCard(albrich);
             context.Decks.Add(deck2);
 
             omer.AddDeck(deck);
@@ -116,21 +165,6 @@ namespace GwentSharedLibrary.Data
             mo.AddDeck(deck);
             sarthak.AddDeck(deck2);
             context.SaveChanges();           
-           
-           
-            //context.SaveChanges();
-            //}
-            //catch (DbEntityValidationException ex)
-            //{
-            //    foreach (var errors in ex.EntityValidationErrors)
-            //    {
-            //        foreach (var validationError in errors.ValidationErrors)
-            //        {
-            //            // get the error message 
-            //            string errorMessage = validationError.ErrorMessage;
-            //        }
-            //    }
-            //}
         }
     }
 }
