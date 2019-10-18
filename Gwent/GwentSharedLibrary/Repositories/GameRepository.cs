@@ -244,6 +244,15 @@ namespace GwentSharedLibrary.Repositories
             //Update Location of card (remove from hand, move to board)        
         }
 
+        public List<GameRoundCard> GetGameRoundCards(int gameRoundId)
+        {
+            return context.GameRoundCards
+                .Include(grc => grc.GameRound)
+                .Include(grc => grc.PileCard)
+                .Where(grc => grc.GameRoundId == gameRoundId)
+                .ToList();
+        }
+
         public GameRound PassTurn(GameRound myCurrentRound, int playerId)
         {
             if (myCurrentRound.FirstPlayerId == playerId)

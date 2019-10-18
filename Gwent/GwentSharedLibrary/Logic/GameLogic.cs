@@ -51,6 +51,42 @@ namespace GwentSharedLibrary.Logic
             GameRound currentGameRound = gameRepository.GetCurrentGameRounds(cardToPlay.Pile.GameId)[0];
             gameRepository.MakeMove(cardToPlay, currentGameRound);
 
+            List<GameRoundCard> gameRoundCards = gameRepository.GetGameRoundCards(currentGameRound.Id);
+
+            if (cardToPlay.Card.CardType == CardType.Weather)
+            {
+                if (cardToPlay.Card.SpecialAbility == SpecialAbility.Frost)
+                {
+                    foreach (var gameRoundCard in gameRoundCards)
+                    {
+                        if (gameRoundCard.PileCard.Card.CardType == CardType.CloseCombat && gameRoundCard.PileCard.Card.SpecialAbility != SpecialAbility.Hero)
+                        {
+                            gameRoundCard.PileCard.Card.Strength = 1;
+                        }
+                    }
+                }
+                else if (cardToPlay.Card.SpecialAbility == SpecialAbility.Fog)
+                {
+                    foreach (var gameRoundCard in gameRoundCards)
+                    {
+                        if (gameRoundCard.PileCard.Card.CardType == CardType.Ranged && gameRoundCard.PileCard.Card.SpecialAbility != SpecialAbility.Hero)
+                        {
+                            gameRoundCard.PileCard.Card.Strength = 1;
+                        }
+                    }
+                }
+                if (cardToPlay.Card.SpecialAbility == SpecialAbility.Rain)
+                {
+                    foreach (var gameRoundCard in gameRoundCards)
+                    {
+                        if (gameRoundCard.PileCard.Card.CardType == CardType.Seige && gameRoundCard.PileCard.Card.SpecialAbility != SpecialAbility.Hero)
+                        {
+                            gameRoundCard.PileCard.Card.Strength = 1;
+                        }
+                    }
+                }
+            }
+            
             string playCardMessage = currentGameRound.ActivePlayer.FirstName + " played a " + cardToPlay.Card.CardType + " card";
             if (currentGameRound.ActivePlayerId == Game.PlayerOneId)
             {
