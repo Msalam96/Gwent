@@ -2,7 +2,6 @@
      background: url(Images/gwentPlayerStatBackground.jpg) !important
 }
 .my-col {
-    border: 3px dotted blue;
     height:100px;
     padding: 0;
     text-align: center;

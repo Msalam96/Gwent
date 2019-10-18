@@ -157,6 +157,23 @@
                     }, 1000);
                 }
             }
+            const messagesTagId = 'messages';
+            const messagesTag = gebi(messagesTagId);
+
+            const messages = gameState.Messages;
+
+            if (messages != null) {
+                messages.reverse();
+                const messagesHtml = messages.map((message) => {
+                    return `
+                    <div>
+                        <p>${message}</p>
+                    </div>
+                `;
+                });
+                messagesHtml.push('<div><p>------------------------</p></div>');
+                messagesTag.innerHTML = messagesHtml.join('') + messagesTag.innerHTML;
+            }
         }
 
         const oppName = "oppName";
