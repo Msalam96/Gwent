@@ -3,6 +3,7 @@ using GwentSharedLibrary.Models;
 using GwentSharedLibrary.Repositories;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -12,8 +13,10 @@ namespace Gwent.FormModels
     public class NotificationModel
     {
         public int SenderUserId {get;set;}
+        [DisplayName("Friends")]
         public int RecipientUserId { get;set; }
         public string Message { get; set; }
+        [DisplayName("Message Type")]
         public NotificationType NotificationType { get; set; }
         public DateTimeOffset SentOn { get; set; }
 
