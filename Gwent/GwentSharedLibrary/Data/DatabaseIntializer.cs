@@ -70,26 +70,27 @@ namespace GwentSharedLibrary.Data
 
             Deck deck = new Deck(0, "Northern Realms");
             deck.AddCard(footSolider);
+            deck.AddCard(frost);
+            deck.AddCard(sile);
+            deck.AddCard(trebuchet);
             deck.AddCard(infantry);
             deck.AddCard(infantry);
-            deck.AddCard(yarpen);
+            deck.AddCard(expert);
             deck.AddCard(commando);
             deck.AddCard(commando);
             deck.AddCard(stennis);
             deck.AddCard(denesle);
-            deck.AddCard(ves);
             deck.AddCard(thyssen);
             deck.AddCard(glevissig);
             deck.AddCard(skaggs);
             deck.AddCard(metz);
-            deck.AddCard(sile);
             deck.AddCard(dethmold);
+            deck.AddCard(ves);
             deck.AddCard(expert);
             deck.AddCard(expert);
-            deck.AddCard(expert);
+            deck.AddCard(yarpen);
             deck.AddCard(banner);
             deck.AddCard(ballista);
-            deck.AddCard(trebuchet);
             deck.AddCard(trebuchet);
             context.Decks.Add(deck);
 
@@ -132,12 +133,12 @@ namespace GwentSharedLibrary.Data
             context.Cards.Add(cynthia);
 
             Deck deck2 = new Deck(0, "Nilfgaardian Empire");
-            deck2.AddCard(frost);
             deck2.AddCard(fog);
-            deck2.AddCard(rain);
+            deck2.AddCard(technician);
             deck2.AddCard(vreemde);
+            deck2.AddCard(heavy);
             deck2.AddCard(nausicaa);
-            deck2.AddCard(nausicaa);
+            deck2.AddCard(young);
             deck2.AddCard(nausicaa);
             deck2.AddCard(morteisen);
             deck2.AddCard(rainfarn);
@@ -147,18 +148,24 @@ namespace GwentSharedLibrary.Data
             deck2.AddCard(etolian);
             deck2.AddCard(etolian);
             deck2.AddCard(young);
-            deck2.AddCard(young);
             deck2.AddCard(renauld);
             deck2.AddCard(black);
             deck2.AddCard(black);
-            deck2.AddCard(technician);
+            deck2.AddCard(frost);
+            deck2.AddCard(nausicaa);
             deck2.AddCard(rotten);
             deck2.AddCard(zerrikanian);
             deck2.AddCard(engineer);
-            deck2.AddCard(heavy);
+            deck2.AddCard(rain);
             deck2.AddCard(cynthia);
             deck2.AddCard(albrich);
             context.Decks.Add(deck2);
+
+
+            Deck deck3 = deck;
+            Deck deck4 = deck2;
+            context.Decks.Add(deck3);
+            context.Decks.Add(deck4);
 
             omer.AddDeck(deck);
             james.AddDeck(deck2);

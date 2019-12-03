@@ -13,10 +13,12 @@ namespace Gwent.FormModels
     public class NotificationModel
     {
         public int SenderUserId {get;set;}
-        [DisplayName("Friends")]
+
+        [DisplayName("Friends: ")]
         public int RecipientUserId { get;set; }
         public string Message { get; set; }
-        [DisplayName("Message Type")]
+        [DisplayName("Message Type: ")]
+
         public NotificationType NotificationType { get; set; }
         public DateTimeOffset SentOn { get; set; }
 
@@ -34,7 +36,9 @@ namespace Gwent.FormModels
         {
             get
             {
-                var notificationTypes = Enum.GetNames(typeof(NotificationType));
+                var notificationTypes = Enum.GetNames(typeof(NotificationType))
+                    .Where(nt => nt != "AcceptedInvite")
+                    .ToList();
                 return new SelectList(notificationTypes);
             }
         }

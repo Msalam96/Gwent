@@ -6,6 +6,7 @@ using System.Data.Entity.Infrastructure;
 using System.Data.SqlClient;
 using System.Web.Mvc;
 using System.Web.Security;
+using System.Collections.Generic;
 
 namespace Gwent.Controllers
 {   
@@ -23,10 +24,13 @@ namespace Gwent.Controllers
         public ActionResult Create(CreateUser user)
         {
             AuthenticationRepository repository = new AuthenticationRepository(context);
+            GameRepository gameRepository = new GameRepository(context);
             string hashedPassword = BCrypt.Net.BCrypt.HashPassword(user.Password);
             try
             {
                 User newUser = new User(0, user.FirstName, user.LastName, user.EmailAddress, hashedPassword);
+                List<Deck> decks = gameRepository.GetDecks();
+                newUser.AddDeck(decks[0]);      //Assigns hardcoded value Deck3 to new user
                 repository.Insert(newUser);
                 return RedirectToAction("Login");
             }
